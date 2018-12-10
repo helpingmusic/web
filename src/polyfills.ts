@@ -78,3 +78,24 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+import * as $ from 'jquery';
+import enquire from 'enquire.js';
+
+(window as any).$ = $;
+(window as any).jquery = $;
+(window as any).jQuery = $;
+
+(window as any).enquire = enquire;
+
+declare global {
+  const $: any;
+}
+
+(window as any).process = {
+  env: { DEBUG: undefined },
+};
+
+(window as any).global = window;
+
+

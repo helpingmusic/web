@@ -1,0 +1,28 @@
+@import "theme/_vars";
+
+.imgUploader {
+  text-align: center;
+  padding: 20px 50px;
+  background: $bg-gray;
+  border-radius: 6px;
+
+  .input-group {
+    margin-bottom: 20px;
+    cursor: pointer;
+    input {
+      outline: none !important;
+    }
+  }
+
+  /deep/ canvas {
+    display: none;
+    margin: 0 auto;
+  }
+
+  &.active {
+    /deep/ canvas {
+      display: block;
+    }
+  }
+
+}

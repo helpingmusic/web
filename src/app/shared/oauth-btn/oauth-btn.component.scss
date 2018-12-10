@@ -1,0 +1,49 @@
+a {
+  display: block;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  * {
+    user-select: none !important;
+  }
+
+  .icon {
+    padding: 8px 16px;
+    display: inline-block;
+    i {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  span {
+    padding: 0 12px;
+    margin: -5px 0 0;
+    font-weight: 200;
+    position: relative;
+    font-size: 14px;
+    top: 0px;
+  }
+
+  &.facebook {
+    background: #3b5998;
+
+    .icon {
+      border-right: 1px solid lighten(#3b5998, 10%);
+    }
+  }
+
+  &.google {
+    background: #dd4b39;
+
+    .icon {
+      border-right: 1px solid lighten(#dd4b39, 10%);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.03);
+    text-decoration: none;
+  }
+
+}

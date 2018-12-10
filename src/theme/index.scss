@@ -1,0 +1,215 @@
+
+@import '_vars';
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+$home-app-primary: mat-palette($home-blue);
+$home-app-accent:  mat-palette($home-accent);
+$home-app-warn:    mat-palette($mat-red);
+$home-app-theme: mat-light-theme($home-app-primary, $home-app-accent, $home-app-warn);
+@include angular-material-theme($home-app-theme);
+
+// Vendor
+$icon-font-path: '/assets/fonts/bootstrap/';
+$fa-font-path: '~font-awesome/fonts/';
+@import '~normalize.css';
+@import './theme-clean.css';
+
+@import '../assets/plugins/dropdown.js/jquery.dropdown.css';
+@import '../assets/plugins/nanoScroller/css/nanoscroller.css';
+@import '../assets/plugins/form-select2/select2.css';
+
+
+@import '~font-awesome/scss/font-awesome';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import '~bootstrap-material-design/sass/bootstrap-material-design';
+@import '~bootstrap-material-design/sass/ripples';
+// Might need DateTime piker as well
+@import '~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css';
+@import '~chartist/dist/scss/chartist.scss';
+@import '~snackbarjs/dist/snackbar.min.css';
+@import '~material-datetime-picker/dist/material-datetime-picker.css';
+
+
+// local
+@import 'helpers';
+@import 'type';
+@import 'topnav';
+@import 'sidebar';
+@import 'navbar';
+@import 'base';
+@import 'card';
+@import 'panel';
+@import 'btn';
+@import 'modal';
+@import 'box';
+
+
+// Global Styles
+
+
+.form-group .help-block {
+  display: block;
+}
+
+
+a {
+  color: $primary;
+}
+
+a:hover, a:focus {
+  color: lighten($primary, 5%);
+}
+
+i {
+  color: $green;
+  user-select: none !important;
+}
+home-root {
+  height: 100vh;
+  min-height: 100%;
+}
+.container {
+  min-width: 320px;
+}
+
+.post-actions a:hover {
+  text-decoration: none;
+}
+
+.err {
+  font-size: 18px;
+  color: gray;
+  text-align: center;
+  font-style: italic;
+}
+.warning {
+  color: #e8d56c;
+}
+
+.going .icon {
+  color: #009688;
+  font-size: 18px;
+}
+
+.info span {
+  display: block;
+}
+
+#dashboard .panel-body p {
+  text-align: left;
+}
+
+
+.help-block {
+  background: #f9bdbb !important;
+  border: 1px solid $error !important;
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.trash:hover {
+  color: #d15b47;
+}
+
+.blank-container {
+  background: $bg-gray;
+}
+
+.has-error .form-control {
+  box-shadow: none !important;
+}
+
+
+.form-group textarea.form-control {
+  border: 1px solid #dcdcdc !important;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+// Form hints under inputs
+p.hint {
+  color: $copyLight;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  &.error {
+    color: $error;
+  }
+}
+
+.subtext {
+  color: $copyLight;
+  font-size: 13px;
+}
+
+
+.profile-tab .media-body h5 {
+  color: #333;
+  font-weight: 500;
+}
+
+.shepherd-home-theme {
+  .shepherd-content {
+    a.shepherd-button {
+      &.primary {
+        background: $primary !important;
+      }
+      &.secondary {
+        background: #bbb !important;
+      }
+    }
+  }
+}
+.shepherd-content footer {
+  position: relative;
+  background: none !important;
+}
+
+footer,
+.page-heading {
+  @extend .clearfix;
+  background: none;
+  padding: 0 !important;
+}
+.static-content-wrapper {
+  background: $background;
+}
+
+.static-content {
+  transition: width 250ms ease-in-out;
+}
+.page-content {
+  padding-bottom: 85px;
+}
+
+.form-group.label-floating {
+  margin-top:12px;
+}
+
+.form-control {
+  padding: 7px;
+}
+.row {
+  margin-bottom: 40px;
+}
+.form-group.row {
+  margin: 28px -15px 0;
+}
+
+.bg-gray {
+  background: #d3d7dd;
+}
+
+.grad-1 {
+  background: #f69259;
+  background: -webkit-linear-gradient(45deg, #C779D0, #f69259); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(45deg, #C779D0, #f69259);
+}
+
+body.sidebar-collapsed .sidebar .widget:not(.stay-on-collapse) {
+  transform: none;
+}

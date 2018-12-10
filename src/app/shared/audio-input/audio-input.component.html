@@ -1,0 +1,47 @@
+<input type="file"
+       name="songFile"
+       #songInput
+       [disabled]="disabled"
+       (change)="onFileUpload($event)"
+       accept=".mp3,audio/wav,audio/mp3,audio/mp4"
+       class="hidden"/>
+
+<div class="input-group" (click)="songInput.click()">
+
+  <div class="input-icon right">
+    <div class="controls">
+      <i *ngIf="processing" class="fa fa-fw fa-spin fa-spinner"></i>
+      <i *ngIf="file && !processing" class="duration">{{_duration | secondsToTime}}</i>
+
+      <a *ngIf="track && !isPlaying && !processing"
+         class="control"
+         (click)="trackPreview($event)">
+        <i class="fa fa-play"></i>
+      </a>
+      <a *ngIf="track && isPlaying && !processing"
+         class="control"
+         (click)="pause($event)">
+        <i class="fa fa-pause"></i>
+      </a>
+    </div>
+
+    <input
+      type="text"
+      readonly=""
+      [disabled]="disabled"
+      [value]="file?.name || ''"
+      class="form-control"
+      placeholder="Choose Song File..."/>
+
+    <hr class="progress" [ngStyle]="{'width': (progress$ | async) + '%'}"/>
+  </div>
+
+  <span class="input-group-btn input-group-sm" [hidden]="disabled">
+    <button type="button" class="btn btn-fab btn-fab-mini">
+      <i class="material-icons">attach_file</i>
+    </button>
+  </span>
+
+</div>
+
+<p class="hint" [hidden]="!error">{{error}}</p>

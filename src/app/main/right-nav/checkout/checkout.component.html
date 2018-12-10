@@ -1,0 +1,137 @@
+<div class="p-md bg-gray">
+  <h3>Checkout</h3>
+</div>
+
+<form class="form"
+      #checkoutForm="ngForm"
+      (submit)="onSubmit(checkoutForm)">
+
+  <div class="p-md">
+    <div>
+      <h4>Payment Options</h4>
+      <hr/>
+
+      <div class="radio"
+           [hidden]="!currentCard?.id">
+        <label>
+          <input type="radio"
+                 name="payment"
+                 id="payment1"
+                 value="current"
+                 [(ngModel)]="method"/>
+          {{currentCard?.brand}} **** **** **** {{currentCard?.last4}}
+        </label>
+      </div>
+
+      <div class="radio">
+        <label class="mb-sm">
+          <input type="radio"
+                 name="payment"
+                 id="payment2"
+                 value="new"
+                 checked
+                 [(ngModel)]="method"/> New Method
+        </label>
+
+        <home-stripe-input
+          [hidden]="method !== 'new'"
+          class="clearfix"
+          name="token"
+          ngModel>
+        </home-stripe-input>
+      </div>
+    </div>
+
+    <div [hidden]="!promoOption">
+
+      <a (click)="showPromo = true" [hidden]="showPromo" class="pull-right">Have a Promo Code?</a>
+      <div class="form-group mt-n" [hidden]="!showPromo">
+        <div class="input-group">
+          <label for="plan" class="control-label">Coupon Code</label>
+
+          <input type="text"
+                 name="couponCode"
+                 [ngModel]="cart?.couponCode"
+                 [disabled]="!!cart?.couponCode"
+                 class="form-control"
+                 (ngModelChange)="couponValid = false; errors.couponCode = ''"
+                 (keyup.enter)="validateCoupon()"
+                 autocomplete="off"
+          />
+          <div class="input-group-btn p-n">
+            <home-btn
+              (click)="validateCoupon()"
+              [class]="'btn btn-info btn-xs mt-lg mb-n'"
+              [type]="'button'"
+              [disabled]="!!cart?.couponCode"
+              [isLoading]="couponIsLoading">
+              Check
+            </home-btn>
+          </div>
+        </div>
+
+        <p class="hint clear"
+           [hidden]="!errors.couponCode"
+           [innerHTML]="errors.couponCode">
+        </p>
+        <p class="hint clear" *ngFor="let n of cart?.couponNotes">{{n}}</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="p-md">
+    <h4>Summary</h4>
+    <table class="table">
+      <colgroup>
+        <col width="75%">
+        <col width="25%">
+      </colgroup>
+      <tbody>
+      <tr *ngFor="let item of cart?.items">
+        <td>x{{item.count}} {{item.description}}</td>
+        <td class="text-right">${{item.cost | stripePrice}}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th>Subtotal</th>
+        <td class="text-right">${{cart?.subtotal | stripePrice}}</td>
+      </tr>
+      <tr>
+        <td>Applied Account Balance</td>
+        <td class="text-right">
+          - ${{cart?.appliedAccountBalance | stripePrice}}
+          <span class="sub block">(Out of ${{cart?.accountBalance | stripePrice}})</span>
+        </td>
+      </tr>
+      <tr *ngIf="cart?.discountedAmount">
+        <td>Coupon</td>
+        <td class="text-right">- ${{cart?.discountedAmount | stripePrice}}</td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <th class="text-right">${{cart?.total | stripePrice}}</th>
+      </tr>
+      </tfoot>
+    </table>
+    <p *ngFor="let n of cart?.notes">{{n}}</p>
+  </div>
+
+  <div class="p-md row">
+    <div class="col-xs-6">
+      <a class="btn btn-block"
+         (click)="close()">
+        Cancel
+      </a>
+    </div>
+    <div class="col-xs-6">
+      <home-btn
+        [class]="'btn btn-primary btn-block'"
+        [type]="'submit'"
+        [isLoading]="formIsLoading">
+        Confirm
+      </home-btn>
+    </div>
+  </div>
+</form>

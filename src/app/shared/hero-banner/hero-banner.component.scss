@@ -1,0 +1,19 @@
+@import 'theme/_vars';
+
+:host {
+  .profile-area {
+    background: $blue url(/assets/images/profile-bg-material.png) no-repeat;
+    background-size: cover;
+    padding: 32px 16px;
+    color: #fff;
+    overflow: hidden;
+  }
+
+}
+
+h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #F5F5F5;
+}

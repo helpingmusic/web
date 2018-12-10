@@ -1,0 +1,106 @@
+@font-face {
+  font-family: Effra;
+  src: url(/assets/fonts/Effra_Rg.ttf);
+}
+@font-face {
+  font-family: Effra;
+  src: url(/assets/fonts/Effra_Md.ttf);
+  font-weight: 600;
+}
+
+
+
+// Pallate
+$light-green: #31D6C6;
+$green: #18B2A3;
+$blue: #2E447C;
+$bg-gray: #f4f6fa;
+$red: #ED6571;
+$purple: #A4036F;
+$yellow: #FFF829;
+
+// Relative
+$primary: $green;
+$secondary: $green;
+$success: $green;
+$info: $purple;
+$error: darken($red, 25%);
+
+$background: $bg-gray;
+
+// bootstrap variables
+$brand-primary: $primary;
+$brand-success: $success;
+$brand-info: $info;
+$brand-danger: $error;
+
+
+// text
+$title-color: #424242;
+$copy: #424242;
+$copyLight: #9c9c9c;
+
+$heading-font-family: Effra, 'Reem Kufi', sans-serif;
+$content-font-family: Effra, 'Roboto', sans-serif;
+
+$black-87-opacity: rgba(black, 0.87);
+$white-87-opacity: rgba(black, 0.87);
+
+$home-blue: (
+  50: $blue,
+  100: $blue,
+  200: $blue,
+  300: $blue,
+  400: lighten($blue, 5%),
+  500: $blue,
+  600: darken($blue, 5%),
+  700: $blue,
+  800: $blue,
+  900: $blue,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$home-accent: (
+  50: $purple,
+  100: $purple,
+  200: $purple,
+  300: $purple,
+  400: lighten($purple, 5%),
+  500: $purple,
+  600: darken($purple, 5%),
+  700: $purple,
+  800: $purple,
+  900: $purple,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+

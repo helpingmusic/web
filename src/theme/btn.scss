@@ -1,0 +1,63 @@
+@import '_vars';
+
+
+@function set-text-color($color) {
+  @if (lightness($color) > 70) {
+    @return rgba(0,0,0,0.74);
+  } @else {
+    @return rgba(255,255,255,0.84);
+  }
+}
+
+@mixin btn-mixin($color) {
+  background-color: $color;
+  border-color: darken($color, 5%) !important;
+
+  color: set-text-color($color) !important;
+
+  &:hover {
+    background-color: lighten($color, 5%) !important;;
+  }
+  &:active,
+  &:focus {
+    background-color: lighten($color, 10%) !important;
+  }
+  &:disabled,
+  &.disabled {
+    background-color: lighten($color, 15%);;
+  }
+}
+
+div *.btn {
+  box-shadow: none;
+  border-radius: 4px;
+  margin: 0;
+  cursor: pointer;
+  border: 0;
+  font-weight: 600 !important;
+  letter-spacing: 1px;
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &.btn-primary { @include btn-mixin($primary) }
+  &.btn-secondary { @include btn-mixin($secondary) }
+  &.btn-info { @include btn-mixin($info) }
+  &.btn-default {
+    @include btn-mixin(rgba(0,0,0,0.1));
+    color: rgba(0,0,0,0.5) !important;
+  }
+  &.btn-danger { @include btn-mixin(#e83747) }
+  &.btn-action {
+    @include btn-mixin($purple);
+  }
+
+  &.btn-min {
+    min-width: 100px;
+  }
+  &.btn-xs {
+    min-width: initial;
+  }
+}

@@ -1,0 +1,29 @@
+<div class="panel panel-default" [ngClass]="{'panel-collapsed': collapsed}"
+     #panel>
+
+  <div class="panel-heading"
+       (click)="toggleCollapse()"
+       [style.cursor]="collapsible ? 'pointer' : 'default'">
+
+    <div class="inblock">
+      <ng-content select="panel-heading"></ng-content>
+    </div>
+
+    <div class="panel-ctrls" *ngIf="collapsible" #ctrls>
+      <span class="button-icon has-bg">
+        <span class="material-icons"
+              [innerHTML]="collapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'">
+				</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <ng-content select="panel-body"></ng-content>
+  </div>
+
+  <div class="panel-footer clear">
+    <ng-content select="panel-footer"></ng-content>
+  </div>
+
+</div>

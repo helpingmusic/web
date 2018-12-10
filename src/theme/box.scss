@@ -1,0 +1,33 @@
+
+@import '_vars';
+
+.box {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-left-width: 5px;
+  display: block;
+  position: relative;
+  background: #fff;
+
+  .icon {
+    text-align: center;
+    display: inline-block;
+    padding-right: 12px;
+    i {
+      font-size: 24px;
+    }
+  }
+
+  .box-body {
+    display: inline-block;
+    color: $copyLight;
+    vertical-align: top;
+    width: calc(100% - 40px);
+  }
+
+  &.box-info {
+    border-left-color: $info;
+    .icon i { color: $info; }
+  }
+
+}

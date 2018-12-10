@@ -1,0 +1,25 @@
+<div class="container-fluid pt-xl clear">
+
+  <div class="row">
+    <div class="col-md-8 center-block fn">
+
+      <div class="clear animated-content">
+        <home-loader [hidden]="post$ | async"></home-loader>
+
+        <div class="err" *ngIf="(post$ | async)?.length === 0">
+          This user has no posts.
+        </div>
+
+        <div [hidden]="!(post$ | async)">
+          <home-post
+            *ngFor="let p of post$ | async"
+            [post]="p"
+          ></home-post>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

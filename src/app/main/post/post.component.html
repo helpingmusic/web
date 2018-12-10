@@ -1,0 +1,20 @@
+<div class="container-fluid pt-xxl">
+
+  <div class="row">
+    <div class="focus-container">
+
+      <div *ngIf="post$ | async; let post">
+
+        <home-post
+          [post]="post"
+          [threadLength]="Infinity"
+        ></home-post>
+
+      </div>
+
+      <home-loader [hidden]="!(postService.loading$ | async)"></home-loader>
+
+    </div>
+  </div>
+</div>
+

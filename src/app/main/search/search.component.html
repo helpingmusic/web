@@ -1,0 +1,110 @@
+<form class="search-bar" action="javascript:void(0)">
+
+  <!--<button (click)="advanced = !advanced"-->
+  <!--class="advancedSearch btn btn-success btn-fab">-->
+  <!--<i class="material-icons">tune</i>-->
+  <!--</button>-->
+  <div class="row m-n">
+    <div class="col-xs-6">
+      <p>Found {{(results$ | async)?.nbHits || 0}} Results</p>
+    </div>
+    <div class="col-xs-6">
+      <div class="input-group-btn">
+        <div class="algolia pull-right">
+          <img src="/assets/images/search-by-algolia.png"/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="advanced hidden" [class.active]="advanced">
+    <div class="row mb-0">
+      <div class="col-md-6 col-sm-8 center-block fn">
+        <h3>Advanced Search</h3>
+
+        <div class="form-group row mt-n">
+          <label class="col-sm-4 control-label" for="state">Geofilter</label>
+          <div class="col-sm-8">
+            <select class="form-control"
+                    name="state"
+                    [(ngModel)]="filters.state"
+                    (ngModelChange)="doSearch()"
+                    stateSelector>
+
+              <option value="" selected>All</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-6 col-xs-12 row">
+            <label for="type" class="control-label">
+            <span class="col-sm-12 col-xs-6 p-n">
+              Membership Types
+            </span>
+              <span class="togglebutton toggle-info iblock mt-sm col-sm-12 col-xs-6 p-n">
+              <label>
+                <span>OR</span>
+                <input type="checkbox"
+                       class="toggle"
+                       [(ngModel)]="filters.typesAnd"
+                       (ngModelChange)="doSearch()"
+                       name="searchAnd">
+                <span>AND</span>
+              </label>
+            </span>
+            </label>
+          </div>
+
+
+          <div class="col-sm-6">
+            <ng-container *ngFor="let t of membershipTypes">
+              <span class="togglebutton toggle-primary iblock mt-sm col-sm-12 col-xs-6 p-n">
+                <label class="block text-right">
+                  <span class="pull-left">{{t.name | pretty}}</span>
+                  <input type="checkbox"
+                         class="toggle pull-right"
+                         [checked]="filters.membership_types[t.name]"
+                         (change)="filters.membership_types[t.name] = !filters.membership_types[t.name]; doSearch()"
+                         [name]="t.name">
+                </label>
+              </span>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<div class="container-fluid no-animate">
+
+  <div data-widget-group="group1">
+    <div class="row">
+      <!--<home-loader [hidden]="results$ | async"></home-loader>-->
+
+      <div class="err" *ngIf="(results$ | async)?.nbHits === 0">
+        Your search returned no results
+      </div>
+
+      <cdk-virtual-scroll-viewport itemSize="20">
+        <div class="col-md-4 col-sm-6"
+             *cdkVirtualFor="let u of (users$ | async); let i = index"
+             [ngClass]="{ 'clear': clear(i) }">
+
+          <home-search-result [result]="u"></home-search-result>
+
+        </div>
+      </cdk-virtual-scroll-viewport>
+
+
+    </div>
+    <div class="row">
+      <home-loader [hidden]="!(userService.loading$ | async)"></home-loader>
+    </div>
+
+  </div>
+</div>

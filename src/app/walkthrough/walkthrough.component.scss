@@ -1,0 +1,120 @@
+@import "theme/_vars";
+
+.wrapper {
+  position: relative;
+}
+
+.footer-clear {
+  margin-bottom: 120px;
+}
+
+ul.steps {
+  display: flex;
+  padding: 0;
+  list-style: none;
+
+  li {
+    flex-grow: 1;
+    flex-basis: 0;
+    z-index: 10;
+  }
+
+  li.baseline, li.progress {
+    position: absolute;
+    left: 10%;
+    height: 2px;
+    margin: 7px 0;
+    z-index: 9;
+  }
+  li.baseline {
+    width: 80%;
+    background: #bcbcbc;
+  }
+  li.progress {
+    width: 0%;
+    background: $primary;
+    transition: all 400ms ease 0s;
+  }
+
+  a {
+    color: #7d7d7d;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    display: block;
+
+    * {
+      cursor: pointer;
+    }
+
+    span.node {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #7d7d7d;
+    }
+    span:not(.node) {
+      font-size: 12px;
+      display: block;
+      clear: both;
+    }
+
+    &:hover {
+      span.node {
+        background: $secondary;
+      }
+    }
+  }
+
+  &.step-1 {
+    li.progress {
+      width: 2%;
+    }
+    li:nth-child(3) span.node {
+      background: $primary
+    }
+  }
+  &.step-2 {
+    li.progress {
+      width: 21%;
+    }
+    li:nth-child(3) span.node,
+    li:nth-child(4) span.node {
+      background: $primary
+    }
+  }
+  &.step-3 {
+    li.progress {
+      width: 40%;
+    }
+    li:nth-child(3) span.node,
+    li:nth-child(4) span.node,
+    li:nth-child(5) span.node {
+      background: $primary
+    }
+  }
+  &.step-4 {
+    li.progress {
+      width: 59%;
+    }
+    li:nth-child(3) span.node,
+    li:nth-child(4) span.node,
+    li:nth-child(5) span.node,
+    li:nth-child(6) span.node {
+      background: $primary
+    }
+  }
+  &.step-5 {
+    li.progress {
+      width: 80%;
+    }
+    li:nth-child(3) span.node,
+    li:nth-child(4) span.node,
+    li:nth-child(5) span.node,
+    li:nth-child(6) span.node,
+    li:nth-child(7) span.node {
+      background: $primary
+    }
+  }
+}

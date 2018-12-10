@@ -1,0 +1,28 @@
+<form [formGroup]="form"
+      (submit)="onSubmit(form)"
+      action="javascript:void(0)">
+
+  <h2 *ngIf="data.announcement._id" mat-dialog-title>Edit Announcement</h2>
+  <h2 *ngIf="!data.announcement._id" mat-dialog-title>Create Announcement</h2>
+
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input formControlName="title" matInput placeholder="Title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea formControlName="body" matInput placeholder="Announcement Text"></textarea>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button class="btn-default" mat-button mat-dialog-close>Cancel</button>
+
+    <button class="btn-primary" mat-button type="submit">Save</button>
+
+  </mat-dialog-actions>
+
+</form>
+

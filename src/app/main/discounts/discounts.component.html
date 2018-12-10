@@ -1,0 +1,26 @@
+<div *ngIf="isAdmin" class="page-heading">
+  <button (click)="createDiscount()" mat-flat-button color="primary">Add Discount</button>
+</div>
+
+<div class="container-fluid row">
+
+  <div class="clear row">
+    <home-loader [hidden]="discount$ | async"></home-loader>
+
+    <div *ngIf="(discount$ | async)?.length === 0" class="err">
+      There are no discounts at this time.
+    </div>
+
+    <ng-container [hidden]="!(discount$ | async)">
+      <home-discount
+        *ngFor="let p of discount$ | async; let even = even;"
+        class="col-md-6"
+        [ngClass]="{'clear': even}"
+        [instance]="p"
+      ></home-discount>
+    </ng-container>
+  </div>
+
+
+</div>
+

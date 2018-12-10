@@ -1,0 +1,55 @@
+<div class="static-sidebar">
+  <div class="sidebar">
+
+    <div class="mb-lg">
+      <div class="widget-body">
+        <a [routerLink]="['/member', user._id]" class="userinfo panel">
+          <div class="clearfix row">
+            <div class="col-xs-3">
+              <div class="avatar">
+                <img src="{{user.profile_pic || '/assets/images/avatar.png'}}"
+                     class="img-responsive img-circle">
+              </div>
+            </div>
+            <div class="col-xs-9">
+              <h4 class="username">{{user.first_name}} {{user.last_name}}</h4>
+              <p class="useremail">{{user.membership_types.join(', ') | pretty}}</p>
+            </div>
+
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="widget stay-on-collapse" id="widget-sidebar">
+      <nav role="navigation" class="widget-body">
+        <ul class="acc-menu">
+
+          <li class="accent">
+            <a (click)="referralInfo()">
+              <span class="icon"><i class="material-icons">person_add</i></span>
+              <span>Refer a Friend</span>
+            </a>
+          </li>
+
+          <ng-container *ngFor="let l of links">
+
+            <li (click)="navigate()" *ngIf="!l.hasPermissions || l.hasPermissions()">
+              <a *ngIf="!l.external" [routerLink]="l.path" routerLinkActive="active">
+                <span class="icon"><i class="material-icons">{{ l.icon }}</i></span>
+                <span>{{ l.text }}</span>
+              </a>
+
+              <a *ngIf="l.external" [href]="l.path" target="_blank">
+                <span class="icon"><i class="material-icons">{{ l.icon }}</i></span>
+                <span>{{ l.text }}</span>
+              </a>
+            </li>
+
+          </ng-container>
+        </ul>
+
+      </nav>
+    </div>
+  </div>
+</div>

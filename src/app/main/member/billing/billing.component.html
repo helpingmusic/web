@@ -1,0 +1,183 @@
+<div class="pt-xxl center-block">
+  <div class="">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Membership</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="col-xs-12" *ngIf="!isActive">
+          <p>
+            You do not have an active subscription.
+            To start a subscription, simply fill out the billing section.
+          </p>
+        </div>
+
+        <div class="col-xs-12" *ngIf="activeUntil">
+          <table class="table table-striped">
+            <tr>
+              <th>Subscription Renewal</th>
+              <td>{{activeUntil}}</td>
+            </tr>
+            <tr>
+              <th>Trial End</th>
+              <td>{{trialEnd || 'N/A'}}</td>
+            </tr>
+            <tr>
+              <th>Membership Tier</th>
+              <td>{{member.stripe?.tier}}</td>
+            </tr>
+            <tr>
+              <th>Referral Coupon Code</th>
+              <td>{{member.referralCode || 'N/A'}}</td>
+            </tr>
+            <tr>
+              <th>Account Balance</th>
+              <td>$ {{ accountBalance }}</td>
+            </tr>
+          </table>
+
+          <div class="alert grad-1" *ngIf="discountDescription">
+            <h4>Membership Discount</h4>
+            <p>{{discountDescription}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel-footer">
+        <div class="pull-left" *ngIf="isActive">
+          <button
+            type="button"
+            (click)="cancelSubscription()"
+            class="btn btn-danger btn-xs mt-sm">
+            Cancel Membership
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="panel">
+      <form action="javascript:void(0)"
+            (submit)="onSubmit(paymentForm)"
+            #paymentForm="ngForm">
+
+        <div class="panel-heading">
+          <h3>Payment</h3>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12" *ngIf="!!card">
+            <h4 class="pull-left mt-n">Card On File</h4>
+            <p class="pull-right mt-n">{{card.brand}} {{card.last4}}</p>
+          </div>
+          <div class="col-xs-12" *ngIf="!card">
+            <p>You don't have a card on file, if you want your subscription to stay active, you'll need to add one.</p>
+          </div>
+          <div class="col-xs-12">
+            <h5>Change Payment Method</h5>
+            <home-stripe-input
+              #stripeInput
+              class="clearfix"
+              name="token"
+              required
+              ngModel>
+            </home-stripe-input>
+          </div>
+          <div class="col-xs-12">
+
+            <a (click)="showPromo = true" [hidden]="showPromo" class="pull-right">Have a Promo Code?</a>
+            <div class="form-group mt-n" [hidden]="!showPromo">
+              <div class="input-group">
+                <label for="plan" class="control-label">Coupon Code</label>
+
+                <input type="text"
+                       name="couponCode"
+                       class="form-control"
+                       [disabled]="member?.stripe?.couponUsed"
+                       [(ngModel)]="couponCode"
+                       (keyup.enter)="applyCoupon(couponCode)"
+                       autocomplete="off"
+                />
+                <div class="input-group-btn p-n">
+                  <home-btn
+                    (click)="applyCoupon(couponCode)"
+                    [class]="'btn btn-info btn-xs mt-lg mb-n'"
+                    [type]="'button'"
+                    [disabled]="!!member?.stripe?.couponUsed"
+                    [isLoading]="couponIsLoading">
+                    Apply
+                  </home-btn>
+                </div>
+              </div>
+
+              <p class="hint clear"
+                 [ngClass]="{ error: !coupon?.valid }"
+                 [hidden]="!coupon?.message"
+                 [innerHTML]="coupon?.message">
+              </p>
+            </div>
+
+
+          </div>
+
+        </div>
+
+        <div class="panel-footer clearfix">
+          <home-btn
+            [class]="'btn btn-info btn-sm pull-right'"
+            [type]="'submit'"
+            [disabled]="paymentForm.invalid"
+            [isLoading]="paymentFormLoading">
+            Save
+          </home-btn>
+
+          <div class="pull-right" *ngIf="success">
+            <success-icon></success-icon>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <home-loader [hidden]="!(invoiceService.isLoading$ | async)"></home-loader>
+
+    <div class="panel panel-default" [hidden]="!(upcomingInvoices$ | async)?.length">
+
+      <div class="panel-heading">
+        <h3>Upcoming Invoices</h3>
+      </div>
+      <div class="panel-body">
+        <div *ngFor="let invoice of (upcomingInvoices$ | async)"
+             [hidden]="(upcomingInvoices$ | async)?.length === 0">
+
+          <home-invoice-summary [invoice]="invoice"></home-invoice-summary>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel panel-default" [hidden]="!(pastInvoices$ | async)?.length">
+
+      <div class="panel-heading">
+        <h3>Past Invoices</h3>
+      </div>
+
+      <div class="panel-body">
+        <div clas="clearfix" *ngFor="let invoice of (pastInvoices$ | async)"
+             [hidden]="(pastInvoices$ | async)?.length === 0">
+
+          <home-invoice-summary [invoice]="invoice"></home-invoice-summary>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

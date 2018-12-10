@@ -1,0 +1,24 @@
+
+.timeline {
+  li {
+    padding: 10px;
+    a {
+      position: relative;
+      display: block;
+    }
+    .timeline-body {
+      margin-bottom: 0;
+      background: none;
+    }
+
+    &.unread {
+      border-left: 3px solid #00C1B4;
+      padding-left: 7px;
+      background: #e8f0fa;
+    }
+
+    &:hover {
+      background: #e5ebf3;
+    }
+  }
+}

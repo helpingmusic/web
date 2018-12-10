@@ -1,0 +1,86 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { IsMemberGuard } from 'app/core/auth/is-member.guard';
+import { CanRegisterGuard } from 'app/core/auth/can-register.guard';
+import { CanResetPasswordGuard } from 'app/core/auth/can-reset-password.guard';
+import { IsActiveGuard } from 'app/core/auth/is-active.guard';
+import { IsAdminGuard } from 'app/core/auth/is-admin.guard';
+
+import { MainComponent } from 'app/main/main.component';
+import { MAIN_ROUTES } from 'app/main/main.routes';
+import { RerouteGuard } from 'app/reroute.guard';
+import { LogoutGuard } from 'app/logout.guard';
+import { TierGuard } from 'app/core/auth/tier.guard';
+
+const routes: Routes = [
+  // public
+  {
+    path: 'login',
+    loadChildren: './login/login.module#LoginModule',
+    data: { title: 'Login' }
+  },
+  {
+    path: 'signup',
+    loadChildren: './signup/signup.module#SignupModule',
+    data: { title: 'Sign Up' }
+  },
+  {
+    path: 'q-signup',
+    loadChildren: './quick-signup/quick-signup.module#QuickSignupModule',
+    data: { title: 'Quick Sign Up' }
+  },
+  // { path: 'signup', redirectTo: 'register', pathMatch: 'full' },
+  // { path: 'walkthrough', redirectTo: 'register', pathMatch: 'full' },
+  {
+    path: 'walkthrough',
+    loadChildren: './walkthrough/walkthrough.module#WalkthroughModule',
+    data: { title: 'Register' }
+  },
+  {
+    path: 'privacy-policy',
+    loadChildren: './privacy/privacy.module#PrivacyModule',
+    data: { title: 'Privacy Policy' }
+  },
+  {
+    path: 'terms',
+    loadChildren: './terms/terms.module#TermsModule',
+    data: { title: 'Membership Terms Of Agreement' }
+  },
+
+  {
+    path: 'forgot',
+    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule',
+    data: { title: 'Reset Password' },
+  },
+  {
+    path: 'logout',
+    canActivate: [LogoutGuard],
+    children: [],
+  },
+
+  // Main
+  {
+    path: 'app',
+    canActivate: [IsMemberGuard],
+    component: MainComponent,
+    children: MAIN_ROUTES,
+  },
+
+  { path: '**', canActivate: [RerouteGuard], children: [] }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers: [
+    IsMemberGuard,
+    CanRegisterGuard,
+    CanResetPasswordGuard,
+    IsActiveGuard,
+    IsAdminGuard,
+    TierGuard,
+  ],
+})
+export class AppRoutingModule {
+}

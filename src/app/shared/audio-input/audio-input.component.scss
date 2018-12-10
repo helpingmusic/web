@@ -1,0 +1,48 @@
+@import 'theme/_vars';
+
+.controls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 5px 0;
+  z-index: 9999;
+
+  i {
+    position: relative;
+    display: inline-block;
+    color: $copyLight;
+    margin: 10px;
+  }
+
+  a {
+    padding: 10px;
+    display: inline-block;
+
+    i {
+      display: block;
+      color: $primary;
+      margin: 0;
+    }
+  }
+
+  i.duration {
+    margin: 0 5px;
+    color: $copyLight;
+  }
+}
+
+.progress {
+  width: 0;
+  height: 2px;
+  position: absolute;
+  left: 0;
+  margin: 0;
+  border: 0;
+  background: $info;
+  transition: width 100ms linear 0s;
+}
+
+.input-group {
+  width: 100%;
+}

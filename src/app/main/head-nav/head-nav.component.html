@@ -1,0 +1,214 @@
+<header id="topnav" class="navbar navbar-default navbar-fixed-top"
+        role="banner">
+
+  <mat-toolbar color="primary">
+
+    <div class="container">
+
+      <div class="brand">
+        <a href="https://helpingmusic.org" class="navbar-brand">
+          <img *ngIf="isMobile()" class="img-logo-white" alt="HOME" src="assets/images/home-logo-icon-white.png">
+          <img *ngIf="!isMobile()" class="img-white" alt="HOME" src="assets/images/home-logo-white.png">
+        </a>
+      </div>
+
+      <span class="spacer-1"></span>
+
+      <span class="search">
+          <home-search-bar *ngIf="showSearchBar || !isMobile()"></home-search-bar>
+      </span>
+
+      <span class="spacer-2"></span>
+
+      <ul class="actions">
+
+        <li>
+
+          <button mat-icon-button [matMenuTriggerFor]="infoMenu">
+            <mat-icon>info</mat-icon>
+          </button>
+
+          <mat-menu #infoMenu="matMenu">
+            <button mat-menu-item (click)="report('bug')">Report a bug</button>
+            <button mat-menu-item (click)="report('suggestion')">Write a Suggestion</button>
+            <a mat-menu-item routerLink="/privacy-policy">Privacy Policy</a>
+            <a mat-menu-item routerLink="/terms">Membership Agreement</a>
+            <a mat-menu-item
+               href="https://docs.google.com/document/d/1h8dUqZ_QwZtkjpBBzHYgBkB9pPF_NlkECqrpF3jZulg/edit?usp=sharing"
+               target="_blank">
+              Homie Handbook
+              <mat-icon>link</mat-icon>
+            </a>
+          </mat-menu>
+        </li>
+
+        <li>
+          <button mat-icon-button [matMenuTriggerFor]="userDropdown">
+            <mat-icon>person</mat-icon>
+          </button>
+
+          <mat-menu #userDropdown="matMenu">
+
+            <a mat-menu-item [routerLink]="['/member', user._id]" class="profile">
+              <img width="48" [src]="user.profile_pic || '/assets/images/avatar.png'">
+              <div>
+                <h4>{{user.first_name}} {{user.last_name}}</h4>
+                <span>Go To Profile</span>
+              </div>
+              <mat-divider></mat-divider>
+            </a>
+
+            <a mat-menu-item [routerLink]="['/member', user._id, 'settings']">
+              <mat-icon>settings</mat-icon>
+              Account Settings
+            </a>
+            <a mat-menu-item [routerLink]="['/logout']">
+              <mat-icon>power_settings_new</mat-icon>
+              Logout
+            </a>
+          </mat-menu>
+
+        </li>
+
+        <li>
+          <button mat-icon-button (click)="openNotifications()">
+            <mat-icon>notifications</mat-icon>
+          </button>
+        </li>
+      </ul>
+
+
+    </div>
+
+
+  </mat-toolbar>
+
+
+  <div class="container hidden">
+    <div class="row mb-n">
+
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 nav-side">
+        <div class="logo-area">
+          <!--<a class="navbar-brand navbar-brand-primary" href="/">-->
+          <!--<img class="show-on-collapse img-logo-white" alt="HOME"-->
+          <!--src="assets/images/home-logo-icon-white.png">-->
+          <!--<img class="img-white" alt="HOME" src="assets/images/home-logo-white.png">-->
+          <!--</a>-->
+
+          <span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg stay-on-search hidden visible-xs">
+          <a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar"
+             (click)="toggleSidebar()">
+            <span class="">
+              <i class="material-icons">menu</i>
+            </span>
+          </a>
+        </span>
+        </div>
+
+      </div>
+
+      <div class="col-lg-9 col-md-8 col-sm-8 col-xs-8 nav-side">
+
+        <!--<ul *ngIf="showSearchBar || !isMobile()" class="nav navbar-nav toolbar pull-left">-->
+        <!--<li class="">-->
+        <!--<home-search-bar></home-search-bar>-->
+        <!--</li>-->
+        <!--</ul>-->
+
+
+        <ul class="nav navbar-nav toolbar pull-right">
+
+          <li class="toolbar-icon-bg hidden visible-xs">
+            <a (click)="showSearchBar = !showSearchBar">
+                <span class="">
+                  <i class="material-icons">search</i>
+                </span>
+            </a>
+          </li>
+
+
+          <li class="dropdown toolbar-icon-bg info">
+
+            <a class="hasnotifications dropdown-toggle"
+               data-toggle="dropdown" aria-expanded="false">
+            <span class="">
+              <i class="material-icons">info</i>
+            </span>
+            </a>
+            <div class="dropdown-menu animated">
+              <a (click)="report('bug')">Report a bug</a>
+              <a (click)="report('suggestion')">Write a Suggestion</a>
+              <a routerLink="/privacy-policy">Privacy Policy</a>
+              <a routerLink="/terms">Membership Agreement</a>
+              <a href="https://docs.google.com/document/d/1h8dUqZ_QwZtkjpBBzHYgBkB9pPF_NlkECqrpF3jZulg/edit?usp=sharing"
+                 target="_blank">
+                Homie Handbook
+                <i class="material-icons external-link">link</i>
+              </a>
+            </div>
+          </li>
+
+          <li class="dropdown toolbar-icon-bg account">
+            <a class="hasnotifications dropdown-toggle"
+               data-toggle="dropdown" aria-expanded="false">
+            <span class="">
+              <i class="material-icons">person</i>
+            </span>
+            </a>
+            <div class="dropdown-menu animated notifications">
+              <a [routerLink]="['/member', user._id]" class="">
+                <div class="widget" id="widget-profileinfo">
+                  <div class="widget-body">
+                    <div class="userinfo">
+                      <div class="avatar pull-left">
+                        <img src="{{user.profile_pic || '/assets/images/avatar.png'}}"
+                             class="img-responsive img-circle">
+                      </div>
+                      <div class="userinfo-profile">
+                        <h5 class="username">{{user.first_name}} {{user.last_name}}</h5>
+                        <h6 class="useremail">{{user.email}}</h6>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a [routerLink]="['/member', user._id, 'settings']">
+                <span class="icon-xs">
+                  <i class="material-icons">settings</i>
+                </span>
+                Account Settings
+              </a>
+              <a [routerLink]="['/logout']">
+                <span class="icon-xs">
+                  <i class="material-icons">power_settings_new</i>
+                </span>
+                Logout
+              </a>
+            </div>
+          </li>
+
+          <li class="toolbar-icon-bg">
+            <a data-toggle="tooltips"
+               [routerLink]="[{outlets: {s: notificationsTarget}}]"
+               data-placement="right"
+               title="Toggle Sidebar">
+
+				<span class="">
+					<i class="material-icons">notifications</i>
+				</span>
+              <span class="badge badge-info">{{unreadCount || ''}}</span>
+            </a>
+          </li>
+
+
+        </ul>
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+</header>

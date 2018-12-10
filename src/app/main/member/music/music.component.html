@@ -1,0 +1,139 @@
+<div class="container-fluid pt-xl clear">
+
+  <div class="row">
+    <div class="">
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Tracks</mat-card-title>
+          <button *ngIf="isOwnAccount"  mat-flat-button color="primary"
+                  (click)="createTrack()"
+                  class="pull-right">
+            Add Track
+          </button>
+        </mat-card-header>
+        <mat-card-content>
+
+          <mat-table [dataSource]="tracks$ | async" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="play">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let track">
+
+                <button *ngIf="track._id !== (player.currentSong$ | async) || !(player.isPlaying$ | async); else pauseBlock"
+                  (click)="play(track)"  mat-icon-button color="accent">
+                  <mat-icon>play_arrow</mat-icon>
+                </button>
+
+                <ng-template #pauseBlock>
+                  <button (click)="pause()"  mat-icon-button color="accent">
+                    <mat-icon>pause</mat-icon>
+                  </button>
+                </ng-template>
+
+              </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef> Track Title </mat-header-cell>
+              <mat-cell *matCellDef="let track"> {{track.title}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="tags">
+              <mat-header-cell *matHeaderCellDef>Tags</mat-header-cell>
+              <mat-cell *matCellDef="let track">
+                <div class="tag" *ngFor="let t of track.tags">
+                  <span>#</span>
+                  {{t}}
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="controls">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let track">
+                  <button mat-icon-button color="primary"
+                          class="pull-right"
+                          [matMenuTriggerFor]="trackMenu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #trackMenu="matMenu">
+                    <button (click)="edit(track)" mat-menu-item>
+                      <mat-icon>edit</mat-icon>
+                      Edit
+                    </button>
+                    <button (click)="remove(track)" mat-menu-item>
+                      <mat-icon>delete</mat-icon>
+                      Remove
+                    </button>
+                  </mat-menu>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+
+          <!--<mat-list>-->
+            <!--<mat-list-item *ngFor="let t of tracks$ | async;">-->
+              <!--<mat-icon-->
+                <!--*ngIf="t._id !== (player.currentSong$ | async) || !(player.isPlaying$ | async); else pauseBlock"-->
+                <!--(click)="play(t)" mat-list-icon>play_arrow-->
+              <!--</mat-icon>-->
+              <!--<ng-template #pauseBlock>-->
+                <!--<mat-icon (click)="pause()" mat-list-icon>pause</mat-icon>-->
+              <!--</ng-template>-->
+
+              <!--<div mat-line>-->
+
+                <!--<div class="col-xs-5">-->
+                  <!--{{t.title | pretty}}-->
+                <!--</div>-->
+
+                <!--<div class="col-xs-6">-->
+                  <!--<div class="tag" *ngFor="let t of t.tags">-->
+                    <!--<span>#</span>-->
+                    <!--{{t}}-->
+                  <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="col-xs-1" *ngIf="isOwnAccount">-->
+                  <!--<button mat-icon-button color="primary"-->
+                          <!--class="pull-right"-->
+                          <!--[matMenuTriggerFor]="trackMenu">-->
+                    <!--<mat-icon>more_vert</mat-icon>-->
+                  <!--</button>-->
+                  <!--<mat-menu #trackMenu="matMenu">-->
+                    <!--<button (click)="edit(t)" mat-menu-item>-->
+                      <!--<mat-icon>edit</mat-icon>-->
+                      <!--Edit-->
+                    <!--</button>-->
+                    <!--<button (click)="delete(t)" mat-menu-item>-->
+                      <!--<mat-icon>delete</mat-icon>-->
+                      <!--Remove-->
+                    <!--</button>-->
+                  <!--</mat-menu>-->
+                <!--</div>-->
+
+              <!--</div>-->
+
+            <!--</mat-list-item>-->
+          <!--</mat-list>-->
+
+          <div class="err" *ngIf="(tracks$ | async).length === 0">
+            This user has no music.
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+
+    </div>
+  </div>
+</div>
+
+

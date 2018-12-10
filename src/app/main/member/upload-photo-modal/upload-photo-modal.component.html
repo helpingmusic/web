@@ -1,0 +1,15 @@
+
+<h2 mat-dialog-title>Photo Upload</h2>
+
+<mat-dialog-content>
+  <home-img-uploader [settings]="data.settings"
+                     (photoChange)="photo = $event">
+  </home-img-uploader>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+
+  <button (click)="upload()" mat-flat-button color="accent" >Upload</button>
+</mat-dialog-actions>
+

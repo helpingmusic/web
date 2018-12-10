@@ -1,0 +1,34 @@
+<a class="card" [routerLink]="['/member', result._id]">
+
+  <div class="card-content">
+    <div class="card-image" [ngStyle]="{'background': bg}">
+      <img [src]="result.banner || '/assets/images/profile-bg-material-sm.png'"
+           width="400" height="400"
+           class="img-responsive">
+    </div>
+    <div class="card-body">
+
+      <div class="row mb-n">
+        <div class="col-xs-4">
+          <div class="avatar">
+            <img [src]="result.profile_pic || '/assets/images/avatar.png'"
+                 width="400" height="400"
+                 class="img-responsive">
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <h3>{{result.first_name}} {{result.last_name}}</h3>
+          <p class="location">
+            <i class="fa fa-location-arrow"></i>
+            {{result.city | pretty}}, {{result.state}}
+          </p>
+
+        </div>
+      </div>
+
+      <p>{{result.profession | pretty}}</p>
+
+    </div>
+  </div>
+</a>
+

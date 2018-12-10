@@ -1,0 +1,43 @@
+@import 'theme/vars';
+
+:host {
+  display: block;
+  position: relative;
+
+  .loader {
+    margin: 0 auto;
+    border: 2px solid #fff;
+    border-top: 2px solid $green;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 800ms linear infinite;
+  }
+  &.xs {
+    .loader {
+      border: 2px solid #fff;
+      border-top: 2px solid $purple;
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  &.small {
+    .loader {
+      border: 2px solid #fff;
+      border-top: 2px solid #90A4AE;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

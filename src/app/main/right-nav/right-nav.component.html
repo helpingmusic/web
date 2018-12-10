@@ -1,0 +1,13 @@
+<div class="overlay"
+     [routerLink]="[{outlets: {s: null}}]"
+     [hidden]="state === 'closed'">
+</div>
+
+<div class="sidebar scroll-pane"
+     [@sidebarState]="state">
+
+  <router-outlet name="s"
+                 (activate)="state = 'open'"
+                 (deactivate)="state = 'closed'">
+  </router-outlet>
+</div>

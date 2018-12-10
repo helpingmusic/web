@@ -1,0 +1,40 @@
+<div class="container-fluid pt-xl clear">
+
+  <div data-widget-group="group1">
+    <div class="row">
+      <div class="col-sm-8 col-md-6 center-block fn">
+
+        <div *ngIf="userCanReview">
+
+          <div class="alert ui-pnotify-container alert-info">
+            <p>Give your community members constructive feedback.</p>
+          </div>
+
+          <h4>Write a Review</h4>
+
+          <home-create-review-form [reviewee]="member._id" (created)="loadReviews()"></home-create-review-form>
+
+        </div>
+
+        <div class="clear animated-content">
+          <home-loader [hidden]="review$ | async"></home-loader>
+
+          <div class="err" *ngIf="(review$ | async)?.length === 0">
+            This user has no reviews.
+          </div>
+
+          <div [hidden]="!(review$ | async)">
+            <home-review *ngFor="let r of review$ | async"
+              [review]="r"
+              [hasPermissions]="r.poster?._id === currentUser?._id">
+            </home-review>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+

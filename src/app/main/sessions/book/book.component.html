@@ -1,0 +1,79 @@
+<div class="container-fluid" *ngIf="studio$ | async; let studio">
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+      <div class="col-md-6">
+
+        <h1>Book {{ studio.name}}</h1>
+        <!--<h4 class="subtext">{{(studio$ | async)?.location}}</h4>-->
+
+        <p>
+          {{studio.description}}
+        </p>
+
+        <div class="media" *ngIf="studio?.imageUrl">
+          <img [src]="studio.imageUrl"/>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <form class="form" (ngSubmit)="onSubmit(bookForm, studio)" [formGroup]="bookForm">
+
+          <home-datetime-range-picker formControlName="start"></home-datetime-range-picker>
+
+          <div>
+            <label>Duration</label>
+            <mat-slider [thumbLabel]="true" min="1" max="12" step="0.5"
+                        formControlName="duration">
+            </mat-slider>
+          </div>
+
+          <div class="form-group">
+            <label>Summary</label>
+            <table class="table table-striped">
+              <tr>
+                <th>Starts at</th>
+                <td>{{ bookForm.get('start').value | date:'MMM d, h:mm a' }}</td>
+              </tr>
+              <tr>
+                <th>Ends at</th>
+                <td>{{ endsAt | date:'MMM d, h:mm a' }}</td>
+              </tr>
+              <tr>
+                <th>{{ bookForm.get('duration').value }} Hours</th>
+                <td>${{ chargeAmount | stripePrice }}</td>
+              </tr>
+            </table>
+          </div>
+          <div [hidden]="!error">
+            <p class="hint error" [innerHTML]="error"></p>
+          </div>
+
+          <div class="form-group">
+            <home-btn
+              [class]="'btn btn-action btn-sm pull-right'"
+              [type]="'submit'">
+              Book Now
+            </home-btn>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-body">
+      <iframe
+        #calPreview
+        class="center-block fn"
+        [src]="(studio$ | async)?.calendarUrl | safeUrl"
+        style="border: 0; width: 100%" height="600" frameborder="0" scrolling="no">
+      </iframe>
+    </div>
+  </div>
+
+</div>
+

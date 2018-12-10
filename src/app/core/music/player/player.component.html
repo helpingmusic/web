@@ -1,0 +1,62 @@
+<div id="player"
+     [ngClass]="{'hidden': !visible}">
+
+  <div class="row">
+    <div class="center-block fn">
+
+      <div class="col-xs-1">
+        <mat-progress-spinner [hidden]="!(player.isLoading$ | async)"></mat-progress-spinner>
+      </div>
+
+      <div class="controls col-md-2 col-sm-3 col-xs-6">
+        <a (click)="prev()">
+          <i class="material-icons">skip_previous</i>
+        </a>
+
+        <a id="play" *ngIf="player.isPlaying$ | async" (click)="continueSong()">
+          <i class="material-icons">play_arrow</i>
+        </a>
+
+        <a id="pause" *ngIf="player.isPlaying$ | async" (click)="pause()">
+          <i class="material-icons">pause</i>
+        </a>
+
+        <a (click)="next()">
+          <i class="material-icons">skip_next</i>
+        </a>
+
+      </div>
+
+
+      <div class="status col-sm-4 col-xs-5">
+
+        <div class="time">
+          {{player.currentSeek$ | async | time}}
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar progress-bar-primary"
+               [ngStyle]="{'width': ((100 * (player.currentSeek$ | async) / (player.currentTrack$ | async)?.duration) || 0) + '%'}"></div>
+        </div>
+
+        <div class="endtime">
+          {{(player.currentTrack$ | async)?.duration | time}}
+        </div>
+      </div>
+
+      <div class="info col-sm-4 col-xs-3" *ngIf="player.currentTrack$ | async; let track">
+        <a class="media-left inblock" [routerLink]="['/member', track?.user._id]"
+           title="{{track?.user.first_name}} {{track?.user.last_name}} Music">
+          <img class="media-object" src="{{track?.user.profile_pic || '/assets/images/avatar.png'}}">
+        </a>
+        <div class="inblock">
+          <h5>{{track?.title}}</h5>
+          <span class="subtext">
+              {{track?.user.first_name}} {{track?.user.last_name}}
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

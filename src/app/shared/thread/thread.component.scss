@@ -1,0 +1,13 @@
+
+.comments {
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    clear: both;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+

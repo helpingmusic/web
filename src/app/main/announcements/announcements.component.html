@@ -1,0 +1,44 @@
+<div *ngIf="isAdmin" class="page-heading">
+  <button mat-flat-button color="primary" (click)="createAnnouncement()">Add Post</button>
+
+</div>
+
+<div class="focus-container">
+
+  <div data-widget-group="group1">
+
+    <div class="alert ui-pnotify-container alert-primary">
+      <p>Updates from the H.O.M.E. Team</p>
+    </div>
+
+    <div class="clear" id="announcements"
+         infiniteScroll
+         [infiniteScrollDistance]="1"
+         [infiniteScrollThrottle]="500"
+         [immediateCheck]="true"
+         [scrollWindow]="true"
+         (scrolled)="onScroll()">
+
+
+      <ng-container *ngIf="(announcement$ | async)?.length === 0">
+        <div class="err">
+          No announcements right now.
+        </div>
+      </ng-container>
+
+      <ng-container>
+        <ng-container *ngFor="let p of announcements$ | async">
+          <home-announcement [announcement]="p"></home-announcement>
+        </ng-container>
+      </ng-container>
+
+      <home-loader [hidden]="(announcements$ | async)?.length"></home-loader>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+

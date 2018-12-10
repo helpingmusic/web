@@ -1,0 +1,24 @@
+@import 'theme/_vars';
+
+.panel {
+  overflow: hidden;
+  * {
+    transition: all 100ms ease 0s;
+  }
+
+  .panel-ctrls {
+    color: $primary;
+    margin: 7px 0px;
+  }
+
+  &.panel-collapsed {
+
+    .panel-body, .panel-footer {
+      overflow: hidden;
+      height: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+    }
+  }
+}

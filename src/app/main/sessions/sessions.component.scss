@@ -1,0 +1,39 @@
+@import "theme/vars";
+
+.list-group-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.sessions-headers-align .mat-expansion-panel-header-title,
+.sessions-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.sessions-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.session-status {
+  font-weight: 600;
+  font-size: 0.8em;
+  padding: 3px 6px;
+  border-radius: 12px;
+  user-select: none;
+
+  &.confirmed {
+    background: lighten($green, 40%);
+    color: $green;
+  }
+
+  &.cancelled {
+    background: lighten($red, 30%);
+    color: $red;
+  }
+
+}
+
+mat-action-row {
+  background: #f6f6f6;
+  border: 0;
+}

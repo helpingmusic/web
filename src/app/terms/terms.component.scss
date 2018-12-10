@@ -1,0 +1,17 @@
+:host {
+  padding-bottom: 72px;
+  display: grid;
+  min-height: calc(100vh);
+  position: relative;
+
+  ol {
+    list-style-type: lower-alpha;
+  }
+}
+
+h6 {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #333;
+}

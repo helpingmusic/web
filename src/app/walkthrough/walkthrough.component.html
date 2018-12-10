@@ -1,0 +1,39 @@
+<div class="container blank-container focused-form">
+  <div class="signup-block pt-xl">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <a href="http://evolvemusic.org" class="inblock">
+          <img alt="H.O.M.E." src="assets/images/home-login-logo.png" width="200"/>
+        </a>
+      </div>
+    </div>
+
+    <div class="row clear">
+      <div class="col-md-8 center-block fn">
+
+        <ul [class]="'steps ' + currentStep">
+          <li class="baseline"></li>
+          <li class="progress"></li>
+
+          <li *ngFor="let s of steps; let i = index;">
+            <a [routerLink]="i+1" routerLinkActive="active">
+              <span class="node"></span>
+              <span class=" hidden-xs">{{s}}</span>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+
+    <div class="row clear footer-clear">
+      <div class="col-md-8 center-block fn wrapper">
+
+        <router-outlet></router-outlet>
+
+      </div>
+    </div>
+  </div>
+</div>
+

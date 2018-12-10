@@ -1,0 +1,112 @@
+.card {
+  /***** Make height equal to width (http://stackoverflow.com/a/6615994) ****/
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+  /**************************************************************************/
+  border-radius: 2px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card .card-height-indicator {
+  margin-top: 100%;
+}
+
+.card .card-image {
+  height: 60%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card .card-image img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  pointer-events: none;
+}
+
+.card .card-image .card-image-headline {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  color: #fff;
+  font-size: 2em;
+}
+
+.card .card-body {
+  height: 30%;
+  padding: 18px;
+}
+
+.card .card-footer {
+  height: 10%;
+  padding: 18px;
+}
+
+.card .card-footer button,
+.card .card-footer a {
+  margin: 0 !important;
+  position: relative;
+  bottom: 25px;
+  width: auto;
+}
+
+.card .card-footer button:first-child,
+.card .card-footer a:first-child {
+  left: -15px;
+}
+
+
+.card {
+  box-shadow: 4px 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.card .card-content {
+  position: relative !important;
+}
+
+.card .card-body {
+  position: relative;
+}
+
+.card .card-body .btn-fab {
+  position: absolute;
+  top: -30px;
+  right: 16px;
+}
+
+.card .card-image {
+  overflow: hidden;
+}
+
+.card .card-image img {
+  transition-duration: 500ms;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.card .card-footer {
+  height: auto;
+  position: relative;
+  width: auto;
+}
+
+.card .card-footer button:first-child {
+  left: 0 !important;
+}
+
+.card .card-footer button {
+  bottom: 0 !important;
+}
+
+.card .card-contact {
+  font-size: 13px;
+}
+
+.animated-content .card {
+  visibility: hidden;
+}

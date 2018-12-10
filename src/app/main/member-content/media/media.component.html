@@ -1,0 +1,38 @@
+<div class="card profile-card">
+  <div class="card-content">
+    <div class="card-image">
+      <home-media-embed
+        [mediumId]="instance.mediumId"
+        [type]="instance.type">
+      </home-media-embed>
+    </div>
+
+    <div class="card-body">
+
+      <div class="card-heading">
+        <h4 class="pull-left">{{instance.title}}</h4>
+
+        <home-controls class="pull-right" *ngIf="userRole === 'admin'">
+          <li><a (click)="edit()">
+            <span class="icon mr-md"><i class="material-icons">edit</i></span>
+            Edit
+          </a></li>
+
+          <li class="divider"></li>
+
+          <li><a (click)="delete()">
+            <span class="icon mr-md"><i class="material-icons">delete</i></span>
+            Delete
+          </a></li>
+
+        </home-controls>
+
+      </div>
+
+      <div class="clear">
+        <p class="m0 text-space" [innerHTML]="instance.body | wrapLinks"></p>
+      </div>
+    </div>
+  </div>
+</div>
+

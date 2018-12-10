@@ -1,0 +1,21 @@
+
+<div [formGroup]="form">
+
+  <div [ngClass]="{'clear': even}" class="col-sm-6"
+       *ngFor="let s of links; let even = even">
+
+    <mat-form-field>
+      <input matInput [placeholder]="s.title"
+             autocomplete="off"
+             type="url" [formControlName]="s.name">
+
+      <span class="link-icon" matPrefix>
+      <i class="fa fa-2x {{s.icon}} mt-md" aria-hidden="true"></i>
+    </span>
+
+      <mat-error *ngIf="form.get(s.name)?.errors?.pattern">Not a valid URL.</mat-error>
+    </mat-form-field>
+
+  </div>
+</div>
+

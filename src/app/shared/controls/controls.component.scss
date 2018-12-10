@@ -1,0 +1,24 @@
+@import "theme/_vars";
+
+a.dropdown-toggle {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 -10px 0 0;
+  text-align: center;
+  border-radius: 50%;
+  i {
+    font-size: 24px;
+    color: $green;
+    vertical-align: top;
+  }
+}
+
+.dropdown-menu {
+  left: initial;
+
+  i {
+    font-size: 16px;
+    color: $green;
+  }
+}

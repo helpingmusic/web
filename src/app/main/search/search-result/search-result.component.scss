@@ -1,0 +1,53 @@
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px 0 rgba(42, 51, 83, .12), 0 5px 15px rgba(0, 0, 0, .06) !important;
+  transition: all 200ms ease-out 0s;
+
+  .card-image {
+    height: 100px;
+    :hover {
+      transform: none;
+    }
+  }
+
+  .avatar {
+    overflow: hidden;
+    position: absolute;
+    top: -36px;
+    left: 18px;
+    border: 3px solid #fff;
+    width: 72px;
+    height: 72px;
+    background: #fff;
+  }
+
+  .card-body {
+    position: relative;
+    padding: 6px 12px;
+  }
+  .location {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 700 !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+    * {
+      color: rgba(0, 0, 0, 0.6) !important;
+    }
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    transform: translateY(-2px);
+    * {
+      color: initial;
+    }
+  }
+}
+

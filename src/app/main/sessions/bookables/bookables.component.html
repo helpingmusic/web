@@ -1,0 +1,42 @@
+<div class="focus-container">
+
+  <div data-widget-group="group1">
+    <div class="mb-lg">
+      <home-note-box type="info">
+        <b class="text-uppercase">Important:</b>
+        For booking events, please email Trina at
+        <a href="mailto:info@helpingmusic.org">info@helpingmusic.org</a>.
+        You may check availability on the calendar below, but all events
+        must be booked by the HOME team.
+      </home-note-box>
+    </div>
+
+    <div class="mb-lg">
+      <div class="media center-block">
+        <img src="/assets/images/studios/HOME_Facility_Layout.png"/>
+      </div>
+    </div>
+
+    <div *ngFor="let studio of (bookables$ | async)">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>{{studio.name}}</h2>
+          <p class="subtext clear m-n">{{studio.location}}</p>
+        </div>
+        <div class="panel-body row mb-n">
+          <div class="media center-block col-md-6" *ngIf="studio.imageUrl">
+            <img [src]="studio.imageUrl"/>
+          </div>
+          <div class="col-md-6">
+            <p>{{ studio.description }}</p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <a [routerLink]="[studio.id]" class="pull-right btn btn-action btn-sm">Book A Session</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

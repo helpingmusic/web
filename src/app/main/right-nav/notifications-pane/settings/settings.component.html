@@ -1,0 +1,157 @@
+<div class="tab-pane">
+
+  <table class="table table-settings">
+    <tbody>
+    <tr>
+      <td>
+        <h4>All Notifications</h4>
+
+        <div class="row mb-n">
+
+          <p class="col-sm-6">
+            Browser
+            <span class="togglebutton" [ngClass]="{'toggle-primary': browserAllEnabled}">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="browserEnabled"
+                         (ngModelChange)="setAllNotifications('browser', $event)">
+                </label>
+              </span>
+          </p>
+
+          <p class="col-sm-6">
+            Email
+            <span class="togglebutton" [ngClass]="{'toggle-info': emailAllEnabled}">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="emailEnabled"
+                         (ngModelChange)="setAllNotifications('email', $event)">
+                </label>
+              </span>
+          </p>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <h5>Account</h5>
+        <p>Get important updates related to your H.O.M.E. account</p>
+
+        <div class="row mb-n">
+          <p class="col-sm-6">
+            Browser
+            <span class="togglebutton toggle-primary">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.account.browser"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+
+          <p class="col-sm-6">
+            Email
+            <span class="togglebutton toggle-info">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.account.email"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+        </div>
+      </td>
+    </tr>
+
+
+
+    <tr>
+      <td>
+        <h5>Discounts</h5>
+        <p>Get updated H.O.M.E. member discounts around town.</p>
+
+        <div class="row mb-n">
+
+          <p class="col-sm-6">
+            Browser
+            <span class="togglebutton toggle-primary">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.discount.browser"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+
+          <p class="col-sm-6">
+            Email
+            <span class="togglebutton toggle-info">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.discount.email"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <h5>Announcements</h5>
+        <p>Get H.O.M.E. admin announcements.</p>
+
+        <div class="row mb-n">
+
+          <p class="col-sm-6">
+            Browser
+            <span class="togglebutton toggle-primary">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right"
+                         [(ngModel)]="currentUser?.notifications?.announcement.browser"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+
+          <p class="col-sm-6">
+            Email
+            <span class="togglebutton toggle-info">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.announcement.email"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h5>Reviews</h5>
+        <p>Get notified when a member leaves a review on your profile.</p>
+
+        <div class="row mb-n">
+          <p class="col-sm-6">
+            Browser
+            <span class="togglebutton toggle-primary">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.review.browser"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+
+          <p class="col-sm-6">
+            Email
+            <span class="togglebutton toggle-info">
+                <label class="pull-right">
+                  <input type="checkbox" class="pull-right" [(ngModel)]="currentUser?.notifications?.review.email"
+                         (ngModelChange)="updateUserNotifications()">
+                </label>
+              </span>
+          </p>
+        </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+</div>

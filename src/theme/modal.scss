@@ -1,0 +1,70 @@
+@import '../../node_modules/sweetalert2/dist/sweetalert2.min.css';
+@import 'vars';
+
+.home-modal {
+  border-radius: 2px;
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+  max-width: 800px;
+
+  .swal2-close {
+    user-select: none;
+    &:hover {
+      color: $error;
+    }
+  }
+}
+
+.modal.fade .modal-dialog {
+  top: 15%;
+}
+
+.modal-body {
+  max-height: 50vh;
+  overflow: scroll;
+  border: 1px solid #ddd;
+  padding: 20px 0;
+}
+
+.modal-content {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+  border-radius: 2px;
+  border: none;
+}
+
+.modal-content .modal-header {
+  border-bottom: none;
+  padding: 12px 24px;
+}
+
+.modal-content .modal-body {
+  padding: 24px 24px 16px;
+}
+
+.modal-content .modal-footer {
+  border-top: none;
+  padding: 7px;
+}
+
+.modal-content .modal-footer button {
+  margin: 0;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: auto;
+}
+
+.modal-content .modal-footer button + button {
+  margin-bottom: 16px;
+}
+
+.modal-content .modal-body + .modal-footer {
+  padding-top: 0;
+}
+
+.modal-backdrop.in {
+  background: rgba(0,0,0,0.6);
+  opacity: 1;
+}
+
+.modal-dialog {
+  max-width: 800px;
+}

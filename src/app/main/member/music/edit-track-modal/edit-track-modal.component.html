@@ -1,0 +1,33 @@
+<form [formGroup]="form"
+      (submit)="onSubmit(form)"
+      action="javascript:void(0)">
+
+  <h2 *ngIf="editing" mat-dialog-title>Edit Track</h2>
+  <h2 *ngIf="!editing" mat-dialog-title>Create Track</h2>
+
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input formControlName="title" matInput placeholder="Title">
+    </mat-form-field>
+
+    <home-tag-input placeholder="Tags" formControlName="tags"></home-tag-input>
+
+    <home-audio-input
+      *ngIf="!editing"
+      name="track"
+      formControlName="track"
+      [disabled]="editing" >
+    </home-audio-input>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button class="btn-default" mat-button mat-dialog-close>Cancel</button>
+
+    <button class="btn-primary" mat-button type="submit">Save</button>
+
+  </mat-dialog-actions>
+
+</form>
+

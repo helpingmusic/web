@@ -1,0 +1,26 @@
+<div class="infobar">
+
+  <ul class="nav nav-tabs material-nav-tabs stretch-tabs icon-tabs">
+    <li>
+      <a [routerLink]="['settings']"
+         routerLinkActive="active">
+        <i class="material-icons">settings</i>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['unread']"
+         routerLinkActive="active">
+        <span class="step size-64">
+          <i class="material-icons">textsms</i>
+        </span>
+      </a>
+    </li>
+  </ul>
+
+
+  <div class="tab-content scroll-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
+

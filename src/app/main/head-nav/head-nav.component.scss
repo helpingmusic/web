@@ -1,0 +1,71 @@
+@import 'theme/_vars';
+
+:host {
+  z-index: 999;
+  position: relative;
+}
+
+.nav-side {
+  @media screen and (max-width: 768px) {
+    padding: 0 !important;
+  }
+}
+
+header {
+  background-color: $blue;
+  .container {
+    display: flex;
+  }
+
+  .navbar-brand {
+    width: auto !important;
+    img {
+      margin: 12px 0 !important;
+    }
+  }
+}
+
+.profile {
+  height: 54px !important;;
+
+  > div {
+    height: 100%;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  img {
+    float: left;
+    border-radius: 50%;
+    margin: 4px 8px 0 -8px;
+  }
+  h4 {
+    font-size: 1.2em;
+    margin: 0;
+  }
+  span {
+    font-size: .8em;
+    line-height: 1.4em;
+  }
+}
+
+
+
+.spacer-1 {
+  flex: 0.375 1 auto
+}
+.spacer-2 {
+  flex: 1 1 auto;
+}
+
+ul.actions {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin: 0;
+  li {
+    padding: 12px;
+  }
+}

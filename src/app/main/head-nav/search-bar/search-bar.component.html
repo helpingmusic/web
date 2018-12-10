@@ -1,0 +1,15 @@
+<div class="search-container">
+
+  <mat-form-field appearance="outline"  [ngClass]="{focused: focused}">
+    <mat-label>Search</mat-label>
+    <input type="text"
+           matInput
+           (blur)="focused = false"
+           (focus)="focused = true"
+           (input)="navigateSearch($event.target.value)"
+           autocomplete="off"/>
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
+</div>
+

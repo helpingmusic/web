@@ -1,0 +1,97 @@
+<div class="container-fluid">
+
+  <div data-widget-group="group1">
+    <div class="row m-n">
+
+      <div class="col-md-12 profile-area"
+           [ngStyle]="{'background-image': 'url(' + (member.banner || '/assets/images/profile-bg-material.png') + ')'}">
+
+        <div class="row">
+          <div class="col-sm-7 col-md-6 col-lg-4">
+            <div class="media">
+
+              <div id="profilePicBlock" class="media-left">
+                <div id="profilePic" class="media-object img-resposnive">
+                  <img [src]="member.profile_pic || '/assets/images/avatar.png'">
+                </div>
+                <a class="btn btn-xs mt-n uploadImgBtn"
+                   *ngIf="isOwnAccount"
+                   (click)="uploadProfilePicture()"
+                   title="Change Profile Photo">
+                  <i class="fa fa-2x fa-camera"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-5 col-md-6 col-lg-8 pt-lg">
+            <h4 class="media-heading">
+              {{member.first_name | pretty}} {{member.last_name | pretty}}
+            </h4>
+            {{member.profession | pretty}}
+          </div>
+        </div>
+        <a class="btn btn-xs mt-n uploadImgBtn"
+           *ngIf="isOwnAccount"
+           (click)="uploadBanner()"
+           title="Change Banner Photo">
+          <i class="fa fa-2x fa-camera"></i>
+        </a>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-xs-12">
+          <nav mat-tab-nav-bar>
+
+            <a mat-tab-link routerLinkActive #rlaAbout="routerLinkActive"
+               [routerLink]="['/member', member._id]"
+               [active]="rlaAbout.isActive">
+              About
+            </a>
+
+            <a mat-tab-link routerLinkActive #rlaPosts="routerLinkActive"
+               routerLink="posts" [active]="rlaPosts.isActive">
+              Posts
+            </a>
+            <a mat-tab-link routerLinkActive #rlaReviews="routerLinkActive"
+               routerLink="reviews" [active]="rlaReviews.isActive">
+              Reviews
+            </a>
+            <a mat-tab-link routerLinkActive #rlaMusic="routerLinkActive"
+               routerLink="music" [active]="rlaMusic.isActive">
+              Music
+            </a>
+
+            <span class="spacer"></span>
+
+            <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaBilling="routerLinkActive"
+               routerLink="billing" [active]="rlaBilling.isActive">
+              Billing
+            </a>
+            <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaSettings="routerLinkActive"
+               routerLink="settings" [active]="rlaSettings.isActive">
+              <mat-icon>settings</mat-icon>
+            </a>
+
+          </nav>
+
+        </div>
+      </div>
+
+
+      <div class="clear">
+        <div class="">
+
+          <router-outlet></router-outlet>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

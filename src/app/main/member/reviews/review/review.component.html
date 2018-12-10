@@ -1,0 +1,57 @@
+<mat-menu #reviewMenu="matMenu">
+  <button (click)="edit()" *ngIf="hasPermissions" mat-menu-item>
+    <mat-icon>edit</mat-icon>
+    Edit
+  </button>
+  <button (click)="delete()" *ngIf="hasPermissions" mat-menu-item>
+    <mat-icon>delete</mat-icon>
+    Remove
+  </button>
+  <button (click)="report()" *ngIf="!hasPermissions" mat-menu-item>
+    <mat-icon>flag</mat-icon>
+    Report
+  </button>
+</mat-menu>
+
+<div class="profile-tab review">
+  <div class="media">
+
+    <div class="media-body">
+      <a class="media-left inblock"
+         [routerLink]="['/member', review.poster?._id]">
+        <img class="media-object"
+             [src]="review.poster.profile_pic || '/assets/images/avatar.png'">
+      </a>
+      <div class="inblock">
+        <h5 class="media-heading ">{{review.poster.first_name}}
+          {{review.poster.last_name}}</h5>
+
+        <span class="date mb-xs clear"><i>{{createdAt}}</i></span>
+
+        <span class="member_type clear">
+                  {{review?.poster?.membership_types?.join(', ') | pretty}}
+                </span>
+
+      </div>
+
+      <button mat-icon-button color="primary"
+              class="pull-right"
+              [matMenuTriggerFor]="reviewMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    <div class="pt-md media-desc">
+      <p class="m0 text-space" [innerHTML]="review.content | wrapLinks"></p>
+    </div>
+
+    <div class="media-bottom">
+      <div class="media-right">
+        <home-rating
+          [rating]="review.rating"
+          [readOnly]="true">
+        </home-rating>
+      </div>
+    </div>
+  </div>
+</div>

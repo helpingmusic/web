@@ -1,0 +1,35 @@
+<div *ngIf="isAdmin" class="page-heading">
+  <!--<button (click)="editMedia()"-->
+          <!--class="btn btn-secondary btn-sm pull-right">-->
+    <!--Add Media-->
+  <!--</button>-->
+</div>
+
+<div class="focus-container">
+
+  <div data-widget-group="group1">
+
+    <div class="clear">
+      <home-loader [hidden]="media$ | async"></home-loader>
+
+      <div *ngIf="(media$ | async)?.length === 0"
+           class="err">
+        There are no member content at this time.
+      </div>
+
+      <ng-container [hidden]="!(media$ | async)">
+        <home-media
+          *ngFor="let p of media$ | async; let even = even;"
+          [ngClass]="{'clear': even}"
+          [instance]="p"
+          (deleteMedia)="onDeleteMedia($event)"
+          (editMedia)="editMedia($event)"
+        ></home-media>
+      </ng-container>
+    </div>
+
+  </div>
+
+
+</div>
+

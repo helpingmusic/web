@@ -1,0 +1,138 @@
+<div class="pt-xl clear row">
+  <div class="col-sm-4">
+    <div class="panel panel-profile panel-default no-animate">
+      <div class="panel-heading">
+        <h2>About</h2>
+      </div>
+      <div class="panel-body">
+        <div>
+          <div class="personel-info">
+            <p>
+              <span class="icon"><i class="material-icons">email</i></span>
+              <a href="mailto:{{member.email}}">{{member.email}}</a>
+            </p>
+          </div>
+
+          <div class="personel-info">
+            <p>
+              <span class="icon"><i class="material-icons">music_note</i></span>
+              {{member.membership_types.join(', ') | pretty}}
+            </p>
+          </div>
+
+          <div class="personel-info">
+            <p>
+              <span class="icon"><i class="material-icons">work</i></span>
+              {{member.profession | pretty}}
+            </p>
+          </div>
+
+          <div class="personel-info">
+            <p>
+              <span class="icon"><i class="material-icons">place</i></span>
+              {{member.city | pretty}}, {{member.state}}
+            </p>
+          </div>
+        </div>
+
+        <ul class="list-inline text-center m-n" *ngIf="member.personal_links; let links">
+          <li *ngIf="links.site">
+            <a [href]="links.site | linkFormat" target="_blank">
+              <i class="fa fa-suitcase"></i>
+            </a>
+          </li>
+          <li *ngIf="links.linkedin">
+            <a [href]="links.linkedin | linkFormat" target="_blank">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </li>
+          <li *ngIf="links.facebook">
+            <a [href]="links.facebook | linkFormat" target="_blank">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li *ngIf="links.twitter">
+            <a [href]="links.twitter | linkFormat" target="_blank">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li *ngIf="links.soundcloud">
+            <a [href]="links.soundcloud | linkFormat" target="_blank">
+              <i class="fa fa-soundcloud"></i>
+            </a>
+          </li>
+          <li *ngIf="links.spotify">
+            <a [href]="links.spotify | linkFormat" target="_blank">
+              <i class="fa fa-spotify"></i>
+            </a>
+          </li>
+          <li *ngIf="links.instagram">
+            <a [href]="links.instagram | linkFormat" target="_blank">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </li>
+          <li *ngIf="links.youtube">
+            <a [href]="links.youtube | linkFormat" target="_blank">
+              <i class="fa fa-youtube"></i>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <!-- panel -->
+
+
+  </div>
+
+  <div class="col-sm-8">
+    <div class="panel no-animate p-md" id="about">
+      <div class="about-area">
+        <h4>Bio</h4>
+        <p class="m0 text-space" [innerHTML]="member.bio | wrapLinks"></p>
+      </div>
+      <div class="about-area">
+        <h4>Basic Information</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tbody>
+            <tr>
+              <th>Skills</th>
+              <td *ngIf="member.skills.length">{{member.skills.join(', ') |
+                pretty}}
+              </td>
+              <td *ngIf="!member.skills.length"><i class="subtext">Not
+                Specified</i></td>
+            </tr>
+            <tr>
+              <th>Resources</th>
+              <td *ngIf="member.resources.length">{{member.resources.join(', ')
+                | pretty}}
+              </td>
+              <td *ngIf="!member.resources.length"><i class="subtext">Not
+                Specified</i></td>
+            </tr>
+            <tr>
+              <th>Genres</th>
+              <td *ngIf="member.genres.length">
+                {{member.genres.join(', ') | pretty}}
+              </td>
+              <td *ngIf="!member.genres.length"><i class="subtext">Not
+                Specified</i></td>
+            </tr>
+            <tr>
+              <th>Instruments</th>
+              <td *ngIf="member.instruments.length">
+                {{member.instruments.join(', ') | pretty}}
+              </td>
+              <td *ngIf="!member.instruments.length"><i class="subtext">Not
+                Specified</i></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

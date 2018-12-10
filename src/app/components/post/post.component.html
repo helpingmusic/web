@@ -1,0 +1,52 @@
+<mat-menu #postMenu="matMenu">
+  <button (click)="edit()" *ngIf="userId === post.poster?._id" mat-menu-item>
+    <mat-icon>edit</mat-icon>
+    Edit
+  </button>
+  <button (click)="delete()" *ngIf="userId === post.poster?._id" mat-menu-item>
+    <mat-icon>delete</mat-icon>
+    Remove
+  </button>
+  <button (click)="report()" *ngIf="userId !== post.poster?._id" mat-menu-item>
+    <mat-icon>flag</mat-icon>
+    Report
+  </button>
+</mat-menu>
+
+
+<mat-card>
+
+  <button mat-icon-button color="primary"
+          class="pull-right"
+          [matMenuTriggerFor]="postMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <mat-card-header *ngIf="post.poster">
+    <a mat-card-avatar [routerLink]="['/member', post.poster?._id]"
+       [ngStyle]="{ 'background-image': 'url(' + (post.poster?.profile_pic || '/assets/images/avatar.png') + ')' }">
+    </a>
+    <mat-card-title>{{post.poster?.first_name}} {{post.poster?.last_name}}</mat-card-title>
+    <mat-card-subtitle>{{ postedAt }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="text-space" [innerHTML]="post.content | wrapLinks"></p>
+  </mat-card-content>
+
+  <home-thread *ngIf="post.thread"
+               [length]="threadLength"
+               [thread]="post.thread"></home-thread>
+
+  <mat-card-actions *ngIf="post.thread">
+    <button *ngIf="!showCommentBox"
+            (click)="showCommentBox = true"
+            mat-stroked-button color="accent">
+      Comment
+    </button>
+    <home-comment-box *ngIf="showCommentBox" (submit)="comment($event)"></home-comment-box>
+  </mat-card-actions>
+
+</mat-card>
+
+

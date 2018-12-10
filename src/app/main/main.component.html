@@ -1,0 +1,32 @@
+<home-head-nav></home-head-nav>
+
+<div id="wrapper" [ngClass]="{'playerShowing': playerShowing}">
+  <div id="layout-static">
+
+    <div class="container pt-lg">
+      <div class="row">
+
+        <home-side-nav class="static-sidebar-wrapper col-lg-3 col-md-4 col-sm-4 "></home-side-nav>
+
+        <div class="static-content-wrapper col-lg-9 col-md-8 col-sm-8 col-xs-12">
+          <div class="static-content row m-n">
+            <div class="page-content">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="extrabar-underlay"></div>
+
+    <home-player
+      [hidden]="!playerShowing"
+      (toggle)="playerShowing = $event"
+    ></home-player>
+
+  </div>
+</div>
+
+<home-right-nav></home-right-nav>

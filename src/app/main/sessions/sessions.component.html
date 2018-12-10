@@ -1,0 +1,98 @@
+<div class="focus-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="pull-left">My Sessions</h2>
+      <div class="pull-right mt-lg">
+        <a routerLink="studios" class="btn btn-action">Book A Session</a>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="row" [hidden]="!(cycles$ | async)">-->
+  <!--<div class="col-md-12">-->
+
+  <!--<h4>Time Allotment</h4>-->
+  <!--<div class="panel panel-default">-->
+
+  <!--<div class="panel-body">-->
+  <!--<div class="list-group m-n" *ngFor="let cycle of (cycles$ | async)">-->
+  <!--<h4>{{ cycle.monthString }}</h4>-->
+  <!--<table class="table">-->
+  <!--<tr *ngFor="let b of cycle.bookables">-->
+  <!--<td>{{ b.bookable.name }}</td>-->
+  <!--<td class="text-right"-->
+  <!--[ngClass]="{-->
+  <!--'text-success': b.hoursRecorded < b.hoursAllotted,-->
+  <!--'text-danger': b.hoursRecorded >= b.hoursAllotted-->
+  <!--}">-->
+  <!--{{ b.hoursRecorded }} / {{ b.hoursAllotted }} Hours Used-->
+  <!--</td>-->
+  <!--</tr>-->
+  <!--</table>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <h4>Upcoming</h4>
+
+      <mat-accordion class="sessions-headers-align">
+
+        <mat-expansion-panel *ngFor="let session of (upcomingSessions$ | async)">
+
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ session.bookable.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+              <span [ngClass]="'session-status ' + session.status"> {{ session.status }} </span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <home-session-summary [session]="session"></home-session-summary>
+
+          <mat-action-row *ngIf="session.status === 'confirmed'">
+            <button mat-flat-button color="warn" (click)="cancel(session)">Cancel</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+      <div [hidden]="(upcomingSessions$ | async)?.length !== 0">
+        <p class="err">No Upcoming Sessions</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row" [hidden]="(pastSessions$ | async)?.length === 0">
+    <div class="col-md-12">
+
+      <h4>Past</h4>
+      <mat-accordion class="sessions-headers-align">
+
+        <mat-expansion-panel *ngFor="let session of (pastSessions$ | async)">
+
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ session.bookable.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+              <span [ngClass]="'session-status ' + session.status"> {{ session.status }} </span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <home-session-summary [session]="session"></home-session-summary>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+
+    </div>
+  </div>
+
+</div>

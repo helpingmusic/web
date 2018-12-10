@@ -24,12 +24,23 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/sw.js"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src",
+                "node_modules"
+              ]
+            },
             "styles": [
-              "src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "src/theme/index.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap-material-design/dist/js/material.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -39,6 +50,11 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src"
+                ]
+              },
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -76,12 +92,14 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/sw.js"
             ]
           }
         },
@@ -127,5 +145,8 @@
       }
     }
   },
-  "defaultProject": "home-app"
+  "defaultProject": "home-app",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -1,0 +1,118 @@
+@import "theme/_vars";
+
+form.search-bar {
+  // max-width: 600px;
+  // margin: 0 auto;
+  position: relative;
+  clear: both;
+
+  button i {
+    color: #fff;
+  }
+  .page-heading {
+    position: relative;
+  }
+
+  .advancedSearch {
+    position: absolute;
+    top: -28px;
+    left: 10%;
+    min-width: initial;
+    background: $info;
+    z-index: 99;
+    border-color: darken($info, 10%);
+
+    i {
+      color: #fff;
+    }
+  }
+}
+
+.search-desc {
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px;
+  h3 {
+    font-weight: 300;
+    color: #fff;
+    margin: 0;
+  }
+}
+
+.advanced {
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 300ms ease !important;
+  border: 0 solid #C6CDD4;
+  border-top-width: 1px;
+  background: #fff;
+  margin: 0px 0 32px;
+  padding: 0 10px;
+
+  .row {
+    margin-bottom: 0;
+  }
+
+  &.active {
+    border-bottom-width: 1px;
+    max-height: 400px;
+  }
+
+}
+
+.search-pill {
+  background: white;
+  border-radius: 25px;
+  border: 1px solid #d5d7db;
+  border-bottom-width: 2px;
+  overflow: hidden !important;
+  margin: 16px 0 0;
+  display: block;
+  clear: both;
+  transition: all 300ms ease 0s;
+
+  input {
+    width: 96%;
+    margin: 0 auto;
+    border: 0;
+    height: 50px;
+    font-size: 26px;
+    font-weight: 200;
+    &::placeholder {
+      color: #bbb;
+    }
+  }
+  i.material-icons {
+    font-size: 36px;
+  }
+
+  &.is-focused {
+    box-shadow: 0 10px 40px 0 rgba(62, 57, 107, 0.07), 0 2px 9px 0 rgba(62, 57, 107, 0.06)
+  }
+}
+
+.algolia {
+  img {
+    max-height: 20px;
+    max-width: inherit;
+  }
+}
+
+.resultsCount p {
+  margin: 7px;
+  position: absolute;
+  white-space: pre;
+  right: 20px;
+  color: #aaa;
+  font-style: italic;
+}
+
+
+cdk-virtual-scroll-viewport {
+  width: 100%;
+  height: 80vh;
+}
+

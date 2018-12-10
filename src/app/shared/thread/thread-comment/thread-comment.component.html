@@ -1,0 +1,68 @@
+<div [id]="comment._id" class="media m-n pl-xl comment-profile">
+
+  <a class="media-left" *ngIf="!comment.isDeleted" [routerLink]="['/member', comment.commenter._id]">
+    <img class="media-object"
+         [src]="comment.commenter.profile_pic || '/assets/images/avatar.png'"
+         [alt]="comment.commenter.first_name + ' ' + comment.commenter.last_name">
+  </a>
+
+  <a class="media-left" *ngIf="comment.isDeleted">
+    <img class="media-object" src="/assets/images/avatar.png" alt="Homie">
+  </a>
+
+  <div class="media-body">
+
+    <h5 *ngIf="!comment.isDeleted" class="media-heading m-n">
+      {{ comment.commenter.first_name }}
+      {{ comment.commenter.last_name }}
+    </h5>
+
+    <h5 *ngIf="comment.isDeleted" class="media-heading m-n">Homie</h5>
+
+    <span class="createdAt">{{ comment.createdAt | fromNow }}</span>
+    <span *ngIf="comment.createdAt !== comment.updatedAt"
+          class="updatedAt">(*Edited {{ comment.updatedAt | fromNow }})</span>
+
+    <div *ngIf="comment.isDeleted">
+      <p>
+        <i>[Homie Deleted Comment]</i>
+      </p>
+    </div>
+
+    <div *ngIf="!isEditing && !comment.isDeleted" class="comment-body media-desc">
+      <p [innerHTML]="text | wrapLinks"></p>
+      <a *ngIf="bodyHasMore" (click)="showAll = true">Show More</a>
+    </div>
+
+    <div *ngIf="isEditing" class="comment-body media-desc">
+      <home-comment-box [text]="comment.body"
+                        [focus]="true"
+                        (cancel)="isEditing = false"
+                        (submit)="editComment($event)">
+      </home-comment-box>
+    </div>
+
+    <ul class="comment-actions row m-n">
+      <li><a (click)="showResponse = true">Respond</a></li>
+      <li *ngIf="!isOwnComment"><a (click)="report()">Report</a></li>
+
+      <li *ngIf="isOwnComment && !comment.isDeleted"><a (click)="isEditing = true">Edit</a></li>
+      <li *ngIf="isOwnComment && !comment.isDeleted"><a (click)="deleteComment()" class="text-danger">Delete</a></li>
+    </ul>
+  </div>
+
+
+  <ul class="children">
+    <li *ngIf="showResponse" class="p-sm">
+      <home-comment-box [focus]="true"
+                        (cancel)="showResponse = false"
+                        (submit)="respond($event)">
+      </home-comment-box>
+    </li>
+    <li *ngFor="let c of comment.children">
+      <home-thread-comment [comment]="c"></home-thread-comment>
+    </li>
+  </ul>
+
+
+</div>
