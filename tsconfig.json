@@ -10,10 +10,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "rootDirs": [
-      "node_modules",
-      "src"
-    ],
     "paths": {
       "app/*": ["app/*"],
       "models/*": ["models/*"]

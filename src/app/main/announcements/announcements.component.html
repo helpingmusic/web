@@ -20,7 +20,7 @@
          (scrolled)="onScroll()">
 
 
-      <ng-container *ngIf="(announcement$ | async)?.length === 0">
+      <ng-container *ngIf="(announcements$ | async)?.length === 0">
         <div class="err">
           No announcements right now.
         </div>

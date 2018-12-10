@@ -13,7 +13,7 @@ export class PlayerComponent implements OnInit {
   @Output() toggle = new EventEmitter<boolean>();
 
   constructor(
-    private player: PlayerService,
+    public player: PlayerService,
     private trackService: TrackService,
   ) {
   }
