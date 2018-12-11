@@ -1,32 +1,58 @@
 <home-head-nav></home-head-nav>
 
-<div id="wrapper" [ngClass]="{'playerShowing': playerShowing}">
-  <div id="layout-static">
+<mat-sidenav-container class="container" (backdropClick)="closeNav()">
 
-    <div class="container pt-lg">
-      <div class="row">
+  <mat-sidenav class="right-nav"
+               [opened]="showLeftNav$ | async"
+               position="start"
+               [fixedTopGap]="64"
+               [mode]="(navService.isMobile$ | async) ? 'over' : 'side'"
+               [disableClose]="!(navService.isMobile$ | async)"
+               [fixedInViewport]="true">
+    <home-side-nav></home-side-nav>
+  </mat-sidenav>
 
-        <home-side-nav class="static-sidebar-wrapper col-lg-3 col-md-4 col-sm-4 "></home-side-nav>
+  <mat-sidenav mode="over" position="end"
+               [autoFocus]="false"
+               [opened]="showRightNav$ | async"
+               [fixedTopGap]="64"
+               [fixedInViewport]="true">
+    <home-right-nav></home-right-nav>
+  </mat-sidenav>
 
-        <div class="static-content-wrapper col-lg-9 col-md-8 col-sm-8 col-xs-12">
-          <div class="static-content row m-n">
-            <div class="page-content">
-              <router-outlet></router-outlet>
-            </div>
-          </div>
-        </div>
-      </div>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 
-    </div>
+</mat-sidenav-container>
 
-    <div class="extrabar-underlay"></div>
+<!--<div id="wrapper" [ngClass]="{'playerShowing': playerShowing}">-->
+  <!--<div id="layout-static">-->
 
-    <home-player
-      [hidden]="!playerShowing"
-      (toggle)="playerShowing = $event"
-    ></home-player>
+    <!--<div class="container pt-lg">-->
+      <!--<div class="row">-->
 
-  </div>
-</div>
 
-<home-right-nav></home-right-nav>
+        <!--<div class="static-content-wrapper col-lg-9 col-md-8 col-sm-8 col-xs-12">-->
+          <!--<div class="static-content row m-n">-->
+            <!--<div class="page-content">-->
+              <!--<router-outlet></router-outlet>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+    <!--</div>-->
+
+    <!--<div class="extrabar-underlay"></div>-->
+
+    <!--<home-player-->
+      <!--[hidden]="!playerShowing"-->
+      <!--(toggle)="playerShowing = $event"-->
+    <!--&gt;</home-player>-->
+
+  <!--</div>-->
+<!--</div>-->
+

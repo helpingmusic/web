@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { IsMemberGuard } from 'app/core/auth/is-member.guard';
 import { CanRegisterGuard } from 'app/core/auth/can-register.guard';
 import { CanResetPasswordGuard } from 'app/core/auth/can-reset-password.guard';
 import { IsActiveGuard } from 'app/core/auth/is-active.guard';
 import { IsAdminGuard } from 'app/core/auth/is-admin.guard';
 
+import { IsMemberGuard } from 'app/core/auth/is-member.guard';
+import { TierGuard } from 'app/core/auth/tier.guard';
+import { LogoutGuard } from 'app/logout.guard';
+
 import { MainComponent } from 'app/main/main.component';
 import { MAIN_ROUTES } from 'app/main/main.routes';
 import { RerouteGuard } from 'app/reroute.guard';
-import { LogoutGuard } from 'app/logout.guard';
-import { TierGuard } from 'app/core/auth/tier.guard';
 
 const routes: Routes = [
   // public

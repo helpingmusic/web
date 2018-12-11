@@ -1,131 +1,54 @@
-:host {
-  position: fixed;
-  bottom: 0;
-  display: block;
-  left: 0;
-  right: 0;
+
+/deep/ .snack-music-player {
+  border: 0;
+  box-shadow: none;
+  background: none;
+  width: 240px;
 }
 
-#player {
-  position: absolute;
-  bottom: 0;
-  background: #EEEEEE;
-  border-top: 1px solid #E0E0E0;
-  display: block;
-  width: 100%;
+mat-card {
+  width: 240px;
+  float: right;
+  box-shadow: 0 18px 35px 0 rgba(42, 51, 83, .22), 0 8px 15px rgba(0, 0, 0, .16) !important;
+  border-radius: 8px;
   overflow: hidden;
-  height: 60px;
 
-  @media screen and (max-width: 448px) {
-    div[class^="col-"] {
-      padding: 0 5px;
-    }
+  mat-card-header * {
+    margin-bottom: 0 !important;
   }
-
-  .row {
+  .mat-card-avatar {
+    background-size: contain;
+  }
+  mat-card-content {
     margin: 0;
-  }
-
-  .spinner {
-    margin: 12px 0;
-    width: 80px;
-    height: 40px;
-    text-align: center;
-    font-size: 10px;
-  }
-  .spinner > div {
-    background-color: #304A65;
-    height: 100%;
-    width: 3px;
-    margin: 0 2px;
-    display: inline-block;
-    -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-    animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  }
-  .spinner .rect2 {
-    -webkit-animation-delay: -1.1s;
-    animation-delay: -1.1s;
-  }
-  .spinner .rect3 {
-    -webkit-animation-delay: -1.0s;
-    animation-delay: -1.0s;
-  }
-  .spinner .rect4 {
-    -webkit-animation-delay: -0.9s;
-    animation-delay: -0.9s;
-  }
-  .spinner .rect5 {
-    -webkit-animation-delay: -0.8s;
-    animation-delay: -0.8s;
-  }
-
-  .controls {
-    margin: 9px 0;
-    text-align: center;
-
-    a {
-      text-decoration: none !important;
-      display: inline-block;
-      color: #424242;
-      margin: 0 5px;
-
-      :hover {
-        color: #616161;
-      }
-    }
-    #play i,
-    #pause i {
-      font-size: 40px;
-    }
-    i {
-      font-size: 32px;
-    }
-  }
-
-  .status {
-    display: flex;
-    height: 60px;
-    color: #9e9e9e;
-    flex-flow: inherit;
-    align-items: center;
-
-    > div {
-      margin: 0 10px;
-    }
-
-    .progress {
-      height: 2px;
+    mat-slider {
       width: 100%;
-      box-shadow: none;
-      margin: 0;
-      background: #E0E0E0;
-    }
-    .progress-bar {
-      background: #009688 !important;
-      transition: width 0.2s ease;
+      padding: 0;
+      height: 32px;
     }
   }
 
-  .info {
+  mat-progress-spinner {
+    display: inline-block;
+  }
 
-    .media-left {
-      img {
-        margin: 10px 0;
-        width: 40px;
-      }
-    }
-    div.inblock {
-      width: 75%;
-      overflow-x: scroll;
-    }
-
-    h5 {
-      white-space: nowrap;
-      margin-bottom: 5px;
-      display: inline-block;
-    }
-    .subtext {
-      color: #9c9c9c;
-    }
+  mat-card-actions {
+    clear: both;
+    margin: 0 -16px -16px !important;
+    padding: 4px !important;
+    background: #f6f6f6;
+    text-align: center;
   }
 }
+
+.track-seek {
+  position: relative;
+  display: flex;
+  .spacer {
+    flex: 1 1 auto;
+  }
+  span {
+    color: rgba(0,0,0,0.5);
+  }
+}
+

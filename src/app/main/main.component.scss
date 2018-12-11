@@ -1,5 +1,5 @@
-#wrapper {
-  padding-top: 64px !important;
+mat-sidenav-container {
+  padding: 64px 0 0 0 !important;
 
   &.playerShowing {
     .page-content {
@@ -7,3 +7,21 @@
     }
   }
 }
+
+.right-nav {
+  background: none;
+  border: none;
+}
+main {
+  padding: 24px 48px;
+
+  @media screen and (max-width: 768px) {
+    padding: 24px 0;
+  }
+}
+
+mat-sidenav.mat-drawer-over {
+  background: #fff;
+  border-right: 1px solid #eee;
+}
+

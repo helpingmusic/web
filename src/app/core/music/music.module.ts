@@ -17,6 +17,7 @@ import { TracksEffects } from './effects/tracks.effects';
     RouterModule,
   ],
   providers: [TrackService, PlayerService],
+  entryComponents: [PlayerComponent],
   declarations: [PlayerComponent],
   exports: [PlayerComponent],
 })

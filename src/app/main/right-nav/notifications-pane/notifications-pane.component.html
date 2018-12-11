@@ -1,22 +1,14 @@
 <div class="infobar">
 
-  <ul class="nav nav-tabs material-nav-tabs stretch-tabs icon-tabs">
-    <li>
-      <a [routerLink]="['settings']"
-         routerLinkActive="active">
-        <i class="material-icons">settings</i>
-      </a>
-    </li>
-    <li>
-      <a [routerLink]="['unread']"
-         routerLinkActive="active">
-        <span class="step size-64">
-          <i class="material-icons">textsms</i>
-        </span>
-      </a>
-    </li>
-  </ul>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link (click)="navigate('settings')" routerLinkActive="active">
+      <mat-icon>settings</mat-icon>
+    </a>
 
+    <a mat-tab-link (click)="navigate('unread')" routerLinkActive="active">
+      <mat-icon>sms</mat-icon>
+    </a>
+  </nav>
 
   <div class="tab-content scroll-content">
     <router-outlet></router-outlet>

@@ -5,6 +5,7 @@ import { CreateTrack, DeleteTrack, FetchTracksForUser, PauseTrack, PlayTrack, Up
 
 import { Howl } from 'howler';
 import { Song } from 'models/song';
+import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { selectTrackById, selectTracksForUser } from './reducers/tracks.reducer';
 import * as fromTracks from './reducers/tracks.reducer';
@@ -45,9 +46,7 @@ export class TrackService {
   }
 
   getStream(s: Song): Promise<any> {
-    return this.http.get(`${this.endpoint}/${s._id}/stream`, {
-      responseType: 'arraybuffer',
-    })
+    return this.http.get(s.href, { responseType: 'arraybuffer' })
       .pipe( map(buf => this.arraybufferToDataURI(buf, s.mediaType)) )
       .toPromise();
   }
@@ -55,6 +54,8 @@ export class TrackService {
 
   getSource(song: Song): Promise<Howl> {
     let srcPromise;
+
+    console.log(song);
 
     // If no href or song file size is different than what was persisted
     // (this means that a new file was uploaded)
@@ -73,7 +74,7 @@ export class TrackService {
     return srcPromise;
   }
 
-  getBydId(t: string) {
+  getBydId(t: string): Observable<Song> {
     return this.store.pipe(select(selectTrackById, t), first());
   }
 

@@ -1,26 +1,44 @@
-<header id="topnav" class="navbar navbar-default navbar-fixed-top"
-        role="banner">
+<header role="banner">
 
   <mat-toolbar color="primary">
 
     <div class="container">
 
-      <div class="brand">
-        <a href="https://helpingmusic.org" class="navbar-brand">
-          <img *ngIf="isMobile()" class="img-logo-white" alt="HOME" src="assets/images/home-logo-icon-white.png">
-          <img *ngIf="!isMobile()" class="img-white" alt="HOME" src="assets/images/home-logo-white.png">
-        </a>
-      </div>
+      <ul class="actions">
+
+        <li>
+          <div class="brand">
+            <a href="https://helpingmusic.org">
+              <img class="img-logo-white"
+                   alt="HOME"
+                   [src]="(navService.isMobile$ | async) ? 'assets/images/home-logo-icon-white.png' : 'assets/images/home-logo-white.png'">
+            </a>
+          </div>
+        </li>
+
+        <li *ngIf="navService.isMobile$ | async">
+          <button mat-icon-button (click)="toggleLeftbar()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </li>
+
+      </ul>
 
       <span class="spacer-1"></span>
 
       <span class="search">
-          <home-search-bar *ngIf="showSearchBar || !isMobile()"></home-search-bar>
+          <home-search-bar *ngIf="showSearchBar$ | async"></home-search-bar>
       </span>
 
       <span class="spacer-2"></span>
 
       <ul class="actions">
+
+        <li *ngIf="navService.isMobile$ | async">
+          <button mat-icon-button (click)="toggleSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </li>
 
         <li>
 

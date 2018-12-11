@@ -9,7 +9,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule, MatListModule, MatMenuModule, MatProgressBarModule,
-  MatProgressSpinnerModule, MatSliderModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatProgressSpinnerModule, MatSidenavModule, MatSliderModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
 } from '@angular/material';
 
 
@@ -38,6 +38,7 @@ import {
     MatTabsModule,
     MatSliderModule,
     MatExpansionModule,
+    MatSidenavModule,
   ],
   declarations: []
 })

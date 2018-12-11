@@ -1,33 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { NavType } from 'app/core/nav/nav-type.enum';
+import { NavService } from 'app/core/nav/nav.service';
 
 @Component({
   selector: 'home-right-nav',
   templateUrl: './right-nav.component.html',
   styleUrls: ['./right-nav.component.scss'],
-  animations: [
-    trigger('sidebarState', [
-      state('open', style({
-        right: '0px'
-      })),
-      state('closed', style({
-        right: '-400px',
-      })),
-      transition('closed => open', animate('200ms ease-in')),
-      transition('void => open', animate('200ms ease-in')),
-      transition('open => closed', animate('200ms ease-out'))
-    ])
-  ]
 })
 export class RightNavComponent implements OnInit {
 
-  @ViewChild('sidebarOutlet') sidebarOutlet;
-  state = 'closed';
 
-  constructor() {
+  constructor(
+    private nav: NavService,
+  ) {
   }
 
   ngOnInit() {
+  }
+
+  setSidenavStatus(open: boolean) {
+    this.nav.toggleNav(NavType.RIGHT, open);
   }
 
 }

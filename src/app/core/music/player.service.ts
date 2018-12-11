@@ -5,9 +5,9 @@ import { PlayTrack, TrackFinished, TrackPaused, TrackPlaying } from 'app/core/mu
 import { Howl } from 'howler';
 
 import { Song } from 'models/song';
-import { interval as observableInterval, Observable } from 'rxjs';
+import { interval as observableInterval, Observable, Subscription } from 'rxjs';
 
-import { first, map, pluck } from 'rxjs/operators';
+import { first, map, pluck, switchMap, tap } from 'rxjs/operators';
 import { selectCurrentTrack, selectTracks, selectTracksState } from './reducers/tracks.reducer';
 import * as fromTracks from './reducers/tracks.reducer';
 import { TrackService } from './track.service';
@@ -16,6 +16,7 @@ import { TrackService } from './track.service';
 export class PlayerService {
 
   private audio: any;
+  private audio$: Subscription;
 
   isPlaying$: Observable<boolean>;
   isLoading$: Observable<boolean>;
@@ -29,8 +30,8 @@ export class PlayerService {
     private songService: TrackService,
     private store: Store<fromTracks.State>,
   ) {
-    this.isPlaying$ = this.store.pipe(pluck('playing'));
-    this.isLoading$ = this.store.pipe(pluck('loading'));
+    this.isPlaying$ = this.store.pipe(select(selectTracksState), pluck('playing'));
+    this.isLoading$ = this.store.pipe(select(selectTracksState), pluck('loading'));
     this.currentTrack$ = this.store.pipe(select(selectCurrentTrack));
   }
 
@@ -56,16 +57,19 @@ export class PlayerService {
   }
 
   play(trackId: string) {
-
+    if (this.audio$) {
+      this.audio$.unsubscribe();
+    }
     if (this.audio) {
       this.audio.stop();
     }
 
-    this.songService.getBydId(trackId)
-      .subscribe(async (t) => {
-        this.audio = await this.fetchAudio(t);
-        this.audio.play();
-      });
+    this.audio$ = this.songService.getBydId(trackId)
+      .pipe(
+        switchMap(track => this.fetchAudio(track)),
+        tap(audio => audio.play())
+      )
+      .subscribe((audio) => this.audio = audio);
 
   }
 

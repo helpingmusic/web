@@ -4,6 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MusicModule } from 'app/core/music/music.module';
+import { NavModule } from 'app/core/nav/nav.module';
 import { PostModule } from 'app/core/post/post.module';
 import { ReportService } from 'app/core/report.service';
 
@@ -34,6 +35,7 @@ import { ThreadService } from 'app/core/thread.service';
     BrowserModule,
     BrowserAnimationsModule,
     PostModule,
+    NavModule,
   ],
   exports: [
     MusicModule,

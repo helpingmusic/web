@@ -14,7 +14,7 @@ export const RIGHT_NAV_ROUTES: Routes = [
       { path: 'unread', component: NotificationsComponent },
       { path: 'settings', component: SettingsComponent },
       { path: '**', redirectTo: 'unread', pathMatch: 'full' }
-    ],
+   ],
     outlet: 's'
   },
 

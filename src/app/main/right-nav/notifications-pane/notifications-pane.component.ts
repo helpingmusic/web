@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home-notifications-pane',
@@ -7,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsPaneComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
+  }
+
+  async navigate(path) {
+    await this.router.navigate(['app', { outlets: { s: ['notifications', path] } }], {
+      skipLocationChange: true,
+      replaceUrl: true,
+    });
   }
 
 }

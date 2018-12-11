@@ -109,8 +109,8 @@ export class BillingComponent implements OnInit, OnDestroy {
           this.success = true;
           this.stripeInput.clear();
         },
-        err => {
-          this.errors = JSON.parse(err).errors;
+        res => {
+          this.errors.payment = res.error.message;
           this.paymentFormLoading = false;
           this.stripeInput.clear();
         }

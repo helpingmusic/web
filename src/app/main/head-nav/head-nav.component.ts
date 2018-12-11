@@ -1,33 +1,38 @@
-import { filter } from 'rxjs/operators';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { AuthService } from 'app/core/auth/auth.service';
+import { IssueService } from 'app/core/issue.service';
+import { ModalService } from 'app/core/modal.service';
+import { NavType } from 'app/core/nav/nav-type.enum';
+import { NavService } from 'app/core/nav/nav.service';
+import { NotificationService } from 'app/core/notification.service';
+import { Issue } from 'models/issue';
 
 import { User } from 'models/user';
-import { NotificationService } from 'app/core/notification.service';
-import { AuthService } from 'app/core/auth/auth.service';
-import { ModalService } from 'app/core/modal.service';
-import { IssueService } from 'app/core/issue.service';
-import { Issue } from 'models/issue';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'home-head-nav',
   templateUrl: './head-nav.component.html',
   styleUrls: ['./head-nav.component.scss']
 })
-export class HeadNavComponent implements OnInit, AfterViewInit {
+export class HeadNavComponent implements OnInit {
 
   user: User;
   unreadCount = 0;
   notificationsTarget = ['notifications', 'unread'];
-  showSearchBar: boolean;
+  showSearchBar$: Observable<boolean>;
 
   constructor(
     private notificationService: NotificationService,
     private router: Router,
     private auth: AuthService,
     private issueService: IssueService,
-    private modal: ModalService
+    private modal: ModalService,
+    private navService: NavService,
   ) {
+    this.showSearchBar$ = this.navService.getNavStatus(NavType.SEARCH_BAR);
   }
 
   ngOnInit() {
@@ -40,9 +45,8 @@ export class HeadNavComponent implements OnInit, AfterViewInit {
         for (const k in counts) total += counts[k];
         this.unreadCount = total;
       });
-    this.notificationService.notifications$
-      .subscribe(() => {
-      });
+
+    this.notificationService.notifications$.subscribe();
     this.notificationService.query({});
 
     // Make sure the notifications tag toggles
@@ -55,20 +59,18 @@ export class HeadNavComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
-    $.material.init('home-head-nav');
+  toggleLeftbar() {
+    this.navService.toggleNav(NavType.LEFT);
   }
-
-  toggleSidebar() {
-    // todo toggle leftbar
+  toggleSearch() {
+    this.navService.toggleNav(NavType.SEARCH_BAR);
   }
 
   openNotifications() {
-    this.router.navigate(['app', {outlets: {s: this.notificationsTarget}}]);
-  }
-
-  isMobile() {
-    return window.innerWidth < 768;
+    this.router.navigate(['app', { outlets: { s: this.notificationsTarget } }], {
+      replaceUrl: true,
+      skipLocationChange: true,
+    });
   }
 
 

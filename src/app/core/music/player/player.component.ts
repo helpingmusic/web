@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
 import { TrackService } from 'app/core/music/track.service';
+import { Song } from 'models/song';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { PlayerService } from '../player.service';
 
 @Component({
@@ -8,27 +11,17 @@ import { PlayerService } from '../player.service';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
-  visible = false;
 
-  @Output() toggle = new EventEmitter<boolean>();
+  track$: Observable<Song>;
 
   constructor(
     public player: PlayerService,
     private trackService: TrackService,
   ) {
+    this.track$ = this.player.currentTrack$;
   }
 
   ngOnInit() {
-  }
-
-  show() {
-    this.visible = true;
-    this.toggle.emit(this.visible);
-  }
-
-  hide() {
-    this.visible = false;
-    this.toggle.emit(this.visible);
   }
 
   next() {

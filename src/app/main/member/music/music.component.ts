@@ -13,7 +13,8 @@ import { TrackService } from 'app/core/music/track.service';
 import { Song } from 'models/song';
 
 import { Howl } from 'howler';
-import { Observable } from 'rxjs';
+import { combineLatest, merge, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'home-music',
@@ -57,6 +58,21 @@ export class MusicComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  trackIsPlaying(t: Song) {
+    return combineLatest(
+      this.player.currentTrack$,
+      this.player.isPlaying$,
+      this.player.isLoading$,
+    )
+      .pipe(
+        map(([track, playing, loading]) => {
+          if (!track) return false;
+          if (track._id !== t._id) return false;
+          return playing || loading;
+        }),
+      );
   }
 
   createTrack() {

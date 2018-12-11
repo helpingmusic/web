@@ -1,17 +1,21 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'app/core/auth/auth.service';
 import { ModalService } from 'app/core/modal.service';
-import { User } from 'models/user';
+import { NavType } from 'app/core/nav/nav-type.enum';
+import { NavService } from 'app/core/nav/nav.service';
 import { NotificationService } from 'app/core/notification.service';
 import { MembershipTiers } from 'app/globals';
+import { User } from 'models/user';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'home-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
 })
-export class SideNavComponent implements OnInit, AfterViewInit {
+export class SideNavComponent implements OnInit {
   user: User = new User();
   isAdmin: boolean;
   canViewSessions: boolean;
@@ -32,6 +36,8 @@ export class SideNavComponent implements OnInit, AfterViewInit {
     private auth: AuthService,
     private modal: ModalService,
     private notificationService: NotificationService,
+    private nav: NavService,
+    private router: Router,
   ) {
   }
 
@@ -61,14 +67,14 @@ export class SideNavComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
-    $.material.init('home-side-nav *');
-  }
+  async navigate(path) {
+    this.nav.isMobile$
+      .pipe(take(1))
+      .subscribe(is => {
+        if (is) this.nav.toggleNav(NavType.LEFT, false);
+      });
 
-  navigate() {
-    if (window.innerWidth < 986) {
-      // todo add left navbar
-    }
+    await this.router.navigateByUrl(path);
   }
 
   referralInfo() {

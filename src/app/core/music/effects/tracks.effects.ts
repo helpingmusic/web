@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { PlayerService } from 'app/core/music/player.service';
+import { PlayerComponent } from 'app/core/music/player/player.component';
 import { ToastService } from 'app/core/toast.service';
 import { Song } from 'models/song';
 import { map, mergeMap, tap } from 'rxjs/operators';
@@ -21,6 +22,7 @@ import {
 export class TracksEffects {
 
   endpoint = '/songs';
+  playerRef: MatSnackBarRef<PlayerComponent>;
 
   constructor(
     private actions$: Actions,
@@ -99,5 +101,18 @@ export class TracksEffects {
     map(() => this.player.pause()),
   );
 
+  @Effect({ dispatch: false })
+  openPlayer$ = this.actions$.pipe(
+    ofType(TracksActionTypes.PlayTrack),
+    map((action: PlayTrack) => {
+      if (this.playerRef) return;
+
+      this.playerRef = this.snack.openFromComponent(PlayerComponent, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'snack-music-player',
+      });
+    }),
+  );
 
 }

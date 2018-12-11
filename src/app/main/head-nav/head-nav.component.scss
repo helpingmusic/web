@@ -5,22 +5,38 @@
   position: relative;
 }
 
-.nav-side {
-  @media screen and (max-width: 768px) {
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-side {
     padding: 0 !important;
+  }
+  .container {
+    margin: 0;
+    width: 100%;
   }
 }
 
 header {
   background-color: $blue;
+  height: 64px;
   .container {
     display: flex;
+    padding: 0;
   }
 
-  .navbar-brand {
+  .brand {
     width: auto !important;
     img {
-      margin: 12px 0 !important;
+      margin: 0 !important;
+      max-width: 136px;
+      max-height: 42px;
     }
   }
 }
@@ -51,10 +67,8 @@ header {
   }
 }
 
-
-
 .spacer-1 {
-  flex: 0.375 1 auto
+  flex: 0.27 1 auto
 }
 .spacer-2 {
   flex: 1 1 auto;
