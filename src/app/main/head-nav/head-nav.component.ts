@@ -30,7 +30,7 @@ export class HeadNavComponent implements OnInit {
     private auth: AuthService,
     private issueService: IssueService,
     private modal: ModalService,
-    private navService: NavService,
+    public navService: NavService,
   ) {
     this.showSearchBar$ = this.navService.getNavStatus(NavType.SEARCH_BAR);
   }

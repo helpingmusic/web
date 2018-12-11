@@ -18,7 +18,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(
     private player: PlayerService,
-    private navService: NavService,
+    public navService: NavService,
   ) {
     this.showLeftNav$ = this.navService.getNavStatus(NavType.LEFT);
     this.showRightNav$ = this.navService.getNavStatus(NavType.RIGHT);
