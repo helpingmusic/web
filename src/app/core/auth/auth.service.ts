@@ -149,10 +149,9 @@ export class AuthService {
       first(),);
   }
 
-  // Resest user password
-  // Expects {password, _id}
-  resetPassword(data: any): Observable<User> {
-    return this.http.put<User>('/users/reset', data);
+  // Reset user password
+  resetPassword(resetId: string, token: string, password: string): Observable<User> {
+    return this.http.post<User>(`/password-reset/${resetId}?token=${token}`, { password });
   }
 
   // Update account with edits

@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       .then(email => {
         if (!email) return;
 
-        this.http.post<any>('/users/forgot', { email })
+        this.http.post<any>('/password-reset', { email })
           .subscribe(
             res => {
               this.modal.popup({

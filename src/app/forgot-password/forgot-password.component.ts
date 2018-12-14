@@ -1,56 +1,66 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators as val } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { AuthService } from 'app/core/auth/auth.service';
 import { ModalService } from 'app/core/modal.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'home-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ForgotPasswordComponent implements OnInit {
   isLoading: boolean;
-  private userId: string;
 
-  subscriptions: any = {};
+  private token: string;
+  private resetId: string;
+
+  resetForm: FormGroup;
 
   constructor(
     private auth: AuthService,
     private modal: ModalService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {
     this.route.queryParams
-      .subscribe((p: Params) => {
-        this.userId = p.id;
-      });
+      .pipe(first())
+      .subscribe((p: Params) => this.token = p.token);
+    this.route.params
+      .pipe(first())
+      .subscribe((p: Params) => this.resetId = p.id);
+
+    this.resetForm = fb.group({
+      password: ['', [val.minLength(6), val.maxLength(32), val.required]],
+      passwordConfirm: ['', [val.required]]
+    }, {
+      // for password confirm
+      validators: (fg: FormGroup) => {
+        return fg.get('password').value === fg.get('passwordConfirm').value
+          ? null : { notSame: true };
+      }
+    });
   }
 
   ngOnInit() {
   }
 
-  ngOnDestroy() {
-    if (this.subscriptions.reset) this.subscriptions.reset.unsubscribe();
-  }
-
-  ngAfterViewInit() {
-    $.material.init('home-forgot-password *');
-    setTimeout(() => (<any>document.querySelector(
-      'home-forgot-password input[autofocus]')).focus(), 1000);
-  }
-
   onSubmit(form) {
+
+    console.log(form);
 
     if (form.invalid) return;
 
     this.isLoading = true;
-    const p = form.value.passwords.password;
+    const password = form.value.password;
 
-    this.subscriptions.reset = this.auth.resetPassword({
-      password: p,
-      _id: this.userId
-    })
+    this.auth.resetPassword(
+      this.resetId, this.token, password,
+    )
+      .pipe(first())
       .subscribe(
         () => {
           this.modal.popup({
@@ -62,7 +72,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy, AfterViewInit
           })
             .then(() => this.router.navigate(['/login']));
         },
-        e => this.modal.error(),
+        res => {
+          this.isLoading = false;
+          this.modal.error({
+            text: res.error.message,
+          });
+        }
       );
 
   }
