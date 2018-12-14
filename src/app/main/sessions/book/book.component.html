@@ -17,7 +17,13 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div *ngIf="!canBook" class="col-md-6">
+        <home-note-box type="error">
+          Studio is Only available for Creative + Production Members.
+        </home-note-box>
+      </div>
+
+      <div *ngIf="canBook" class="col-md-6">
         <form class="form" (ngSubmit)="onSubmit(bookForm, studio)" [formGroup]="bookForm">
 
           <home-datetime-range-picker formControlName="start"></home-datetime-range-picker>

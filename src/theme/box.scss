@@ -30,4 +30,9 @@
     .icon i { color: $info; }
   }
 
+  &.box-error {
+    border-left-color: $error;
+    .icon i { color: $error; }
+  }
+
 }

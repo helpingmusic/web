@@ -32,6 +32,10 @@ export class BookComponent implements OnInit {
 
   studioRate: number;
 
+  get canBook() {
+    return isFinite(this.studioRate);
+  }
+
   get endsAt(): Date {
     return (moment(this.bookForm.get('start').value) as Moment)
       .add(this.bookForm.get('duration').value, 'hours').toDate();

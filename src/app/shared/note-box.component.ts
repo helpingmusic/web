@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
     <div [class]="'box box-'+ type">
       <div class="icon" [ngSwitch]="type">
         <i *ngSwitchCase="'info'" class="material-icons">info</i>
+        <i *ngSwitchCase="'error'" class="material-icons">error</i>
       </div>
 
       <div class="box-body">
