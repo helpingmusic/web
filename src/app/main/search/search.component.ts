@@ -1,5 +1,6 @@
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { catchError, debounceTime, distinctUntilChanged, map, share, switchMap, tap } from 'rxjs/operators';
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, Subject } from 'rxjs';
@@ -22,6 +23,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   results$: Observable<any>;
   users$: Observable<Array<User>>;
 
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
   focused: boolean; // is input focused
   membershipTypes: any = membershipTypes;
   filters: any = {
@@ -29,6 +32,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   };
   query: string;
   advanced: boolean;
+  done: boolean;
 
 
   constructor(
@@ -92,6 +96,19 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userService.nextSearchPage();
   }
 
+  nextBatch(e, offset) {
+    if (this.done) {
+      return;
+    }
+
+    const end = this.viewport.getRenderedRange().end;
+    const total = this.viewport.getDataLength();
+    console.log(`${end}, '>=', ${total}`);
+    if (end === total) {
+      this.userService.nextSearchPage();
+    }
+  }
+
   // format query for mongoose
   doSearch() {
     const list = [];
@@ -142,6 +159,10 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   clear(i) {
     if (window.innerWidth > 992) return i % 3 === 0;
     return i % 2 === 0;
+  }
+
+  trackById(index, user) {
+    return user._id;
   }
 
 }

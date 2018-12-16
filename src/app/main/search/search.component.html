@@ -90,14 +90,20 @@
         Your search returned no results
       </div>
 
-      <div class="col-md-4 col-sm-6"
-           *ngFor="let u of (users$ | async); let i = index"
-           [ngClass]="{ 'clear': clear(i) }">
 
-        <home-search-result [result]="u"></home-search-result>
+      <ng-container *ngIf="users$ | async; let users">
+        <cdk-virtual-scroll-viewport itemSize="25" (scrolledIndexChange)="nextBatch($event, (users[users.length - 1]._id))">
+          <div class="col-md-4 col-sm-6"
+               *cdkVirtualFor="let u of users; let i = index; trackBy: trackById"
+               [ngClass]="{ 'clear': clear(i) }">
 
-      </div>
+            <home-search-result [result]="u"></home-search-result>
 
+          </div>
+        </cdk-virtual-scroll-viewport>
+
+
+      </ng-container>
 
     </div>
     <div class="row">
