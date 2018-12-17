@@ -17,7 +17,7 @@ export class CouponService {
   }
 
   validate(code: string): Observable<Coupon> {
-    return this.http.get<any>('/stripe/validateCoupon', {
+    return this.http.get<any>('/coupons/validate', {
       params: new HttpParams().set('code', code),
     }).pipe(
       map(coup => new Coupon(coup)));

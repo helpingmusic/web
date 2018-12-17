@@ -5,6 +5,7 @@ import { CreateTrack, DeleteTrack, FetchTracksForUser, PauseTrack, PlayTrack, Up
 
 import { Howl } from 'howler';
 import { Song } from 'models/song';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { selectTrackById, selectTracksForUser } from './reducers/tracks.reducer';
@@ -46,7 +47,11 @@ export class TrackService {
   }
 
   getStream(s: Song): Promise<any> {
-    return this.http.get(s.href, { responseType: 'arraybuffer' })
+    // streaming was changed in an update where a normal get request will not return a proper audio file
+    // check if they song was created before or after the date to figure out what url to look to.
+    const streamCutoff = moment('2018-12-04');
+    const href = streamCutoff.isBefore(s.created_at) ? s.href : `/songs/${s._id}/stream`;
+    return this.http.get(href, { responseType: 'arraybuffer' })
       .pipe( map(buf => this.arraybufferToDataURI(buf, s.mediaType)) )
       .toPromise();
   }
