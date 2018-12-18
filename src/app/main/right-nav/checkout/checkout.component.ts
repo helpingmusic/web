@@ -1,6 +1,6 @@
 import { zip as observableZip } from 'rxjs';
 
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -85,9 +85,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       token: tokenId,
       couponCode: form.value.couponCode,
     })
+      .pipe(take(1))
       .subscribe(
         () => this.close(),
-        err => this.errors.form = err.message,
+        res => {
+          console.log('here1');
+          console.log(res);
+          this.errors.form = res.error.message;
+        },
         () => this.formIsLoading = false,
       );
   }

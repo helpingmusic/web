@@ -50,7 +50,10 @@ export class CheckoutService {
   execute(form: any): Observable<any> {
     if (form.token) {
       this.auth.updateCard(form.token)
-        .subscribe(() => this._submission$.next(form));
+        .subscribe(
+          () => this._submission$.next(form),
+          res => this._submission$.error(res),
+        );
     } else {
       this._submission$.next(form)
     }

@@ -111,12 +111,13 @@ export class BookComponent implements OnInit {
           });
           setTimeout(() => this.router.navigateByUrl('/my-sessions'), 10);
         },
-        ({ error }) => {
-          console.log(error);
+        (res) => {
+          console.log('here');
+          console.log(res);
           checkoutSubscriber.unsubscribe();
           this.checkoutService.close();
 
-          this.error = error.message.message || 'Could not book session.';
+          this.error = res.error.message || 'Could not book session.';
         }
       );
 
