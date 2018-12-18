@@ -20,7 +20,7 @@
       <a class="media-left inblock"
          [routerLink]="['/member', review.poster?._id]">
         <img class="media-object"
-             [src]="review.poster.profile_pic || '/assets/images/avatar.png'">
+             [src]="review?.poster?.profile_pic || '/assets/images/avatar.png'">
       </a>
       <div class="inblock">
         <h5 class="media-heading ">{{review.poster.first_name}}
