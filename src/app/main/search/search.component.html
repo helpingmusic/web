@@ -92,15 +92,24 @@
 
 
       <ng-container *ngIf="users$ | async; let users">
-        <cdk-virtual-scroll-viewport itemSize="25" (scrolledIndexChange)="nextBatch($event, (users[users.length - 1]._id))">
+        <div class="clear" id="announcements"
+             infiniteScroll
+             [infiniteScrollDistance]="1"
+             [infiniteScrollThrottle]="500"
+             [immediateCheck]="true"
+             [scrollWindow]="true"
+             (scrolled)="onScroll()">
+
           <div class="col-md-4 col-sm-6"
-               *cdkVirtualFor="let u of users; let i = index; trackBy: trackById"
+               *ngFor="let u of users; let i = index; trackBy: trackById"
                [ngClass]="{ 'clear': clear(i) }">
 
             <home-search-result [result]="u"></home-search-result>
 
           </div>
-        </cdk-virtual-scroll-viewport>
+        </div>
+        <!--<cdk-virtual-scroll-viewport itemSize="25" (scrolledIndexChange)="nextBatch($event, (users[users.length - 1]._id))">-->
+        <!--</cdk-virtual-scroll-viewport>-->
 
 
       </ng-container>

@@ -55,17 +55,14 @@ export class UserService extends CollectionService<User> {
   }
 
   nextSearchPage(): void {
-    console.log('next');
     if (!this.hasNext) return;
     this._loading.next(true);
 
     const q = this.lastIndexQuery;
     q.page = ++this.curPage;
 
-    console.log('fetch');
     this.index.search(q)
       .then(res => {
-        console.log('res', res);
         const old = this._collection.getValue();
         const next = this.arrayUnique(old.concat(res.hits));
 

@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   results$: Observable<any>;
   users$: Observable<Array<User>>;
 
-  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+  // @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
 
   focused: boolean; // is input focused
   membershipTypes: any = membershipTypes;
@@ -96,18 +96,17 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userService.nextSearchPage();
   }
 
-  nextBatch(e, offset) {
-    if (this.done) {
-      return;
-    }
-
-    const end = this.viewport.getRenderedRange().end;
-    const total = this.viewport.getDataLength();
-    console.log(`${end}, '>=', ${total}`);
-    if (end === total) {
-      this.userService.nextSearchPage();
-    }
-  }
+  // nextBatch(e, offset) {
+  //   if (this.done) {
+  //     return;
+  //   }
+  //
+  //   const end = this.viewport.getRenderedRange().end;
+  //   const total = this.viewport.getDataLength();
+  //   if (end === total) {
+  //     this.userService.nextSearchPage();
+  //   }
+  // }
 
   // format query for mongoose
   doSearch() {
