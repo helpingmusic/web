@@ -38,6 +38,7 @@ export class UserService extends CollectionService<User> {
       this.index.search(q)
     ).pipe(
       tap((res: any) => {
+        console.log(res);
         this.populated = true;
         this.hasNext = res.page < res.nbPages;
       }),
@@ -55,6 +56,7 @@ export class UserService extends CollectionService<User> {
   }
 
   nextSearchPage(): void {
+    console.log('next page', this.hasNext);
     if (!this.hasNext) return;
     this._loading.next(true);
 

@@ -93,6 +93,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onScroll() {
+    console.log('scroll');
     this.userService.nextSearchPage();
   }
 
@@ -108,8 +109,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   //   }
   // }
 
-  // format query for mongoose
   doSearch() {
+    console.log('do search')
     const list = [];
     if (this.filters.state && this.filters.state !== 'all') {
       list.push(`state:"${this.filters.state}" `);
