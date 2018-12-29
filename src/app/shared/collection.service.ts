@@ -22,7 +22,7 @@ export class CollectionService<T extends Doc> {
   public readonly loading$: Observable<boolean> = this._loading.asObservable();
 
   // pagination
-  protected lastQuery: HttpParams;
+  protected lastQuery = new HttpParams();
   protected curPage = 0;
   protected hasNext = true; // has next pagination
 

@@ -1,9 +1,9 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { catchError, debounceTime, distinctUntilChanged, map, share, switchMap, tap } from 'rxjs/operators';
+import { CdkVirtualScrollViewport, VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
+import { catchError, debounceTime, distinctUntilChanged, map, share, switchMap, switchMapTo, tap, throttleTime } from 'rxjs/operators';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 
 import { membershipTypes } from 'app/globals';
@@ -21,9 +21,11 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   search$ = new Subject<any>();
   results$: Observable<any>;
-  users$: Observable<Array<User>>;
+  users$: Observable<Array<User[]>>;
 
-  // @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+  @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
+
+  offset = new BehaviorSubject(null);
 
   focused: boolean; // is input focused
   membershipTypes: any = membershipTypes;
@@ -34,6 +36,12 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   advanced: boolean;
   done: boolean;
 
+  get isMobile() {
+    return window.innerWidth < 768;
+  }
+  get itemSize() {
+    return 372;
+  }
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -45,18 +53,24 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
 
-    this.users$ = this.userService.collection$.pipe(
-      distinctUntilChanged((x, y) => {
-        if (x.length !== y.length) return false;
-        return x.every((u, i) => u._id === y[i]._id);
+    this.users$ = this.offset.pipe(
+      // distinctUntilChanged(),
+      throttleTime(500),
+      tap(() => this.userService.nextSearchPage()),
+      switchMapTo(this.userService.collection$),
+      // chunk array for rows
+      map(users => {
+        const perRow = this.isMobile ? 1 : 3;
+        const tmp = [...users];
+        return Array(Math.ceil(users.length / perRow)).fill(0)
+          .map(() => tmp.splice(0, perRow));
       }),
-      tap(() => this.animate()),
-      share(),);
+      // share(),
+    );
 
     // Search stream
     this.results$ = this.activeRoute.queryParams.pipe(
       debounceTime(500),
-      distinctUntilChanged(),
       map(params => {
 
         const query = params.q;
@@ -85,32 +99,27 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // this.doSearch();
   }
 
   ngOnDestroy() {
     this.search$.unsubscribe();
   }
 
-  onScroll() {
-    console.log('scroll');
-    this.userService.nextSearchPage();
+  nextBatch(offset) {
+    if (this.done) {
+      return;
+    }
+
+    const end = this.viewport.getRenderedRange().end;
+    const total = this.viewport.getDataLength();
+
+    if (end === total) {
+      this.offset.next(offset);
+    }
   }
 
-  // nextBatch(e, offset) {
-  //   if (this.done) {
-  //     return;
-  //   }
-  //
-  //   const end = this.viewport.getRenderedRange().end;
-  //   const total = this.viewport.getDataLength();
-  //   if (end === total) {
-  //     this.userService.nextSearchPage();
-  //   }
-  // }
-
   doSearch() {
-    console.log('do search')
+    console.log('do search');
     const list = [];
     if (this.filters.state && this.filters.state !== 'all') {
       list.push(`state:"${this.filters.state}" `);
@@ -161,8 +170,8 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     return i % 2 === 0;
   }
 
-  trackById(index, user) {
-    return user._id;
+  trackByIndex(index, user) {
+    return index;
   }
 
 }
