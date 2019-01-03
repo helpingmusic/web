@@ -18,13 +18,14 @@
 
     <div class="media-body">
       <a class="media-left inblock"
-         [routerLink]="['/member', review.poster?._id]">
+         [routerLink]="['/member', review?.poster?._id]">
         <img class="media-object"
              [src]="review?.poster?.profile_pic || '/assets/images/avatar.png'">
       </a>
+
       <div class="inblock">
-        <h5 class="media-heading ">{{review.poster.first_name}}
-          {{review.poster.last_name}}</h5>
+        <h5 class="media-heading ">{{review?.poster?.first_name}}
+          {{review?.poster?.last_name}}</h5>
 
         <span class="date mb-xs clear"><i>{{createdAt}}</i></span>
 
