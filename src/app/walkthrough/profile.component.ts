@@ -214,7 +214,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     Object.keys(body.personal_links)
       .forEach(k => body.personal_links[k] || delete body.personal_links[k]);
 
-    let photos = of();
+    let photos: any = of(0);
     if (this.profileImg) {
       photos = this.auth.addPhotos({ profile_pic: this.profileImg });
     }
