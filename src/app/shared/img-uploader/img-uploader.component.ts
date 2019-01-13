@@ -11,6 +11,7 @@ export class ImgUploaderComponent implements OnInit {
   filename: string;
   processing: boolean;
   data: any = {};
+  file: File;
 
   @ViewChild('cropper') cropper: ImageCropperComponent;
   @Output('photoChange') photoChange = new EventEmitter<any>();
@@ -33,17 +34,29 @@ export class ImgUploaderComponent implements OnInit {
   ngOnInit() {
     this.cropper.cropcanvas.nativeElement.click();
     this.cropper.onCrop.subscribe(() => {
-      this.photoChange.emit(this.data.image);
+      const img = this.dataURItoBlob(this.data.image);
+      this.photoChange.emit(img);
+    });
+  }
+
+  private dataURItoBlob(dataURI) {
+    const binary = atob(dataURI.split(',')[1]);
+    const array = [];
+    for(let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: this.file.type || 'image/jpeg'
     });
   }
 
   fileChangeListener($event) {
     const image: any = new Image();
-    const file: File = $event.target.files[0];
+    this.file = $event.target.files[0];
 
-    if (!file) return;
+    if (!this.file) return;
     this.processing = true;
-    this.filename = file.name;
+    this.filename = this.file.name;
 
     const myReader: FileReader = new FileReader();
 
@@ -53,7 +66,7 @@ export class ImgUploaderComponent implements OnInit {
       this.processing = false;
     };
 
-    myReader.readAsDataURL(file);
+    myReader.readAsDataURL(this.file);
   }
 
 }

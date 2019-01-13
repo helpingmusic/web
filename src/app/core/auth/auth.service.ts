@@ -226,8 +226,10 @@ export class AuthService {
   }
 
   addPhotos(photos: { [type: string]: Blob }) {
+    console.log(photos);
     const fd = new FormData();
     Object.keys(photos).map(type => fd.append(type, photos[type]));
+    console.log(fd);
 
     return this.http.post<User>(`/users/me/photos`, fd).pipe(
       tap(u => this._currentUser.next(u)));

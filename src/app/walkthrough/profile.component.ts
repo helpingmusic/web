@@ -60,7 +60,7 @@ import { StoreService } from 'app/core/store.service';
           </div>
 
           
-          <div *ngIf="showProfileImgUpload" class="col-xs-12">
+          <div class="col-xs-12">
             <h4>Profile Image</h4>
             <div class="row">
               <div class="col-sm-12">
@@ -72,6 +72,7 @@ import { StoreService } from 'app/core/store.service';
                   <home-img-uploader [settings]="profileUploadSettings"
                                      (photoChange)="onPhotoChange($event)">
                   </home-img-uploader>
+                  <mat-error *ngIf="submitted && profileForm.get('profilePic').hasError('required')">A profile photo is required.</mat-error>
                 </div>
 
               </div>
@@ -145,6 +146,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       skills: [],
       resources: [],
       personal_links: PersonalLinksFormComponent.build(),
+      profilePic: ['', val.required],
     });
 
 
@@ -189,14 +191,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.walkthrough.back();
   }
 
-  onPhotoChange(pic: any) {
-    this.errors.profilePic = false;
-    this.profileImg = pic;
+  onPhotoChange(profilePic: any) {
+    this.profileForm.patchValue({ profilePic });
   }
 
   onSubmit(form) {
     this.submitted = true;
-    console.log(form);
     if (form.invalid) return;
 
     this.isLoading = true;
@@ -214,13 +214,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     Object.keys(body.personal_links)
       .forEach(k => body.personal_links[k] || delete body.personal_links[k]);
 
-    let photos: any = of(0);
-    if (this.profileImg) {
-      photos = this.auth.addPhotos({ profile_pic: this.profileImg });
-    }
-
     return zip(
-      photos,
+      this.auth.addPhotos({ profile_pic: this.profileForm.get('profilePic').value }),
       this.auth.updateAccount(body),
     )
       .subscribe(
