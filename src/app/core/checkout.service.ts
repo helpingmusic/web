@@ -1,3 +1,4 @@
+import { User } from 'models/user';
 import { first, map, share, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -70,9 +71,9 @@ export class CheckoutService {
   }
 
   getPaymentOptions(): Observable<any> {
-    return this.auth.getCurrentUser().pipe(
+    return this.auth.getCurrentUser(true).pipe(
       first(),
-      map(u => u.stripe.card),
+      map((u: User) => u.stripe.card),
     );
   }
 
