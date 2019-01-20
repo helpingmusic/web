@@ -2,17 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Announcement } from 'models/announcement';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import {
-  AnnouncementActionTypes,
-  AnnouncementsLoaded,
-  CreateAnnouncement,
-  DeleteAnnouncement,
-  EditAnnouncement,
-  FetchAnnouncementsPage,
-  UpsertAnnouncement
-} from '../actions/announcement.actions';
+import { PrismicService } from 'app/core/prismic.service';
+import { Predicates } from 'prismic-javascript';
+import ApiSearchResponse from 'prismic-javascript/d.ts/ApiSearchResponse';
+import { from } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { AnnouncementActionTypes, AnnouncementsLoaded, FetchAnnouncementsPage, } from '../actions/announcement.actions';
 
 @Injectable()
 export class AnnouncementEffects {
@@ -23,57 +18,24 @@ export class AnnouncementEffects {
     private actions$: Actions,
     private http: HttpClient,
     private snack: MatSnackBar,
+    private cms: PrismicService,
   ) {
   }
 
   @Effect()
   fetchPage$ = this.actions$.pipe(
     ofType(AnnouncementActionTypes.FetchAnnouncementsPage),
-    mergeMap((action: FetchAnnouncementsPage) =>
-      this.http.get<Announcement[]>(this.endpoint, { params: { page: String(action.payload.page) } }).pipe(
-        map(announcements => new AnnouncementsLoaded({ announcements })),
+    mergeMap((action: FetchAnnouncementsPage) => from(
+      this.cms.query(
+        Predicates.at('document.type', 'announcement'),
+        {
+          orderings: '[my.announcement.first_publication_date desc]',
+          pageSize: 20,
+          page: action.payload.page,
+        }
       )
-    )
-  );
-
-  @Effect()
-  create$ = this.actions$.pipe(
-    ofType(AnnouncementActionTypes.CreateAnnouncement),
-    mergeMap((action: CreateAnnouncement) =>
-      this.http.post<Announcement>(this.endpoint, action.payload).pipe(
-        map(announcement => new UpsertAnnouncement(announcement)),
-        tap(
-          () => {},
-          err => {
-            this.snack.open('Error: Announcement Could Not Be Created', null, {
-              verticalPosition: 'top',
-              horizontalPosition: 'end',
-              panelClass: 'snack-error',
-              politeness: 'assertive',
-              duration: 5000,
-            });
-          }),
-      )
-    ),
-  );
-
-
-  @Effect()
-  update$ = this.actions$.pipe(
-    ofType(AnnouncementActionTypes.EditAnnouncement),
-    mergeMap((action: EditAnnouncement) =>
-      this.http.put<Announcement>(`${this.endpoint}/${action.payload.id}`, action.payload.changes).pipe(
-        map(announcement => new UpsertAnnouncement(announcement))
-      )
-    ),
-  );
-
-  @Effect({ dispatch: false })
-  delete$ = this.actions$.pipe(
-    ofType(AnnouncementActionTypes.DeleteAnnouncement),
-    mergeMap((action: DeleteAnnouncement) =>
-      this.http.delete<Announcement>(`${this.endpoint}/${action.payload.id}`)
-    ),
+    )),
+    map((results: any) => new AnnouncementsLoaded({ announcements: results.results }))
   );
 
 

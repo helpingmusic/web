@@ -1,24 +1,13 @@
 <div class="clear panel panel-white">
 
   <div class="panel-heading pb-n">
-    <h2 class="text-capitalize">{{announcement.title}}</h2>
-
-    <button mat-icon-button color="primary"
-            class="pull-right"
-            *ngIf="userRole === 'admin'"
-            [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button (click)="edit()" mat-menu-item>Edit</button>
-      <button (click)="delete()" mat-menu-item>Remove</button>
-    </mat-menu>
+    <div class="text-capitalize" [innerHTML]="announcement.data.title | prismic"></div>
 
     <div class="date clear mb-xs"><i>{{postedAt}}</i></div>
 
   </div>
   <div class="panel-body">
-    <p class="m0 text-space" [innerHTML]="announcement.body | wrapLinks"></p>
+    <div class="m0" [innerHTML]="announcement.data.body | prismic"></div>
   </div>
 
 </div>

@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material';
 
 import { AuthService } from 'app/core/auth/auth.service';
 import { NotificationService } from 'app/core/notification.service';
-import { EditAnnouncementModalComponent } from 'app/main/announcements/edit-announcement-modal/edit-announcement-modal.component';
 import { Announcement } from 'models/announcement';
 
 import { Observable } from 'rxjs';
@@ -46,14 +45,6 @@ export class AnnouncementsComponent implements OnInit {
 
   onScroll() {
     this.announcementService.nextPage();
-  }
-
-  createAnnouncement() {
-    const announcement = new Announcement();
-    this.modal.open(EditAnnouncementModalComponent, {
-      width: '400px',
-      data: { announcement },
-    });
   }
 
 }

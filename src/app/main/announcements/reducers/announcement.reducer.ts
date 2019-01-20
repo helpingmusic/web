@@ -9,9 +9,10 @@ export interface State extends EntityState<Announcement> {
 }
 
 export const adapter: EntityAdapter<Announcement> = createEntityAdapter<Announcement>({
-  selectId: (a: Announcement) => a._id,
-  sortComparer(a: Announcement, b: Announcement): number {
-    return moment(b.created_at).unix() - moment(a.created_at).unix();
+  selectId: (a: any) => a.id,
+  sortComparer(a: any, b: any): number {
+    const date = d => d.data.originally_published || d.first_published_date;
+    return moment(date(b)).unix() - moment(date(a)).unix();
   },
 });
 
@@ -34,18 +35,6 @@ export function reducer(state = initialState, action: AnnouncementActions): Stat
 
     case AnnouncementActionTypes.AnnouncementsLoaded:
       return adapter.upsertMany(action.payload.announcements, state);
-
-    case AnnouncementActionTypes.UpsertAnnouncement:
-      return adapter.upsertOne(action.payload, state);
-
-    case AnnouncementActionTypes.EditAnnouncement:
-      return adapter.updateOne(action.payload, state);
-
-    case AnnouncementActionTypes.FetchAnnouncementsPage:
-      return { ...state, page: action.payload.page };
-
-    case AnnouncementActionTypes.DeleteAnnouncement:
-      return adapter.removeOne(action.payload.id, state);
 
     default:
       return state;

@@ -286,3 +286,9 @@ mat-form-field {
 .mat-drawer-backdrop {
   position: fixed !important;
 }
+
+.prismic-render {
+  iframe, img {
+    max-width: 100%;
+  }
+}

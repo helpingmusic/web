@@ -29,6 +29,7 @@ import { CommentBoxComponent } from './thread/comment-box.component';
 import { ThreadCommentComponent } from './thread/thread-comment/thread-comment.component';
 import { ThreadComponent } from './thread/thread.component';
 import { TimePickerDirective } from './time-picker.directive';
+import { PrismicDomPipe } from './prismic-dom.pipe';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { TimePickerDirective } from './time-picker.directive';
     CommentBoxComponent,
     TagInputComponent,
     ...Pipes,
+    PrismicDomPipe,
   ],
   entryComponents: [
     LoaderComponent,
@@ -76,6 +78,7 @@ import { TimePickerDirective } from './time-picker.directive';
     InfiniteScrollModule,
 
     ...Pipes,
+    PrismicDomPipe,
 
     PasswordMatcherDirective,
     StateSelectorDirective,

@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ModalService } from 'app/core/modal.service';
-import { DeleteAnnouncementModalComponent } from 'app/main/announcements/delete-announcement-modal.component';
-import { EditAnnouncementModalComponent } from 'app/main/announcements/edit-announcement-modal/edit-announcement-modal.component';
 
 import * as moment from 'moment';
 
@@ -17,15 +14,13 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./announcement.component.scss']
 })
 export class AnnouncementComponent implements OnInit {
-  @Input() announcement: Announcement;
+  @Input() announcement: any;
 
   userRole: string;
   postedAt: string;
 
   constructor(
     private auth: AuthService,
-    private modal: MatDialog,
-    private snackbar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -34,35 +29,8 @@ export class AnnouncementComponent implements OnInit {
         this.userRole = u.role;
       });
 
-    this.postedAt = moment(this.announcement.created_at).fromNow();
-  }
-
-  edit() {
-    const dialogRef = this.modal.open(EditAnnouncementModalComponent, {
-      width: '400px',
-      data: { announcement: this.announcement },
-    });
-
-    dialogRef.beforeClosed()
-      .subscribe(() => {});
-  }
-
-
-  delete() {
-    const dialogRef = this.modal.open(DeleteAnnouncementModalComponent, {
-      width: '400px',
-      data: { announcement: this.announcement },
-    });
-
-    dialogRef.beforeClosed()
-      .pipe(filter(removed => !!removed))
-      .subscribe(() => {
-        this.snackbar.open('Announcement Has Been Removed', null, {
-          duration: 2000,
-          horizontalPosition: 'end',
-          verticalPosition: 'top',
-        });
-      });
+    const d = this.announcement.data.originally_published || this.announcement.first_publication_date
+    this.postedAt = moment(d).fromNow();
   }
 
 }
