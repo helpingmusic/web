@@ -8,94 +8,63 @@
       </div>
     </div>
 
+    <mat-card>
+      <mat-progress-bar *ngIf="isLoading" color="primary" mode="indeterminate"></mat-progress-bar>
+
+      <form class="form" [formGroup]="loginForm" (submit)="onSubmit(loginForm)">
+        <mat-card-header>
+          <h2 mat-card-title>Login</h2>
+          <h2 mat-card-subtitle>Welcome HOME</h2>
+        </mat-card-header>
+        <mat-card-content>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput autofocus formControlName="email" type="email">
+            <div *ngIf="loginForm.get('email').dirty && loginForm.get('email').errors; let errors">
+              <mat-error *ngIf="errors.server">{{ errors.server }}</mat-error>
+            </div>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput autofocus formControlName="password" type="password">
+          </mat-form-field>
+
+
+          <p>
+            <a (click)="forgotPassword()">
+              Forgot password?
+            </a>
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <a routerLink="/signup" mat-button>Register</a>
+          <button class="pull-right" type="submit" [disabled]="isLoading" mat-flat-button color="primary">Login</button>
+        </mat-card-actions>
+      </form>
+
+    </mat-card>
+
     <div class="row">
-      <div class="col-md-4 col-sm-6 center-block fn">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2>Login</h2>
-          </div>
-          <form class="form" (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
-            <div class="panel-body row">
+      <div class="col-12">
+        <oauth-btn
+          type="facebook"
+          icon="facebook"
+          title="Facebook"
+        ></oauth-btn>
+      </div>
 
-              <div class="col-md-12">
-                <div class="form-group label-floating mt-n"
-                     [ngClass]="{'has-error': (email.invalid && email.touched) }">
-
-                  <label for="email" class="control-label">Email</label>
-                  <input type="email"
-                         class="form-control"
-                         id="email"
-                         name="email"
-                         #email="ngModel"
-                         autofocus
-                         required
-                         ngModel/>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group label-floating">
-                  <label for="password" class="control-label">Password</label>
-                  <input type="password"
-                         class="form-control"
-                         id="password"
-                         name="password"
-                         #password="ngModel"
-                         autofocus
-                         required
-                         ngModel/>
-                </div>
-              </div>
-
-              <div class="col-md-12">
-                <div class="form-group m-n">
-                  <a class="pull-right" (click)="forgotPassword()">
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="panel-footer">
-              <div class="clearfix">
-                <a routerLink="/signup" class="btn btn-default btn-sm pull-left">Register</a>
-
-                <home-btn
-                  [class]="'btn btn-info btn-sm pull-right'"
-                  [type]="'submit'"
-                  [isLoading]="isLoading">
-                  Login
-                </home-btn>
-
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div class="row">
-          <div class="col-xs-12">
-            <oauth-btn
-              type="facebook"
-              icon="facebook"
-              title="Facebook"
-            ></oauth-btn>
-          </div>
-          <div class="col-xs-12">
-            <oauth-btn
-              type="google"
-              icon="google-plus"
-              title="Google+"
-            ></oauth-btn>
-          </div>
-        </div>
-
-        <div class="panel panel-default help-block no-animate"
-             *ngIf="errorMessage">
-          <p class="error text-center m-md">{{errorMessage}}</p>
-        </div>
-
+      <div class="col-12">
+        <oauth-btn
+          type="google"
+          icon="google-plus"
+          title="Google+"
+        ></oauth-btn>
       </div>
     </div>
+
   </div>
 
 </div>

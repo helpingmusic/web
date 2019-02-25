@@ -1,7 +1,7 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {MatChipInputEvent} from '@angular/material';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatChipInputEvent } from '@angular/material';
 
 @Component({
   selector: 'home-tag-input',
@@ -20,9 +20,11 @@ export class TagInputComponent implements OnInit, ControlValueAccessor {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @Input() placeholder: string;
+  @Input() description: string;
+  @Input() autocompleteOptions: string[];
   list: string[];
 
-  constructor() { }
+  inputCtrl = new FormControl();
 
   ngOnInit() {
   }
@@ -52,12 +54,14 @@ export class TagInputComponent implements OnInit, ControlValueAccessor {
     this.list = list || [];
   }
 
-  propagateChange = (_: any) => {};
+  propagateChange = (_: any) => {
+  };
 
   registerOnChange(fn) {
     this.propagateChange = fn;
   }
 
-  registerOnTouched() {}
+  registerOnTouched() {
+  }
 
 }

@@ -2,14 +2,29 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { NgModule } from '@angular/core';
 
 import {
+  MatAutocompleteModule,
   MatBadgeModule,
-  MatButtonModule, MatCardModule,
-  MatChipsModule,
-  MatDialogModule, MatDividerModule, MatExpansionModule,
+  MatButtonModule,
+  MatCardModule, MatCheckboxModule,
+  MatChipsModule, MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatListModule, MatMenuModule, MatProgressBarModule,
-  MatProgressSpinnerModule, MatSidenavModule, MatSliderModule, MatSnackBarModule, MatTableModule, MatTabsModule, MatToolbarModule
+  MatInputModule,
+  MatListModule,
+  MatMenuModule, MatOptionModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule, MatSlideToggleModule,
+  MatSnackBarModule, MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTreeModule,
+  MatNativeDateModule,
 } from '@angular/material';
 
 
@@ -39,6 +54,16 @@ import {
     MatSliderModule,
     MatExpansionModule,
     MatSidenavModule,
+    MatTreeModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatStepperModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   declarations: []
 })

@@ -28,7 +28,7 @@ export class NewsfeedComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $.material.init('home-newsfeed *');
+
   }
 
   onScroll() {

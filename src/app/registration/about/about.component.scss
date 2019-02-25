@@ -1,0 +1,13 @@
+
+.membership-options {
+  h5 {
+    margin: 0;
+  }
+  p {
+    white-space: initial;
+    line-height: 1em;
+  }
+  /deep/ .mat-checkbox-inner-container {
+    margin-top: 6px;
+  }
+}

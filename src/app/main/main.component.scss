@@ -9,12 +9,15 @@ mat-sidenav-container {
   }
 }
 
-.right-nav {
+.left-nav {
   background: none;
   border: none;
+  flex: 0 0 21%;
+  max-width: 240px;
 }
+
 main {
-  padding: 24px 48px;
+  padding: 24px 0;
 
   @media screen and (max-width: 768px) {
     padding: 24px 0;

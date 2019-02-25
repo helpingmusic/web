@@ -19,6 +19,29 @@ export class SettingsComponent implements OnInit {
   emailEnabled: boolean;
   emailAllEnabled: boolean;
 
+  settings = [
+    {
+      title: 'Account',
+      description: 'Get important updates related to your H.O.M.E. account',
+      key: 'account'
+    },
+    {
+      title: 'Discounts',
+      description: 'Get updated H.O.M.E. member discounts around town.',
+      key: 'discount'
+    },
+    {
+      title: 'Announcements',
+      description: 'Get H.O.M.E. community announcements.',
+      key: 'announcement'
+    },
+    {
+      title: 'Reviews',
+      description: 'Get notified when a member leaves a review on your profile.',
+      key: 'review'
+    },
+  ];
+
   constructor(
     public notificationService: NotificationService,
     private router: Router,
@@ -41,7 +64,7 @@ export class SettingsComponent implements OnInit {
 
 
   ngOnInit() {
-    $.material.init('home-notification-settings');
+
   }
 
   setAllNotifications(medium, enabled) {

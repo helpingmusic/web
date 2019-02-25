@@ -1,0 +1,73 @@
+<form class="form" [formGroup]="contactForm" (submit)="onSubmit(contactForm)" action="javascript:void(0);">
+  <mat-card>
+
+    <mat-card-header>
+      <h2 mat-card-title>Register</h2>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput autofocus formControlName="firstName"/>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput autofocus formControlName="lastName"/>
+          </mat-form-field>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput autofocus formControlName="email" type="email">
+            <div *ngIf="contactForm.get('email').touched && contactForm.get('email').errors; let errors">
+              <mat-error *ngIf="errors.email">Not a valid email</mat-error>
+              <mat-error *ngIf="errors.server">{{ errors.server }}</mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password">
+            <div *ngIf="contactForm.get('password').touched && contactForm.get('password').errors; let errors">
+              <mat-error *ngIf="errors.minlength">Password must be at least 6 characters.</mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="passwordConfirm" type="password">
+            <div
+              *ngIf="contactForm.get('passwordConfirm').touched && contactForm.get('passwordConfirm').errors; let errors">
+              <mat-error *ngIf="errors.match">Passwords do not match</mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="col">
+          <mat-slide-toggle color="primary" formControlName="acceptTerms">
+            I Agree To the
+            <a routerLink="/terms">Membership Agreement</a>
+          </mat-slide-toggle>
+          <mat-error *ngIf="submitted && contactForm.get('acceptTerms').errors">Must accept membership agreement
+          </mat-error>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <a routerLink="/login" mat-button>Login</a>
+      <button class="pull-right" type="submit" [disabled]="isLoading" mat-flat-button color="primary">Continue</button>
+    </mat-card-actions>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+  </mat-card>
+</form>
+

@@ -38,8 +38,6 @@ export class EditTrackModalComponent implements OnInit {
   onSubmit(form: FormGroup) {
     if (form.invalid) return false;
 
-    console.log(form.value);
-
     if (this.editing) {
       this.trackService.update(this.data.track._id, form.value);
 

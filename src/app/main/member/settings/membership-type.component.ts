@@ -23,30 +23,52 @@ import { ModalService } from 'app/core/modal.service';
 
         <panel-body>
 
-          <div class="col-xs-12">
+          <div class="col">
             <p class="subtext">
               This is how your account will be recognized when someone is searching for a certain type
               of community member. You may select more than one.
             </p>
 
-            <div class=" col-sm-6" *ngFor="let t of membershipTypes; let i=index">
-              <div class="checkbox m-n">
-                <label>
-                  <input type="checkbox"
-                         [formControl]="typeForm.controls['membershipTypes'].controls[i]"
-                         value="{{t.name}}"
-                  />
-                  <h5 class="inblock">{{t.name | pretty}}</h5>
-                  <p class="subtext">{{t.description}}</p>
-                </label>
+            <div class="row membership-options">
+              <div class="col-sm-6" *ngFor="let t of membershipTypes; let i=index">
+                <mat-checkbox [formControl]="typeForm.controls['membershipTypes'].controls[i]">
+                  <h5 mat-line>{{t.name | pretty}}</h5>
+                  <p mat-line class="subtext">{{t.description}}</p>
+                </mat-checkbox>
               </div>
-
             </div>
 
             <div class="clear text-center" *ngIf="typeForm.get('membershipTypes').invalid && submitted">
-              <p class="hint" [hidden]="!typeForm.get('membershipTypes').errors.required">You must select at least one membership type.</p>
+              <p class="hint" [hidden]="!typeForm.get('membershipTypes').errors.required">
+                You must select at least one membership type.
+              </p>
             </div>
           </div>
+
+          <!--<div class="col-xs-12">-->
+            <!--<p class="subtext">-->
+              <!--This is how your account will be recognized when someone is searching for a certain type-->
+              <!--of community member. You may select more than one.-->
+            <!--</p>-->
+
+            <!--<div class=" col-sm-6" *ngFor="let t of membershipTypes; let i=index">-->
+              <!--<div class="checkbox m-n">-->
+                <!--<label>-->
+                  <!--<input type="checkbox"-->
+                         <!--[formControl]="typeForm.controls['membershipTypes'].controls[i]"-->
+                         <!--value="{{t.name}}"-->
+                  <!--/>-->
+                  <!--<h5 class="inblock">{{t.name | pretty}}</h5>-->
+                  <!--<p class="subtext">{{t.description}}</p>-->
+                <!--</label>-->
+              <!--</div>-->
+
+            <!--</div>-->
+
+            <!--<div class="clear text-center" *ngIf="typeForm.get('membershipTypes').invalid && submitted">-->
+              <!--<p class="hint" [hidden]="!typeForm.get('membershipTypes').errors.required">You must select at least one membership type.</p>-->
+            <!--</div>-->
+          <!--</div>-->
 
         </panel-body>
 

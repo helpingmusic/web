@@ -2,82 +2,32 @@
   <h3>Checkout</h3>
 </div>
 
-<form class="form"
-      #checkoutForm="ngForm"
-      (submit)="onSubmit(checkoutForm)">
+<form [formGroup]="checkoutForm" (submit)="onSubmit(checkoutForm)">
 
   <div class="p-md">
     <div>
       <h4>Payment Options</h4>
       <hr/>
 
-      <div class="radio"
-           [hidden]="!currentCard?.id">
-        <label>
-          <input type="radio"
-                 name="payment"
-                 id="payment1"
-                 value="current"
-                 [(ngModel)]="method"/>
-          {{currentCard?.brand}} **** **** **** {{currentCard?.last4}}
-        </label>
-      </div>
+      <mat-radio-group formControlName="method" >
+        <mat-list>
+          <mat-list-item *ngFor="let card of paymentMethods">
+            <mat-radio-button [value]="card.id">
+              {{card?.brand}} {{card?.last4}}
+            </mat-radio-button>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-radio-button mat-line value="new">
+              New Method
+            </mat-radio-button>
+          </mat-list-item>
+        </mat-list>
+      </mat-radio-group>
 
-      <div class="radio">
-        <label class="mb-sm">
-          <input type="radio"
-                 name="payment"
-                 id="payment2"
-                 value="new"
-                 checked
-                 [(ngModel)]="method"/> New Method
-        </label>
-
-        <home-stripe-input
-          [hidden]="method !== 'new'"
-          class="clearfix"
-          name="token"
-          ngModel>
-        </home-stripe-input>
-      </div>
-    </div>
-
-    <div [hidden]="!promoOption">
-
-      <a (click)="showPromo = true" [hidden]="showPromo" class="pull-right">Have a Promo Code?</a>
-      <div class="form-group mt-n" [hidden]="!showPromo">
-        <div class="input-group">
-          <label for="plan" class="control-label">Coupon Code</label>
-
-          <input type="text"
-                 name="couponCode"
-                 [ngModel]="cart?.couponCode"
-                 [disabled]="!!cart?.couponCode"
-                 class="form-control"
-                 (ngModelChange)="couponValid = false; errors.couponCode = ''"
-                 (keyup.enter)="validateCoupon()"
-                 autocomplete="off"
-          />
-          <div class="input-group-btn p-n">
-            <home-btn
-              (click)="validateCoupon()"
-              [class]="'btn btn-info btn-xs mt-lg mb-n'"
-              [type]="'button'"
-              [disabled]="!!cart?.couponCode"
-              [isLoading]="couponIsLoading">
-              Check
-            </home-btn>
-          </div>
-        </div>
-
-        <p class="hint clear"
-           [hidden]="!errors.couponCode"
-           [innerHTML]="errors.couponCode">
-        </p>
-        <p class="hint clear" *ngFor="let n of cart?.couponNotes">{{n}}</p>
-      </div>
+      <home-payment-field [hidden]="checkoutForm.get('method').value !== 'new'" formControlName="token"></home-payment-field>
 
     </div>
+
   </div>
 
   <div class="p-md">
@@ -118,20 +68,18 @@
     <p *ngFor="let n of cart?.notes">{{n}}</p>
   </div>
 
-  <div class="p-md row">
-    <div class="col-xs-6">
-      <a class="btn btn-block"
-         (click)="close()">
-        Cancel
-      </a>
+  <div class="p-md row justify-content-between">
+    <div class="col-auto">
+      <button (click)="close()" mat-button>Cancel</button>
     </div>
-    <div class="col-xs-6">
-      <home-btn
-        [class]="'btn btn-primary btn-block'"
-        [type]="'submit'"
-        [isLoading]="formIsLoading">
-        Confirm
-      </home-btn>
+    <div class="col" *ngIf="formIsLoading">
+      <mat-progress-spinner class="pull-right" [diameter]="36" mode="indeterminate" color="primary"></mat-progress-spinner>
+    </div>
+    <div class="col-auto">
+      <button [disabled]="formIsLoading"
+              type="submit"
+              color="accent"
+              mat-flat-button>Confirm</button>
     </div>
   </div>
 </form>

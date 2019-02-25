@@ -3,29 +3,21 @@
   <input type="file" accept="image/*"
          #imgInput
          (change)="fileChangeListener($event)"
-         class="hidden"/>
+         hidden />
 
-  <div class="input-group" (click)="imgInput.click()">
+  <mat-form-field appearance="outline" (click)="imgInput.click()">
+    <mat-label>File</mat-label>
 
-    <div class="input-icon right">
+    <input
+      matInput
+      type="text"
+      [value]="filename || ''"
+      readonly=""
+      placeholder="Choose An Image File..."/>
 
-      <i *ngIf="processing" class="fa fa-fw fa-spin fa-spinner"></i>
-
-      <input
-        type="text"
-        [value]="filename || ''"
-        readonly=""
-        class="form-control"
-        placeholder="Choose An Image File..."/>
-
-    </div>
-
-    <span class="input-group-btn input-group-sm">
-      <button type="button" class="btn btn-fab btn-fab-mini">
-        <i class="material-icons">attach_file</i>
-      </button>
-    </span>
-  </div>
+    <mat-progress-spinner matSuffix mode="indeterminate" diameter="32" *ngIf="processing"></mat-progress-spinner>
+    <mat-icon matSuffix *ngIf="!processing">attach_file</mat-icon>
+  </mat-form-field>
 
   <img-cropper #cropper
                [image]="data"

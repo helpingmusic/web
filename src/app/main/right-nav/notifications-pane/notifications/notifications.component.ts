@@ -36,7 +36,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    $.material.init();
 
     this.notificationService.unread
       .subscribe(counts => {

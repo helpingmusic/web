@@ -47,10 +47,10 @@ $black-87-opacity: rgba(black, 0.87);
 $white-87-opacity: rgba(black, 0.87);
 
 $home-blue: (
-  50: $blue,
-  100: $blue,
-  200: $blue,
-  300: $blue,
+  50: lighten($blue, 50%),
+  100: lighten($blue, 40%),
+  200: lighten($blue, 15%),
+  300: lighten($blue, 10%),
   400: lighten($blue, 5%),
   500: $blue,
   600: darken($blue, 5%),
@@ -76,16 +76,45 @@ $home-blue: (
 );
 
 $home-accent: (
-  50: $purple,
-  100: $purple,
-  200: $purple,
-  300: $purple,
+  50: lighten($purple, 50%),
+  100: lighten($purple, 50%),
+  200: lighten($purple, 15%),
+  300: lighten($purple, 10%),
   400: lighten($purple, 5%),
   500: $purple,
   600: darken($purple, 5%),
   700: $purple,
   800: $purple,
   900: $purple,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$home-error: (
+  50: $error,
+  100: $error,
+  200: $error,
+  300: $error,
+  400: lighten($error, 5%),
+  500: $error,
+  600: darken($error, 5%),
+  700: $error,
+  800: $error,
+  900: $error,
   contrast: (
     50: $black-87-opacity,
     100: $black-87-opacity,

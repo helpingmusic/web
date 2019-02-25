@@ -11,22 +11,6 @@
 
       <div class="card-heading">
         <h4 class="pull-left">{{instance.title}}</h4>
-
-        <home-controls class="pull-right" *ngIf="userRole === 'admin'">
-          <li><a (click)="edit()">
-            <span class="icon mr-md"><i class="material-icons">edit</i></span>
-            Edit
-          </a></li>
-
-          <li class="divider"></li>
-
-          <li><a (click)="delete()">
-            <span class="icon mr-md"><i class="material-icons">delete</i></span>
-            Delete
-          </a></li>
-
-        </home-controls>
-
       </div>
 
       <div class="clear">

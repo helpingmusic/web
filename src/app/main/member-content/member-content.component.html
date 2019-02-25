@@ -1,10 +1,3 @@
-<div *ngIf="isAdmin" class="page-heading">
-  <!--<button (click)="editMedia()"-->
-          <!--class="btn btn-secondary btn-sm pull-right">-->
-    <!--Add Media-->
-  <!--</button>-->
-</div>
-
 <div class="focus-container">
 
   <div data-widget-group="group1">
@@ -22,8 +15,6 @@
           *ngFor="let p of media$ | async; let even = even;"
           [ngClass]="{'clear': even}"
           [instance]="p"
-          (deleteMedia)="onDeleteMedia($event)"
-          (editMedia)="editMedia($event)"
         ></home-media>
       </ng-container>
     </div>

@@ -1,0 +1,79 @@
+
+<form [formGroup]="form" (submit)="onSubmit(form)" action="javascript:void(0);">
+  <mat-card>
+
+    <mat-card-header>
+      <h2 mat-card-title>Membership</h2>
+      <p mat-card-subtitle>
+        Setting up your Member Account is the first step for Homies. 
+        This will give you access to our Member Directory, Community Jam Nights,
+        and Exclusive Member Content for all membership levels.
+      </p>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Choose Your Membership</mat-label>
+            <mat-select formControlName="plan" placeholder="Membership Plan">
+              <mat-option *ngFor="let plan of membershipPlans" [value]="plan.id">
+                {{ plan.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <home-payment-field formControlName="token"
+                              [error]="form.get('token').getError('server')">
+          </home-payment-field>
+        </div>
+
+        <div class="col">
+          <home-coupon-field formControlName="couponCode"></home-coupon-field>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Referred By</mat-label>
+            <input matInput
+                   formControlName="referredBy"
+                   autocomplete="off"/>
+          </mat-form-field>
+        </div>
+        <div class="w-100"></div>
+
+        <div class="col">
+          <h4>Summary</h4>
+          <table class="table">
+            <tr>
+              <th>Total</th>
+              <td class="text-right text-capitalize">$ {{ subscriptionCost | stripePrice }} (monthly)</td>
+            </tr>
+            <tr>
+              <th>First Invoice On</th>
+              <td class="text-right text-capitalize">{{ firstInvoiceDate }}</td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button type="submit"
+              [disabled]="isLoading"
+              mat-flat-button
+              color="primary">
+        Continue
+      </button>
+    </mat-card-actions>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+  </mat-card>
+</form>
+

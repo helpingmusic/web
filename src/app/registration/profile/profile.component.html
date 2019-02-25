@@ -1,0 +1,73 @@
+<form class="form" [formGroup]="profileForm" (submit)="onSubmit(profileForm)" action="javascript:void(0);">
+  <mat-card>
+
+    <mat-card-header>
+      <h2 mat-card-title>Profile</h2>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <home-tag-input description="Play any instruments?"
+                          placeholder="Instruments"
+                          [autocompleteOptions]="instrumentPresets"
+                          formControlName="instruments"></home-tag-input>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+          <home-tag-input description="What kind of music do you play?"
+                          placeholder="Genres"
+                          [autocompleteOptions]="genrePresets"
+                          formControlName="genres"></home-tag-input>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+          <home-tag-input description="What kind skills are you bringing to the community?"
+                          placeholder="Skills"
+                          [autocompleteOptions]="skillPresets"
+                          formControlName="skills"></home-tag-input>
+        </div>
+        <div class="w-100"></div>
+        <div class="col">
+          <home-tag-input description="What kind of resources do you have that could help the community?"
+                          placeholder="Resources"
+                          [autocompleteOptions]="resourcePresets"
+                          formControlName="resources"></home-tag-input>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <h4>Social Links</h4>
+          <p class="subtext">Where can other homies find you?</p>
+          <home-personal-links-form [form]="profileForm.get('personal_links')"></home-personal-links-form>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <h4>Profile Photo</h4>
+          <div class="row">
+            <div class="col-sm-12">
+              <p *ngIf="submitted && profileForm.get('profilePic').hasError('required')" class="hint error">
+                A profile picture is required.
+              </p>
+              <home-img-uploader [settings]="profileUploadSettings"
+                                 (photoChange)="onPhotoChange($event)">
+              </home-img-uploader>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button type="submit" [disabled]="isLoading" mat-flat-button color="primary">Continue</button>
+    </mat-card-actions>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+  </mat-card>
+</form>
+
+

@@ -22,13 +22,15 @@
   user-select: none;
 
   &.confirmed {
-    background: lighten($green, 40%);
-    color: $green;
+    background: #C8E6C9;
+    color: #388E3C;
+    //background: lighten($green, 40%);
+    //color: $green;
   }
 
   &.cancelled {
-    background: lighten($red, 30%);
-    color: $red;
+    background: #FFCDD2;
+    color: #D32F2F;
   }
 
 }

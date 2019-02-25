@@ -37,9 +37,6 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/theme/index.scss"
-            ],
-            "scripts": [
-              "./node_modules/bootstrap-material-design/dist/js/material.js"
             ]
           },
           "configurations": {
@@ -148,5 +145,10 @@
   "defaultProject": "home-app",
   "cli": {
     "defaultCollection": "@ngrx/schematics"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }

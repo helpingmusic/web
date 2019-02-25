@@ -1,8 +1,7 @@
-<div class="clear panel panel-default">
 
-  <div class="panel-heading">
-    <h2>{{instance.title}}</h2>
-
+<mat-card>
+  <mat-card-header>
+    <h2 mat-card-title>{{instance.title}}</h2>
     <button mat-icon-button color="primary"
             class="pull-right"
             *ngIf="userRole === 'admin'"
@@ -13,11 +12,10 @@
       <button (click)="edit()" mat-menu-item>Edit</button>
       <button (click)="delete()" mat-menu-item>Remove</button>
     </mat-menu>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="mb-lg text-space" [innerHTML]="instance.body | wrapLinks"></p>
+  </mat-card-content>
+</mat-card>
 
 
-  </div>
-  <div class="panel-body">
-    <p class="m0 text-space" [innerHTML]="instance.body | wrapLinks"></p>
-  </div>
-
-</div>

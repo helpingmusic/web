@@ -63,7 +63,7 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $.material.init('home-reviews *');
+
   }
 
 }

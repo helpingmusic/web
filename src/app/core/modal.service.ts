@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { default as swal } from 'sweetalert2';
+import swal, { SweetAlertOptions } from 'sweetalert2';
 
 /**
  *  ModalService
@@ -12,37 +12,32 @@ import { default as swal } from 'sweetalert2';
 @Injectable()
 export class ModalService {
 
-  constructor() {
-    swal.setDefaults(<any>{
-      showCancelButton: true,
-      customClass: 'home-modal text-left',
-      buttonsStyling: false,
-      showCloseButton: true,
-      showLoaderOnConfirm: true,
-      confirmButtonClass: 'btn btn-info pull-right ml-md',
-      cancelButtonClass: 'btn btn-default pull-left',
-      type: 'question',
-      onOpen: () => {
-        $.material.init('.home-modal *');
-      },
-      useRejections: true,
-    });
-  }
+  defaults: SweetAlertOptions = {
+    showCancelButton: true,
+    customClass: 'home-modal text-left',
+    buttonsStyling: false,
+    showCloseButton: true,
+    showLoaderOnConfirm: true,
+    confirmButtonClass: 'btn btn-info pull-right ml-md',
+    cancelButtonClass: 'btn btn-default pull-left',
+    type: 'question',
+  };
 
-  popup(options: any): any {
-    return swal(options)
-      .catch(swal.noop);
+  async popup(options: SweetAlertOptions): any {
+    const { value, dismiss } = await swal.fire({ ...this.defaults, ...options });
+    if (value) {
+      return value;
+    }
   }
 
   error(options: any = {}): any {
-    return this.popup(
-      Object.assign({
-        type: 'error',
-        title: 'Attempt Failed',
-        text: 'Something went wrong, please try again later',
-        showCancelButton: false,
-      }, options)
-    );
+    return this.popup({
+      type: 'error',
+      title: 'Attempt Failed',
+      text: 'Something went wrong, please try again later',
+      showCancelButton: false,
+      ...options,
+    });
   }
 
 }

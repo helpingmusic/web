@@ -2,27 +2,18 @@
 
   <div data-widget-group="group1">
     <div class="row">
-      <div class="focus-container">
+      <div class="col-md-8">
 
-        <div class="mb-md text-right">
-          <div class="profile-tab">
-            <div class="form-group is-empty">
-               <textarea [(ngModel)]="newPostContent"
-                         class="form-control m-n"
-                         placeholder="What's on your mind..."
-                         rows="4">
-               </textarea>
-            </div>
-            <div class="clearfix ">
-              <div class="pull-right">
-                <a (click)="newPost()"
-                   class="btn btn-primary btn-sm m-n">
-                  Post
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <mat-card>
+           <textarea [(ngModel)]="newPostContent"
+                     class="form-control m-n"
+                     placeholder="What's on your mind..."
+                     rows="4">
+           </textarea>
+          <mat-card-actions align="end">
+            <button mat-flat-button color="primary" (click)="newPost()">Post</button>
+          </mat-card-actions>
+        </mat-card>
 
         <div class="clear animated-content"
              infiniteScroll

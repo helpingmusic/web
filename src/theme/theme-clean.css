@@ -2383,6 +2383,8 @@ html.full-page-image,html.full-page-image body {
   height: 100%;
   background: #fafafa;
   padding: 0;
+  max-width: 400px !important;
+  margin: 0 auto;
 }
 
 .focused-form .static-sidebar-wrapper,.focused-form header,.focused-form footer {

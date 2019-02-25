@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { CouponFieldComponent } from 'app/shared/coupon-field.component';
 import { HomeMaterialModule } from 'app/shared/home-material/home-material.module';
+import { CardInputComponent } from 'app/shared/payment/card-input.component';
+import { PaymentFieldComponent } from 'app/shared/payment/payment-field.component';
 import { Pipes } from 'app/shared/pipes';
-import { StripeInputComponent } from 'app/shared/stripe-input.component';
 import { TagInputComponent } from 'app/shared/tag-input/tag-input.component';
-import { BsModalModule } from 'ng2-bs3-modal';
 import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -30,6 +31,7 @@ import { ThreadCommentComponent } from './thread/thread-comment/thread-comment.c
 import { ThreadComponent } from './thread/thread.component';
 import { TimePickerDirective } from './time-picker.directive';
 import { PrismicDomPipe } from './prismic-dom.pipe';
+import { PromptModalComponent } from './prompt-modal.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,6 @@ import { PrismicDomPipe } from './prismic-dom.pipe';
     PanelComponent,
     SuccessIconComponent,
     AudioInputComponent,
-    StripeInputComponent,
     NoteBoxComponent,
     DatetimeRangePickerComponent,
     ImgUploaderComponent,
@@ -62,9 +63,14 @@ import { PrismicDomPipe } from './prismic-dom.pipe';
     TagInputComponent,
     ...Pipes,
     PrismicDomPipe,
+    CardInputComponent,
+    PaymentFieldComponent,
+    PromptModalComponent,
+    CouponFieldComponent,
   ],
   entryComponents: [
     LoaderComponent,
+    PromptModalComponent,
   ],
   exports: [
     CommonModule,
@@ -74,8 +80,8 @@ import { PrismicDomPipe } from './prismic-dom.pipe';
 
     HomeMaterialModule,
     ImageCropperModule,
-    BsModalModule,
     InfiniteScrollModule,
+    CouponFieldComponent,
 
     ...Pipes,
     PrismicDomPipe,
@@ -93,13 +99,14 @@ import { PrismicDomPipe } from './prismic-dom.pipe';
     PanelComponent,
     SuccessIconComponent,
     AudioInputComponent,
-    StripeInputComponent,
     NoteBoxComponent,
     DatetimeRangePickerComponent,
     ImgUploaderComponent,
     ThreadComponent,
     ThreadCommentComponent,
     CommentBoxComponent,
+    PaymentFieldComponent,
+    PromptModalComponent,
   ],
 })
 export class SharedModule {

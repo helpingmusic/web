@@ -19,10 +19,6 @@ body {
 
 a {
   color: $primary;
-
-  &:hover, &:focus {
-    color: lighten($primary, 10%);
-  }
 }
 
 

@@ -6,6 +6,9 @@
 
 mat-card {
   margin-bottom: 48px;
+  mat-card-header {
+    padding: 12px 12px 0;
+  }
   .mat-card-avatar {
     background-size: cover;
   }
@@ -13,7 +16,6 @@ mat-card {
 
 home-thread {
   display: block;
-  margin: 0 -16px;
   background: #F7F8F9;
 }
 

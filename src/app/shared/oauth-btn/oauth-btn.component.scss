@@ -1,7 +1,7 @@
 a {
   display: block;
   border-radius: 4px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.9) !important;
   margin-bottom: 10px;
   * {
     user-select: none !important;

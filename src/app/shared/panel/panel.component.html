@@ -1,11 +1,10 @@
-<div class="panel panel-default" [ngClass]="{'panel-collapsed': collapsed}"
-     #panel>
+<mat-card [ngClass]="{'panel-collapsed': collapsed}" #panel>
 
-  <div class="panel-heading"
+  <mat-card-header class="panel-heading"
        (click)="toggleCollapse()"
        [style.cursor]="collapsible ? 'pointer' : 'default'">
 
-    <div class="inblock">
+    <div mat-card-title>
       <ng-content select="panel-heading"></ng-content>
     </div>
 
@@ -16,14 +15,14 @@
 				</span>
       </span>
     </div>
-  </div>
+  </mat-card-header>
 
-  <div class="panel-body">
+  <mat-card-content class="panel-body">
     <ng-content select="panel-body"></ng-content>
-  </div>
+  </mat-card-content>
 
-  <div class="panel-footer clear">
+  <mat-card-actions align="end" class="panel-footer clear">
     <ng-content select="panel-footer"></ng-content>
-  </div>
+  </mat-card-actions>
 
-</div>
+</mat-card>

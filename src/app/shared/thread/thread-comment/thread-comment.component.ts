@@ -6,6 +6,7 @@ import { Comment } from 'models/comment';
 import { AuthService } from 'app/core/auth/auth.service';
 import { ModalService } from 'app/core/modal.service';
 import { ReportService } from 'app/core/report.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'home-thread-comment',
@@ -80,6 +81,10 @@ export class ThreadCommentComponent implements OnInit {
       });
   }
 
+  get isEdited() {
+    return !moment(this.comment.createdAt).isSame(this.comment.updatedAt);
+  }
+
   respond(body) {
     const comment = new Comment({
       body,
@@ -92,7 +97,7 @@ export class ThreadCommentComponent implements OnInit {
         this.showResponse = false;
         this.response = '';
         c.commenter = this.user;
-        this.comment.children.push(c);
+        this.comment = { ...this.comment, children: [...this.comment.children, c]};
       });
 
   }
@@ -118,7 +123,6 @@ export class ThreadCommentComponent implements OnInit {
       title: 'Delete Comment',
       text: `Are you sure you want to delete your comment?`,
       confirmButtonText: 'Delete',
-      closeOnConfirm: false,
       confirmButtonClass: 'btn btn-danger pull-right',
     });
 

@@ -1,5 +1,14 @@
 
 /deep/ h1 {
   margin: 12px 0 6px;
-  font-size: 2em
+  font-size: 1.6em
+}
+
+/deep/ .block-img {
+  margin: 0 -15px 12px;
+}
+/deep/ .prismic-render {
+  h2 {
+    font-size: 1.2em;
+  }
 }

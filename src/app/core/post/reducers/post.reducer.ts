@@ -30,7 +30,7 @@ export const getPostsPage = createSelector(
 );
 export const selectPostsForUser = createSelector(
   selectPosts,
-  (posts: Post[], userId: string) => posts.filter(p => p.poster._id === userId),
+  (posts: Post[], userId: string) => posts.filter(p => p.poster && p.poster._id === userId),
 );
 
 export const selectPostById = createSelector(

@@ -70,7 +70,7 @@ export class PostComponent implements OnInit {
     this.threadService.postComment(comment)
       .subscribe(c => {
         c.commenter = this.user;
-        this.post.thread.comments.push(c);
+        this.post.thread = { ...this.post.thread, comments: [...this.post.thread.comments, c]};
       });
   }
 

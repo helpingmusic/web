@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="signup-block pt-xl">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <a href="http://evolvemusic.org" class="inblock">
+          <img alt="H.O.M.E." width="200" src="assets/images/home-login-logo.png"/>
+        </a>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <mat-horizontal-stepper
+          [linear]="false"
+          (selectionChange)="updateRoute($event)"
+          [formGroup]="walkthrough">
+
+          <mat-step state="contact"
+                    [stepControl]="walkthrough.get('contact')"
+                    [editable]="false">
+            <ng-template matStepLabel>Contact</ng-template>
+            <home-contact (completed)="stepCompleted('contact')" [isRegistrationStep]="true"></home-contact>
+          </mat-step>
+
+          <mat-step state="subscription" [editable]="false" [stepControl]="walkthrough.get('subscription')">
+            <ng-template matStepLabel>Membership</ng-template>
+            <home-subscription (completed)="stepCompleted('subscription')"></home-subscription>
+          </mat-step>
+
+          <mat-step state="about" [stepControl]="walkthrough.get('about')">
+            <ng-template matStepLabel>About</ng-template>
+            <home-about (completed)="stepCompleted('about')"></home-about>
+          </mat-step>
+
+          <mat-step state="profile" [stepControl]="walkthrough.get('profile')">
+            <ng-template matStepLabel>Profile</ng-template>
+            <home-profile (completed)="stepCompleted('profile')"></home-profile>
+          </mat-step>
+
+          <mat-step state="done" [stepControl]="walkthrough.get('done')">
+            <ng-template matStepLabel>Finish</ng-template>
+            <home-done (completed)="stepCompleted('done')"></home-done>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+
+      </div>
+    </div>
+  </div>
+
+</div>

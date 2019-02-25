@@ -2,17 +2,9 @@
 
 .imgUploader {
   text-align: center;
-  padding: 20px 50px;
-  background: $bg-gray;
-  border-radius: 6px;
-
-  .input-group {
-    margin-bottom: 20px;
-    cursor: pointer;
-    input {
-      outline: none !important;
-    }
-  }
+  //padding: 20px 50px;
+  //background: $bg-gray;
+  //border-radius: 6px;
 
   /deep/ canvas {
     display: none;

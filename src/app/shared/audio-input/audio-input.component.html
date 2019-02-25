@@ -4,7 +4,7 @@
        [disabled]="disabled"
        (change)="onFileUpload($event)"
        accept=".mp3,audio/wav,audio/mp3,audio/mp4"
-       class="hidden"/>
+       hidden />
 
 <div class="input-group" (click)="songInput.click()">
 
@@ -26,11 +26,11 @@
     </div>
 
     <input
+      matInput
       type="text"
       readonly=""
       [disabled]="disabled"
       [value]="file?.name || ''"
-      class="form-control"
       placeholder="Choose Song File..."/>
 
     <hr class="progress" [ngStyle]="{'width': (progress$ | async) + '%'}"/>

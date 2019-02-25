@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    $.material.init('home-settings *');
+
   }
 
 

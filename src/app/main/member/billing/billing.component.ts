@@ -9,7 +9,6 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { ModalService } from 'app/core/modal.service';
 import { CouponService } from 'app/core/coupon.service';
 import { Coupon } from 'models/coupon';
-import { StripeInputComponent } from 'app/shared/stripe-input.component';
 
 @Component({
   selector: 'home-billing',
@@ -21,8 +20,6 @@ export class BillingComponent implements OnInit, OnDestroy {
 
   upcomingInvoices$: Observable<Array<Invoice>>;
   pastInvoices$: Observable<Array<Invoice>>;
-
-  @ViewChild('stripeInput') stripeInput: StripeInputComponent;
 
   member = new User();
   customer: any;
@@ -107,12 +104,10 @@ export class BillingComponent implements OnInit, OnDestroy {
         res => {
           this.paymentFormLoading = false;
           this.success = true;
-          this.stripeInput.clear();
         },
         res => {
           this.errors.payment = res.error.message;
           this.paymentFormLoading = false;
-          this.stripeInput.clear();
         }
       )
   }
@@ -146,6 +141,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       showCancelButton: true,
     })
       .then(doCancel => {
+        console.log(doCancel);
         if (!doCancel) return;
 
         this.auth.cancelSubscription()

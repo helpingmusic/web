@@ -24,94 +24,56 @@ import { ModalService } from 'app/core/modal.service';
 
         <panel-body>
 
-          <div class="col-sm-4">
-            <div class="form-group label-floating mt-n"
-                 [ngClass]="{'has-error': showError('profession') }">
-              <label for="profession" class="control-label">Profession</label>
-              <input type="text"
-                     class="form-control"
-                     name="profession"
-                     required
-                     formControlName="profession"
-              />
-              <div *ngIf="showError('profession')">
-                <p class="hint" [hidden]="!aboutForm.get('profession').errors.required">This field is required.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group label-floating mt-n"
-                 [ngClass]="{'has-error': showError('city') }">
-              <label for="city" class="control-label">City</label>
-              <input type="text"
-                     class="form-control"
-                     name="city"
-                     required
-                     formControlName="city"
-              />
-              <div *ngIf="showError('city')">
-                <p class="hint" [hidden]="!aboutForm.get('city').errors.required">This field is required.</p>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col-sm-4">
-            <div class="form-group mt-n"
-                 [ngClass]="{'has-error': showError('state') }">
-
-              <select class="form-control" name="state" required formControlName="state" stateSelector>
-                <option value="">Select a State</option>
-              </select>
-
-              <div *ngIf="showError('state')">
-                <p class="hint" [hidden]="!aboutForm.get('state').errors.required">This field is required.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xs-12 clear">
-            <div class="form-group mt-n"
-                 [ngClass]="{'has-error': showError('bio') }">
-
-              <label for="bio">Bio</label>
-              <p class="mb-sm">
-                Just give us a few words. You can change it whenever you want.
-                Are you in a band? Have you put any music out? Have you worked
-                on any notable projects? Let us know!
-              </p>
-              <mat-form-field>
-                <textarea name="bio"
-                          matInput
-                          matTextareaAutosize
-                          rows="8"
-                          formControlName="bio"
-                ></textarea>
-
-                <div *ngIf="showError('bio')">
-                  <mat-error *ngIf="aboutForm.get('bio').errors?.required">This field is required.</mat-error>
-                </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Profession</mat-label>
+                <input matInput formControlName="profession" />
               </mat-form-field>
+            </div>
 
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" />
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label>State</mat-label>
+                <select matNativeControl formControlName="state" stateSelector>
+                  <option value="">Select a State</option>
+                </select>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label>Bio</mat-label>
+                <textarea matInput
+                          formControlName="bio"
+                          placeholder="Just give us a few words. You can change it whenever you want. Are you in a band? Have you put any music out? Have you worked on any notable projects? Let us know! "></textarea>
+              </mat-form-field>
+            </div>
+
+            <div class="col-12">
+              <home-tag-input placeholder="Instruments" formControlName="instruments"></home-tag-input>
+            </div>
+
+            <div class="col-12">
+              <home-tag-input placeholder="Music Genres" formControlName="genres"></home-tag-input>
+            </div>
+
+            <div class="col-12">
+              <home-tag-input placeholder="Skills" formControlName="skills"></home-tag-input>
+            </div>
+
+            <div class="col-12">
+              <home-tag-input placeholder="Resources" formControlName="resources"></home-tag-input>
             </div>
           </div>
-
-          <div class="col-xs-12">
-            <home-tag-input placeholder="Instruments" formControlName="instruments"></home-tag-input>
-          </div>
-
-          <div class="col-xs-12">
-            <home-tag-input placeholder="Music Genres" formControlName="genres"></home-tag-input>
-          </div>
-
-          <div class="col-xs-12">
-            <home-tag-input placeholder="Skills" formControlName="skills"></home-tag-input>
-          </div>
-
-          <div class="col-xs-12">
-            <home-tag-input placeholder="Resources" formControlName="resources"></home-tag-input>
-          </div>
+          
         </panel-body>
 
         <panel-footer>

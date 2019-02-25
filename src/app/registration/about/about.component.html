@@ -1,0 +1,87 @@
+
+<form class="form" [formGroup]="aboutForm" (submit)="onSubmit(aboutForm)" action="javascript:void(0);">
+  <mat-card>
+
+    <mat-card-header>
+      <h2 mat-card-title>About</h2>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row">
+
+        <div class="col">
+          <h4>Membership Categories</h4>
+          <p class="subtext">
+            You must fit into at least one of these categories to become a HOME member. Check all boxes that apply.
+          </p>
+
+          <div class="row membership-options">
+            <div class="col-sm-6" *ngFor="let t of membershipTypes; let i=index">
+              <mat-checkbox [formControl]="aboutForm.controls['membershipTypes'].controls[i]">
+                <h5 mat-line class="inblock">{{t.name | pretty}}</h5>
+                <p mat-line class="subtext">{{t.description}}</p>
+              </mat-checkbox>
+            </div>
+          </div>
+
+          <div class="clear text-center" *ngIf="aboutForm.get('membershipTypes').invalid && submitted">
+            <p class="hint" [hidden]="!aboutForm.get('membershipTypes').errors.required">
+              You must select at least one membership type.
+            </p>
+          </div>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Profession</mat-label>
+            <input matInput autofocus formControlName="profession"/>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput autofocus formControlName="phoneNumber"/>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput autofocus formControlName="city"/>
+          </mat-form-field>
+        </div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <select matNativeControl formControlName="state" stateSelector>
+              <option value="">Select a State</option>
+            </select>
+          </mat-form-field>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="col">
+          <mat-form-field appearance="outline">
+            <mat-label>Bio</mat-label>
+            <textarea matInput
+                      formControlName="bio"
+                      placeholder="Just give us a few words. You can change it whenever you want. Are you in a band? Have you put any music out? Have you worked on any notable projects? Let us know! "></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button type="submit" [disabled]="isLoading" mat-flat-button color="primary">Continue</button>
+    </mat-card-actions>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+  </mat-card>
+</form>
+

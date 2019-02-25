@@ -110,3 +110,27 @@
 .animated-content .card {
   visibility: hidden;
 }
+
+mat-card.mat-card {
+  margin-bottom: 2em;
+  padding: 0;
+  overflow: hidden;
+
+  mat-card-header {
+    .mat-icon-button {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+    }
+  }
+
+  mat-card-actions.mat-card-actions {
+    padding: 8px !important;
+    margin: 0 !important;
+    background: #e7e9ec;
+  }
+  mat-card-content {
+    padding: 0 1em;
+  }
+}
+

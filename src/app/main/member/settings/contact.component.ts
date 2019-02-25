@@ -19,43 +19,41 @@ import { ModalService } from 'app/core/modal.service';
         </panel-heading>
 
         <panel-body>
-          <div class="col-sm-4">
-            <div class="form-group mt-n"
-                 [ngClass]="{'has-error': contactForm.controls?.first_name?.errors }">
-              <label for="first_name" class="control-label">First Name</label>
-              <input type="text"
-                     class="form-control"
-                     name="first_name"
-                     required
-                     [ngModel]="member.first_name"
-              />
-
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label for="first_name">First Name</mat-label>
+                <input type="text"
+                       matInput
+                       name="first_name"
+                       required
+                       [ngModel]="member.first_name"
+                />
+              </mat-form-field>
             </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group mt-n"
-                 [ngClass]="{'has-error': contactForm.controls?.last_name?.errors }">
-              <label for="last_name" class="control-label">Last Name</label>
-              <input type="text"
-                     class="form-control"
-                     name="last_name"
-                     required
-                     [ngModel]="member.last_name"
-              />
-
+            
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label for="last_name">Last Name</mat-label>
+                <input type="text"
+                       matInput
+                       name="last_name"
+                       required
+                       [ngModel]="member.last_name"
+                />
+              </mat-form-field>
             </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group mt-n"
-                 [ngClass]="{'has-error': contactForm.controls?.email?.errors }">
-              <label for="email" class="control-label">Email</label>
-              <input type="email"
-                     class="form-control"
-                     name="email"
-                     required
-                     [ngModel]="member.email"
-              />
+            
+            <div class="col-sm-4">
+              <mat-form-field appearance="outline">
+                <mat-label for="email">Email</mat-label>
+                <input type="email"
+                       matInput
+                       name="email"
+                       required
+                       [ngModel]="member.email"
+                />
+              </mat-form-field>
             </div>
           </div>
 
@@ -63,15 +61,11 @@ import { ModalService } from 'app/core/modal.service';
 
         <panel-footer>
           <home-btn
-            [class]="'btn btn-info btn-sm pull-right mt-n'"
+            [class]="'btn btn-info btn-sm mt-n'"
             [type]="'submit'"
             [isLoading]="isLoading">
             Save
           </home-btn>
-
-          <div class="pull-right" *ngIf="success">
-            <success-icon></success-icon>
-          </div>
         </panel-footer>
       </panel>
 

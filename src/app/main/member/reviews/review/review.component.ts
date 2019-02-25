@@ -44,13 +44,10 @@ export class ReviewComponent implements OnInit {
       title: 'Delete Review',
       text: `Are you sure you want to delete this review? It will be gone forever.`,
       confirmButtonText: 'Delete',
-      closeOnConfirm: false,
     })
       .then(() => {
-        console.log('do delete');
         this.reviewService.delete(this.review._id)
           .subscribe(() => {
-            console.log('delete sub');
             this.modal.popup({
               type: 'success',
               title: 'Success',

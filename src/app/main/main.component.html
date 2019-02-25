@@ -1,30 +1,32 @@
 <home-head-nav></home-head-nav>
 
-<mat-sidenav-container class="container" (backdropClick)="closeNav()">
+<div class="container">
+  <mat-sidenav-container class="row" (backdropClick)="closeNav()">
 
-  <mat-sidenav class="right-nav"
-               [opened]="showLeftNav$ | async"
-               position="start"
-               [fixedTopGap]="64"
-               [mode]="(navService.isMobile$ | async) ? 'over' : 'side'"
-               [disableClose]="!(navService.isMobile$ | async)"
-               [fixedInViewport]="true">
-    <home-side-nav></home-side-nav>
-  </mat-sidenav>
+    <mat-sidenav class="left-nav  col-4"
+                 [opened]="showLeftNav$ | async"
+                 position="start"
+                 [fixedTopGap]="64"
+                 [mode]="(navService.isMobile$ | async) ? 'over' : 'side'"
+                 [disableClose]="!(navService.isMobile$ | async)"
+                 [fixedInViewport]="true">
+      <home-side-nav></home-side-nav>
+    </mat-sidenav>
 
-  <mat-sidenav mode="over" position="end"
-               [autoFocus]="false"
-               [opened]="showRightNav$ | async"
-               [fixedTopGap]="64"
-               [fixedInViewport]="true">
-    <home-right-nav></home-right-nav>
-  </mat-sidenav>
+    <mat-sidenav-content class="col-auto">
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
 
-  <mat-sidenav-content>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </mat-sidenav-content>
+    <mat-sidenav mode="over" position="end"
+                 [autoFocus]="false"
+                 [opened]="showRightNav$ | async"
+                 [fixedTopGap]="64"
+                 [fixedInViewport]="true">
+      <home-right-nav></home-right-nav>
+    </mat-sidenav>
 
-</mat-sidenav-container>
+  </mat-sidenav-container>
+</div>
 

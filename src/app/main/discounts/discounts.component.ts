@@ -6,8 +6,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AuthService } from 'app/core/auth/auth.service';
-import { ModalService } from 'app/core/modal.service';
-import { BsModalComponent } from 'ng2-bs3-modal';
 import { NotificationService } from 'app/core/notification.service';
 
 import { Discount } from 'models/discount';

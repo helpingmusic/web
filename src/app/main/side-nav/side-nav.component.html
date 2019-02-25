@@ -1,51 +1,44 @@
 <div>
 
-  <div class="mb-lg">
-    <div class="widget-body">
-      <a [routerLink]="['/member', user._id]" class="userinfo panel">
-        <div class="clearfix row">
-          <div class="col-xs-3">
-            <div class="avatar">
-              <img src="{{user.profile_pic || '/assets/images/avatar.png'}}"
-                   class="img-responsive img-circle">
-            </div>
+  <div class="userinfo panel">
+    <a [routerLink]="['/member', user._id]">
+      <div class="row">
+        <div class="col-3">
+         <div class="avatar">
+            <img src="{{user.profile_pic || '/assets/images/avatar.png'}}"
+                 class="img-responsive img-circle">
           </div>
-          <div class="col-xs-9">
-            <h4 class="username">{{user.first_name}} {{user.last_name}}</h4>
-            <p class="useremail">{{user.membership_types.join(', ') | pretty}}</p>
-          </div>
-
         </div>
-      </a>
-    </div>
+        <div class="col-9">
+          <h4>{{user.first_name}} {{user.last_name}}</h4>
+          <p class="useremail">{{user.membership_types.join(', ') | pretty}}</p>
+        </div>
+
+      </div>
+    </a>
   </div>
 
-  <nav role="navigation">
-    <ul class="acc-menu">
+  <button class="cta" mat-flat-button color="accent" (click)="referralInfo()">
+    <mat-icon>person_add</mat-icon>
+    <span class="ml-md">Refer a Friend</span>
+  </button>
 
-      <li class="accent">
-        <a (click)="referralInfo()">
-          <span class="icon"><i class="material-icons">person_add</i></span>
-          <span>Refer a Friend</span>
-        </a>
-      </li>
+  <mat-nav-list dense>
+    <mat-divider></mat-divider>
 
-      <ng-container *ngFor="let l of links">
+    <h3 mat-subheader>Navigation</h3>
 
-        <li *ngIf="!l.hasPermissions || l.hasPermissions()">
-          <a (click)="navigate(l.path)"  *ngIf="!l.external" [routerLink]="l.path" routerLinkActive="active">
-            <span class="icon"><i class="material-icons">{{ l.icon }}</i></span>
-            <span>{{ l.text }}</span>
-          </a>
+    <ng-container *ngFor="let link of links">
+      <a mat-list-item  *ngIf="!link.external" [routerLink]="link.path" routerLinkActive="active">
+        <mat-icon>{{ link.icon }}</mat-icon>
+        <span>{{ link.text }}</span>
+      </a>
+      <a mat-list-item  *ngIf="link.external" [href]="link.path" target="_blank">
+        <mat-icon>{{ link.icon }}</mat-icon>
+        <span>{{ link.text }}</span>
+      </a>
+    </ng-container>
 
-          <a *ngIf="l.external" [href]="l.path" target="_blank">
-            <span class="icon"><i class="material-icons">{{ l.icon }}</i></span>
-            <span>{{ l.text }}</span>
-          </a>
-        </li>
+  </mat-nav-list>
 
-      </ng-container>
-    </ul>
-
-  </nav>
 </div>

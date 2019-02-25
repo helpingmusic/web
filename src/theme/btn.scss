@@ -5,7 +5,7 @@
   @if (lightness($color) > 70) {
     @return rgba(0,0,0,0.74);
   } @else {
-    @return rgba(255,255,255,0.84);
+    @return rgba(255,255,255,0.9);
   }
 }
 
@@ -34,7 +34,7 @@ div *.btn {
   margin: 0;
   cursor: pointer;
   border: 0;
-  font-weight: 600 !important;
+  //font-weight: 600 !important;
   letter-spacing: 1px;
 
   &:disabled,

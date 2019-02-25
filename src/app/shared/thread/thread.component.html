@@ -1,13 +1,15 @@
-<ul class="comments">
-  <li *ngIf="thread?.comments.length > length" class="p-sm">
-    <a (click)="length = thread?.comments.length">View Previous Comments</a>
-  </li>
-  <li *ngFor="let c of thread?.comments | slice:threadPreview">
-    <home-thread-comment [comment]="c"></home-thread-comment>
-  </li>
-</ul>
 
-<!--<div class="p-md">-->
-  <!--<home-comment-box (submit)="comment($event)"></home-comment-box>-->
-<!--</div>-->
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-nested-tree-node *matTreeNodeDef="let node">
+    <li>
+      <div class="mat-tree-node">
+        <home-thread-comment [comment]="node"></home-thread-comment>
+      </div>
+      <ul>
+        <ng-container matTreeNodeOutlet></ng-container>
+      </ul>
+    </li>
+  </mat-nested-tree-node>
+</mat-tree>
+
 

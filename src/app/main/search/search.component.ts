@@ -161,7 +161,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   animate() {
     setTimeout(() => {
-      $.material.init('home-search *');
+
     }, 100);
   }
 

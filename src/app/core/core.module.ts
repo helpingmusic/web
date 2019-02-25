@@ -7,6 +7,7 @@ import { MusicModule } from 'app/core/music/music.module';
 import { NavModule } from 'app/core/nav/nav.module';
 import { PostModule } from 'app/core/post/post.module';
 import { ReportService } from 'app/core/report.service';
+import { StripeProvider } from 'app/core/stripe.provider';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { ApiInterceptor } from 'app/core/api.interceptor';
@@ -56,6 +57,8 @@ import { ThreadService } from 'app/core/thread.service';
     CouponService,
     ThreadService,
     ReportService,
+
+    StripeProvider,
 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }

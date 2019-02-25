@@ -1,20 +1,22 @@
 <div class="pt-xxl center-block">
-  <div class="">
+  <div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3>Membership</h3>
-      </div>
-      <div class="panel-body">
+    <mat-card>
 
-        <div class="col-xs-12" *ngIf="!isActive">
+      <mat-card-header>
+        <h3 mat-card-title>Membership</h3>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <div class="col" *ngIf="!isActive">
           <p>
             You do not have an active subscription.
             To start a subscription, simply fill out the billing section.
           </p>
         </div>
 
-        <div class="col-xs-12" *ngIf="activeUntil">
+        <div *ngIf="activeUntil">
           <table class="table table-striped">
             <tr>
               <th>Subscription Renewal</th>
@@ -45,138 +47,109 @@
 
         </div>
 
-      </div>
+      </mat-card-content>
 
-      <div class="panel-footer">
-        <div class="pull-left" *ngIf="isActive">
+      <mat-card-actions align="start">
+        <div *ngIf="isActive">
           <button
+            mat-flat-button
+            color="warn"
             type="button"
-            (click)="cancelSubscription()"
-            class="btn btn-danger btn-xs mt-sm">
+            (click)="cancelSubscription()">
             Cancel Membership
           </button>
         </div>
-      </div>
+      </mat-card-actions>
 
-    </div>
+    </mat-card>
 
 
-    <div class="panel">
+    <mat-card>
       <form action="javascript:void(0)"
             (submit)="onSubmit(paymentForm)"
             #paymentForm="ngForm">
 
-        <div class="panel-heading">
-          <h3>Payment</h3>
-        </div>
-        <div class="panel-body">
-          <div class="col-xs-12" *ngIf="!!card">
-            <h4 class="pull-left mt-n">Card On File</h4>
-            <p class="pull-right mt-n">{{card.brand}} {{card.last4}}</p>
-          </div>
-          <div class="col-xs-12" *ngIf="!card">
-            <p>You don't have a card on file, if you want your subscription to stay active, you'll need to add one.</p>
-          </div>
-          <div class="col-xs-12">
-            <h5>Change Payment Method</h5>
-            <home-stripe-input
-              #stripeInput
-              class="clearfix"
-              name="token"
-              required
-              ngModel>
-            </home-stripe-input>
-            <p class="hint error">{{errors?.payment}}</p>
-          </div>
-          <div class="col-xs-12">
+        <mat-card-header>
+          <h2 mat-card-title>Payment</h2>
+          <p mat-card-subtitle>This is your default payment method.</p>
+        </mat-card-header>
 
-            <a (click)="showPromo = true" [hidden]="showPromo" class="pull-right">Have a Promo Code?</a>
-            <div class="form-group mt-n" [hidden]="!showPromo">
-              <div class="input-group">
-                <label for="plan" class="control-label">Coupon Code</label>
+        <mat-card-content>
 
-                <input type="text"
-                       name="couponCode"
-                       class="form-control"
-                       [disabled]="member?.stripe?.couponUsed"
-                       [(ngModel)]="couponCode"
-                       (keyup.enter)="applyCoupon(couponCode)"
-                       autocomplete="off"
-                />
-                <div class="input-group-btn p-n">
-                  <home-btn
-                    (click)="applyCoupon(couponCode)"
-                    [class]="'btn btn-info btn-xs mt-lg mb-n'"
-                    [type]="'button'"
-                    [disabled]="!!member?.stripe?.couponUsed"
-                    [isLoading]="couponIsLoading">
-                    Apply
-                  </home-btn>
-                </div>
-              </div>
-
-              <p class="hint clear"
-                 [ngClass]="{ error: !coupon?.valid }"
-                 [hidden]="!coupon?.message"
-                 [innerHTML]="coupon?.message">
-              </p>
+          <div class="row">
+            <div class="col-12" *ngIf="!!card">
+              <h4 class="pull-left mt-n">Card On File</h4>
+              <p class="pull-right mt-n">{{card.brand}} {{card.last4}}</p>
             </div>
 
+            <div class="col-12" *ngIf="!card">
+              <p>You don't have a card on file, if you want your subscription to stay active, you'll need to add one.</p>
+            </div>
+
+            <div class="col-12">
+              <h5>Change Payment Method</h5>
+              <home-payment-field name="token" ngModel [error]="errors?.payment"></home-payment-field>
+              <p class="hint error">{{errors?.payment}}</p>
+            </div>
+
+            <div class="col-12 text-right">
+              <a (click)="showPromo = true" [hidden]="showPromo">Have a Promo Code?</a>
+              <home-coupon-field [hidden]="!showPromo" name="couponCode" ngModel></home-coupon-field>
+            </div>
 
           </div>
+        </mat-card-content>
 
-        </div>
-
-        <div class="panel-footer clearfix">
-          <home-btn
-            [class]="'btn btn-info btn-sm pull-right'"
-            [type]="'submit'"
-            [disabled]="paymentForm.invalid"
-            [isLoading]="paymentFormLoading">
+        <mat-card-actions align="end">
+          <button type="submit"
+                  mat-flat-button
+                  [disabled]="paymentForm.invalid || paymentFormLoading"
+                  color="accent">
             Save
-          </home-btn>
+          </button>
+        </mat-card-actions>
 
-          <div class="pull-right" *ngIf="success">
-            <success-icon></success-icon>
-          </div>
-        </div>
+        <mat-progress-bar mode="indeterminate" color="primary" *ngIf="paymentFormLoading"></mat-progress-bar>
 
       </form>
-    </div>
+    </mat-card>
 
     <home-loader [hidden]="!(invoiceService.isLoading$ | async)"></home-loader>
 
-    <div class="panel panel-default" [hidden]="!(upcomingInvoices$ | async)?.length">
+    <mat-card [hidden]="!(upcomingInvoices$ | async)?.length">
 
-      <div class="panel-heading">
-        <h3>Upcoming Invoices</h3>
-      </div>
-      <div class="panel-body">
+      <mat-card-header>
+        <h3 mat-card-title>Upcoming Invoices</h3>
+      </mat-card-header>
+
+      <mat-card-content>
         <div *ngFor="let invoice of (upcomingInvoices$ | async)"
              [hidden]="(upcomingInvoices$ | async)?.length === 0">
 
           <home-invoice-summary [invoice]="invoice"></home-invoice-summary>
         </div>
-      </div>
+      </mat-card-content>
 
-    </div>
+      <mat-card-footer></mat-card-footer>
+    </mat-card>
 
-    <div class="panel panel-default" [hidden]="!(pastInvoices$ | async)?.length">
+    <mat-card [hidden]="!(pastInvoices$ | async)?.length">
 
-      <div class="panel-heading">
-        <h3>Past Invoices</h3>
-      </div>
+      <mat-card-header>
+        <h3 mat-card-title>Past Invoices</h3>
+      </mat-card-header>
 
-      <div class="panel-body">
-        <div clas="clearfix" *ngFor="let invoice of (pastInvoices$ | async)"
+      <mat-card-content>
+        <div class="clearfix" *ngFor="let invoice of (pastInvoices$ | async)"
              [hidden]="(pastInvoices$ | async)?.length === 0">
 
           <home-invoice-summary [invoice]="invoice"></home-invoice-summary>
 
         </div>
-      </div>
+      </mat-card-content>
+      <mat-card-footer></mat-card-footer>
 
-    </div>
+    </mat-card>
 
   </div>
 

@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PersonalLinksFormComponent } from './personal-links.component';
+import { PersonalLinksFormComponent } from 'app/components/forms/personal-links-form/personal-links-form.component';
 
 describe('PersonalLinksFormComponent', () => {
   let component: PersonalLinksFormComponent;
@@ -10,7 +9,7 @@ describe('PersonalLinksFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PersonalLinksFormComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

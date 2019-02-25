@@ -8,7 +8,7 @@ import { User } from 'models/user';
 import * as Raven from 'raven-js';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, filter, first, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, first, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 
 @Injectable()
@@ -50,6 +50,7 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>('/auth/local', { email, password })
       .pipe(
+        take(1),
         map(body => {
           this.store.set('userToken', body.token);
 

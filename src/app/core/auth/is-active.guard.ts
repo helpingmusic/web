@@ -29,7 +29,7 @@ export class IsActiveGuard implements CanActivate {
       map((u: User) => {
 
         if (!u.isActive) {
-          this.router.navigate(['/walkthrough']);
+          this.router.navigate(['/register', 'subscription']);
         }
 
         return u.isActive;

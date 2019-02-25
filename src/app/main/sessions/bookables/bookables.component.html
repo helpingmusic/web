@@ -18,23 +18,24 @@
     </div>
 
     <div *ngFor="let studio of (bookables$ | async)">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2>{{studio.name}}</h2>
-          <p class="subtext clear m-n">{{studio.location}}</p>
-        </div>
-        <div class="panel-body row mb-n">
-          <div class="media center-block col-md-6" *ngIf="studio.imageUrl">
-            <img [src]="studio.imageUrl"/>
-          </div>
-          <div class="col-md-6">
-            <p>{{ studio.description }}</p>
-          </div>
-        </div>
-        <div class="panel-footer">
-          <a [routerLink]="[studio.id]" class="pull-right btn btn-action btn-sm">Book A Session</a>
-        </div>
-      </div>
+
+      <mat-card>
+        <mat-card-header>
+          <h2 mat-card-title>{{studio.name}}</h2>
+          <h4 mat-card-subtitle>{{studio.location}}</h4>
+        </mat-card-header>
+
+        <img class="mb-md" [src]="studio.imageUrl"/>
+
+        <mat-card-content>
+          {{ studio.description }}
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <a mat-flat-button color="accent" [routerLink]="[studio.id]">Book A Session</a>
+        </mat-card-actions>
+      </mat-card>
+
     </div>
   </div>
 

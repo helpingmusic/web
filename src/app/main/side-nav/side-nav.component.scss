@@ -7,94 +7,34 @@
   background: none;
   //overflow-y: scroll;
   max-height: 100vh;
-  float: right;
-  width: 240px;
+  display: block;
   padding-top: 24px;
-
-  ul.acc-menu {
-    list-style: none;
-    padding: 0;
-    li {
-      user-select: none;
-      padding: 4px;
-      width: 100%;
-
-      a {
-        padding: 4px 16px;
-        color: rgba(0, 0, 0, 0.9);
-        transition: 300ms all ease 0s;
-        border-radius: 18px;
-        width: 100%;
-        display: block;
-        font-size: 1.2em;
-
-        &:hover, &.active {
-          background: rgba(0, 0, 0, 0.1);
-        }
-
-        .icon {
-          color: rgba(0, 0, 0, 0.7);
-          margin-right: 8px;
-        }
-
-      }
-    }
-
-    .accent {
-      a {
-        background: $purple;
-
-        &:hover {
-          background-color: lighten($purple, 10%);
-        }
-
-        * {
-          color: rgba(255, 255, 255, 0.9);
-        }
-      }
-    }
-  }
-
-  .hasChild .acc-menu li {
-    background: lighten($blue, 10%);
-
-    span.badge {
-      position: relative;
-      right: 0;
-      left: 0;
-    }
-  }
-
 }
 
-.widget {
-  margin-bottom: 24px;
+.cta {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+a.mat-list-item {
+  height: 32px !important;
+  span {
+    margin-left: 12px;
+    font-size: 14px;
+  }
+  &.active {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #ececec;
+  }
+  mat-icon {
+    color: #474747;
+  }
 }
 
 .userinfo {
-  display: block;
   padding: 12px;
-  margin: 0;
-
-  .avatar {
-    float: left;
-    margin-right: 12px;
-
-    img {
-      height: 100%;
-    }
-  }
-
-  h4 {
-    margin: 0 0 6px;
-  }
-
-  p {
+  margin-bottom: 1em;
+  h4, p {
     margin: 0;
-    color: rgba(0, 0, 0, 0.6);
   }
-}
-
-i {
-  color: inherit;
 }

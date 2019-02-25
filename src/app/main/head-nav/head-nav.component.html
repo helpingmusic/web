@@ -3,104 +3,101 @@
   <mat-toolbar color="primary">
 
     <div class="container">
+      <div class="row">
 
-      <ul class="actions">
-
-        <li>
-          <div class="brand">
-            <a href="https://helpingmusic.org">
-              <img class="img-logo-white"
-                   alt="HOME"
-                   [src]="(navService.isMobile$ | async) ? 'assets/images/home-logo-icon-white.png' : 'assets/images/home-logo-white.png'">
-            </a>
-          </div>
-        </li>
-
-        <li *ngIf="navService.isMobile$ | async">
-          <button mat-icon-button (click)="toggleLeftbar()">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </li>
-
-      </ul>
-
-      <span class="spacer-1"></span>
-
-      <span class="search">
-          <home-search-bar *ngIf="showSearchBar$ | async"></home-search-bar>
-      </span>
-
-      <span class="spacer-2"></span>
-
-      <ul class="actions">
-
-        <li *ngIf="navService.isMobile$ | async">
-          <button mat-icon-button (click)="toggleSearch()">
-            <mat-icon>search</mat-icon>
-          </button>
-        </li>
-
-        <li>
-
-          <button mat-icon-button [matMenuTriggerFor]="infoMenu">
-            <mat-icon>info</mat-icon>
-          </button>
-
-          <mat-menu #infoMenu="matMenu">
-            <button mat-menu-item (click)="report('bug')">Report a bug</button>
-            <button mat-menu-item (click)="report('suggestion')">Write a Suggestion</button>
-            <a mat-menu-item routerLink="/privacy-policy">Privacy Policy</a>
-            <a mat-menu-item routerLink="/terms">Membership Agreement</a>
-            <a mat-menu-item
-               href="https://docs.google.com/document/d/1h8dUqZ_QwZtkjpBBzHYgBkB9pPF_NlkECqrpF3jZulg/edit?usp=sharing"
-               target="_blank">
-              Homie Handbook
-              <mat-icon>link</mat-icon>
-            </a>
-          </mat-menu>
-        </li>
-
-        <li>
-          <button mat-icon-button [matMenuTriggerFor]="userDropdown">
-            <mat-icon>person</mat-icon>
-          </button>
-
-          <mat-menu #userDropdown="matMenu">
-
-            <a mat-menu-item [routerLink]="['/member', user._id]" class="profile">
-              <img width="48" [src]="user.profile_pic || '/assets/images/avatar.png'">
-              <div>
-                <h4>{{user.first_name}} {{user.last_name}}</h4>
-                <span>Go To Profile</span>
+        <div class="brand-nav col">
+          <ul class="actions row m-n">
+            <li class="col-auto">
+              <div class="brand">
+                <a href="https://helpingmusic.org">
+                  <img [hidden]="navService.isMobile$ | async" class="img-logo-white" width="120" alt="HOME" src="assets/images/home-logo-white.png" />
+                  <img [hidden]="!(navService.isMobile$ | async)" class="img-logo-white" width="40" alt="HOME" src="assets/images/home-logo-icon-white.png" />
+                </a>
               </div>
-              <mat-divider></mat-divider>
-            </a>
+            </li>
 
-            <a mat-menu-item [routerLink]="['/member', user._id, 'settings']">
-              <mat-icon>settings</mat-icon>
-              Account Settings
-            </a>
-            <a mat-menu-item [routerLink]="['/logout']">
-              <mat-icon>power_settings_new</mat-icon>
-              Logout
-            </a>
-          </mat-menu>
+            <li class="col-auto" *ngIf="navService.isMobile$ | async">
+              <button mat-icon-button (click)="toggleLeftbar()">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </li>
 
-        </li>
+          </ul>
+        </div>
 
-        <li>
-          <button mat-icon-button (click)="openNotifications()">
-            <mat-icon>notifications</mat-icon>
-          </button>
-        </li>
-      </ul>
+        <div class="col order-last">
 
+          <ul class="actions row justify-content-end">
 
+            <li class="col-auto" *ngIf="navService.isMobile$ | async">
+              <button mat-icon-button (click)="toggleSearch()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </li>
+
+            <li class="col-auto">
+
+              <button mat-icon-button [matMenuTriggerFor]="infoMenu">
+                <mat-icon>info</mat-icon>
+              </button>
+
+              <mat-menu #infoMenu="matMenu">
+                <button mat-menu-item (click)="report('bug')">Report a bug</button>
+                <button mat-menu-item (click)="report('suggestion')">Write a Suggestion</button>
+                <a mat-menu-item routerLink="/privacy-policy">Privacy Policy</a>
+                <a mat-menu-item routerLink="/terms">Membership Agreement</a>
+                <a mat-menu-item
+                   href="https://docs.google.com/document/d/1h8dUqZ_QwZtkjpBBzHYgBkB9pPF_NlkECqrpF3jZulg/edit?usp=sharing"
+                   target="_blank">
+                  Homie Handbook
+                  <mat-icon>link</mat-icon>
+                </a>
+              </mat-menu>
+            </li>
+
+            <li class="col-auto">
+              <button mat-icon-button [matMenuTriggerFor]="userDropdown">
+                <mat-icon>person</mat-icon>
+              </button>
+
+              <mat-menu #userDropdown="matMenu">
+
+                <a mat-menu-item [routerLink]="['/member', user._id]" class="profile">
+                  <img width="48" [src]="user.profile_pic || '/assets/images/avatar.png'">
+                  <div>
+                    <h4>{{user.first_name}} {{user.last_name}}</h4>
+                    <span>Go To Profile</span>
+                  </div>
+                </a>
+
+                <mat-divider></mat-divider>
+
+                <a mat-menu-item [routerLink]="['/member', user._id, 'settings']">
+                  <mat-icon>settings</mat-icon>
+                  Account Settings
+                </a>
+                <a mat-menu-item [routerLink]="['/logout']">
+                  <mat-icon>power_settings_new</mat-icon>
+                  Logout
+                </a>
+              </mat-menu>
+
+            </li>
+
+            <li class="col-auto">
+              <button mat-icon-button (click)="openNotifications()">
+                <mat-icon>notifications</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-4 col-lg-3 search order-1" *ngIf="showSearchBar$ | async">
+          <home-search-bar></home-search-bar>
+        </div>
+
+      </div>
     </div>
-
-
   </mat-toolbar>
-
-
 
 </header>

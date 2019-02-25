@@ -267,10 +267,10 @@ mat-form-field {
 }
 
 .mat-dialog-actions {
-  justify-content: flex-end;
+  justify-content: space-between;
   background: rgba(0,0,0,0.1);
-  padding-left: 24px !important;
-  padding-right: 24px !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
   margin-right: -24px;
   margin-left: -24px;
 }
@@ -290,5 +290,12 @@ mat-form-field {
 .prismic-render {
   iframe, img {
     max-width: 100%;
+  }
+}
+
+.mat-menu-content {
+  a {
+    color: inherit;
+    text-decoration: none !important;
   }
 }

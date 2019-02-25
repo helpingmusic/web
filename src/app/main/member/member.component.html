@@ -40,55 +40,48 @@
 
       </div>
 
+      <div class="w-100">
+        <nav mat-tab-nav-bar>
 
-      <div class="row">
+          <a mat-tab-link routerLinkActive #rlaAbout="routerLinkActive"
+             [routerLink]="['/member', member._id]"
+             [active]="rlaAbout.isActive">
+            About
+          </a>
 
-        <div class="col-xs-12">
-          <nav mat-tab-nav-bar>
+          <a mat-tab-link routerLinkActive #rlaPosts="routerLinkActive"
+             routerLink="posts" [active]="rlaPosts.isActive">
+            Posts
+          </a>
+          <a mat-tab-link routerLinkActive #rlaReviews="routerLinkActive"
+             routerLink="reviews" [active]="rlaReviews.isActive">
+            Reviews
+          </a>
+          <a mat-tab-link routerLinkActive #rlaMusic="routerLinkActive"
+             routerLink="music" [active]="rlaMusic.isActive">
+            Music
+          </a>
 
-            <a mat-tab-link routerLinkActive #rlaAbout="routerLinkActive"
-               [routerLink]="['/member', member._id]"
-               [active]="rlaAbout.isActive">
-              About
-            </a>
+          <span class="spacer"></span>
 
-            <a mat-tab-link routerLinkActive #rlaPosts="routerLinkActive"
-               routerLink="posts" [active]="rlaPosts.isActive">
-              Posts
-            </a>
-            <a mat-tab-link routerLinkActive #rlaReviews="routerLinkActive"
-               routerLink="reviews" [active]="rlaReviews.isActive">
-              Reviews
-            </a>
-            <a mat-tab-link routerLinkActive #rlaMusic="routerLinkActive"
-               routerLink="music" [active]="rlaMusic.isActive">
-              Music
-            </a>
+          <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaBilling="routerLinkActive"
+             routerLink="billing" [active]="rlaBilling.isActive">
+            Billing
+          </a>
+          <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaSettings="routerLinkActive"
+             routerLink="settings" [active]="rlaSettings.isActive">
+            <mat-icon>settings</mat-icon>
+          </a>
 
-            <span class="spacer"></span>
+        </nav>
 
-            <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaBilling="routerLinkActive"
-               routerLink="billing" [active]="rlaBilling.isActive">
-              Billing
-            </a>
-            <a *ngIf="isOwnAccount" mat-tab-link routerLinkActive #rlaSettings="routerLinkActive"
-               routerLink="settings" [active]="rlaSettings.isActive">
-              <mat-icon>settings</mat-icon>
-            </a>
-
-          </nav>
-
-        </div>
       </div>
 
 
-      <div class="clear">
-        <div class="">
-
+      <div class="container-fluid">
           <router-outlet></router-outlet>
-
-        </div>
       </div>
+
     </div>
   </div>
 

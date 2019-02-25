@@ -3,6 +3,7 @@
 .media {
   padding: 16px 16px 8px !important;
   background: none;
+  flex-wrap: wrap;
 
   .media-heading {
     display: inline-block;
@@ -11,6 +12,9 @@
 
   .media-body {
     //width: auto;
+  }
+  img {
+    border-radius: 50%;
   }
 
   a.media-left {
@@ -24,6 +28,7 @@
 
   .comment-body {
     margin-bottom: 4px;
+    display: block;
     p {
       white-space: pre-line;
       font-size: 14px;
@@ -48,8 +53,10 @@
   }
 
   .children {
+    display: block;
     padding-left: 12px;
     list-style: none;
+    flex: 1 1 100%;
     > li {
       border-left: 3px solid rgba(0, 0, 0, 0.1)
     }

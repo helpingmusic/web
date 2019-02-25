@@ -1,85 +1,95 @@
-<div class="container-fluid" *ngIf="studio$ | async; let studio">
+<div *ngIf="studio$ | async; let studio">
 
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div class="row">
+    <div class="col">
+      <mat-card>
+        <mat-card-header>
+          <h2 mat-card-title>{{studio.name}}</h2>
+          <h4 mat-card-subtitle>{{studio.location}}</h4>
+        </mat-card-header>
 
-      <div class="col-md-6">
+        <img class="mb-md" [src]="studio.imageUrl"/>
 
-        <h1>Book {{ studio.name}}</h1>
-        <!--<h4 class="subtext">{{(studio$ | async)?.location}}</h4>-->
+        <mat-card-content class="mb-md">
+          <p>
+            {{ studio.description }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
-        <p>
-          {{studio.description}}
-        </p>
-
-        <div class="media" *ngIf="studio?.imageUrl">
-          <img [src]="studio.imageUrl"/>
-        </div>
-      </div>
-
-      <div *ngIf="!canBook" class="col-md-6">
-        <home-note-box type="error">
-          Studio is Only available for Creative + Production Members.
-        </home-note-box>
-      </div>
-
-      <div *ngIf="canBook" class="col-md-6">
+    <div class="col">
+      <mat-card>
         <form class="form" (ngSubmit)="onSubmit(bookForm, studio)" [formGroup]="bookForm">
+          <mat-card-header>
+            <h2 mat-card-title>Booking Form</h2>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngIf="!canBook">
+              <home-note-box type="error">
+                Studio is Only available for Creative + Production Members.
+              </home-note-box>
+            </div>
 
-          <home-datetime-range-picker formControlName="start"></home-datetime-range-picker>
+            <div *ngIf="canBook">
+              <home-datetime-range-picker formControlName="start"></home-datetime-range-picker>
 
-          <div>
-            <label>Duration</label>
-            <mat-slider [thumbLabel]="true" min="1" max="12" step="0.5"
-                        formControlName="duration">
-            </mat-slider>
-          </div>
+              <div>
+                <label>Duration</label>
+                <mat-slider [thumbLabel]="true" min="1" max="12" step="0.5"
+                            formControlName="duration">
+                </mat-slider>
+              </div>
 
-          <div class="form-group">
-            <label>Summary</label>
-            <table class="table table-striped">
-              <tr>
-                <th>Starts at</th>
-                <td>{{ bookForm.get('start').value | date:'MMM d, h:mm a' }}</td>
-              </tr>
-              <tr>
-                <th>Ends at</th>
-                <td>{{ endsAt | date:'MMM d, h:mm a' }}</td>
-              </tr>
-              <tr>
-                <th>{{ bookForm.get('duration').value }} Hours</th>
-                <td>${{ chargeAmount | stripePrice }}</td>
-              </tr>
-            </table>
-          </div>
-          <div [hidden]="!error">
-            <p class="hint error" [innerHTML]="error"></p>
-          </div>
+              <div class="form-group">
+                <label>Summary</label>
+                <table class="table table-striped">
+                  <tr>
+                    <th>Starts at</th>
+                    <td>{{ bookForm.get('start').value | date:'MMM d, h:mm a' }}</td>
+                  </tr>
+                  <tr>
+                    <th>Ends at</th>
+                    <td>{{ endsAt | date:'MMM d, h:mm a' }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{ bookForm.get('duration').value }} Hours</th>
+                    <td>${{ chargeAmount | stripePrice }}</td>
+                  </tr>
+                </table>
+              </div>
+              <div [hidden]="!error">
+                <p class="hint error" [innerHTML]="error"></p>
+              </div>
 
-          <div class="form-group">
-            <home-btn
-              [class]="'btn btn-action btn-sm pull-right'"
-              [type]="'submit'">
-              Book Now
-            </home-btn>
-          </div>
-
+            </div>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button type="submit" mat-flat-button color="primary">
+              Continue
+            </button>
+          </mat-card-actions>
         </form>
-      </div>
-
+      </mat-card>
     </div>
   </div>
 
-  <div class="panel">
-    <div class="panel-body">
+  <mat-card>
+    <mat-card-header>
+      <h2 mat-card-title>Availability</h2>
+      <p mat-card-subtitle>
+        Before booking, make sure your time slot is available.
+      </p>
+    </mat-card-header>
+    <mat-card-content>
       <iframe
         #calPreview
         class="center-block fn"
         [src]="(studio$ | async)?.calendarUrl | safeUrl"
         style="border: 0; width: 100%" height="600" frameborder="0" scrolling="no">
       </iframe>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 
 </div>
 

@@ -1,3 +1,15 @@
+@import "theme/vars";
+
 table {
   border-collapse: separate;
 }
+
+.about-card {
+  mat-card-actions {
+    background: $blue;
+    * {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+

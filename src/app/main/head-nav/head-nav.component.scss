@@ -1,4 +1,5 @@
 @import 'theme/_vars';
+@import "bootstrap/scss/bootstrap";
 
 :host {
   z-index: 999;
@@ -13,73 +14,35 @@ header {
   z-index: 9999;
 }
 
-@media screen and (max-width: 768px) {
-  .nav-side {
-    padding: 0 !important;
-  }
-  .container {
-    margin: 0;
-    width: 100%;
-  }
+mat-toolbar {
+  padding: 0;
 }
 
-header {
-  background-color: $blue;
-  height: 64px;
-  .container {
-    display: flex;
-    padding: 0;
-  }
+.row {
+  margin-bottom: 0;
+}
 
-  .brand {
-    width: auto !important;
+ul.actions {
+  padding: 12px 0;
+  list-style: none;
+  margin-bottom: 0;
+  li {
+    padding: 0;
+    &:not(:last-child) {
+      margin-right: 6px;
+    }
     img {
-      margin: 0 !important;
-      max-width: 136px;
-      max-height: 42px;
+      margin: 0;
     }
   }
 }
 
-.profile {
-  height: 54px !important;;
+.brand-nav {
+  width: 240px;
+  flex: 0 1 240px;
 
-  > div {
-    height: 100%;
-    vertical-align: middle;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  img {
-    float: left;
-    border-radius: 50%;
-    margin: 4px 8px 0 -8px;
-  }
-  h4 {
-    font-size: 1.2em;
-    margin: 0;
-  }
-  span {
-    font-size: .8em;
-    line-height: 1.4em;
-  }
-}
-
-.spacer-1 {
-  flex: 0.27 1 auto
-}
-.spacer-2 {
-  flex: 1 1 auto;
-}
-
-ul.actions {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  margin: 0;
-  li {
-    padding: 12px;
+  @include media-breakpoint-down(sm) {
+    width: auto;
+    flex: 0 1 120px;
   }
 }

@@ -13,6 +13,17 @@ export class ProfileComponent implements OnInit {
   member: User;
   isOwnAccount: boolean;
 
+  links = [];
+  linkIcons = {
+    site: 'fa-suitcase',
+    facebook: 'fa-facebook',
+    twitter: 'fa-twitter',
+    soundcloud: 'fa-soundcloud',
+    spotify: 'fa-spotify',
+    instagram: 'fa-instagram',
+    youtube: 'fa-youtube',
+  };
+
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute,
@@ -30,6 +41,10 @@ export class ProfileComponent implements OnInit {
             if (this.isOwnAccount) {
               this.member = u;
             }
+            this.links = Object.keys(u.personal_links)
+              .filter(k => !!u.personal_links[k])
+              .map(key => ({ key, link: u.personal_links[key], icon: this.linkIcons[key] }));
+
           })
       });
   }

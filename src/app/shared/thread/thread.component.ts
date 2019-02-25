@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { NestedTreeControl } from '@angular/cdk/tree';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { MatTreeNestedDataSource } from '@angular/material';
 import { Thread } from 'models/thread';
 import { ThreadService } from 'app/core/thread.service';
 import { Comment } from 'models/comment';
@@ -8,12 +10,17 @@ import { Comment } from 'models/comment';
   templateUrl: './thread.component.html',
   styleUrls: ['./thread.component.scss']
 })
-export class ThreadComponent implements OnInit {
+export class ThreadComponent implements OnInit, OnChanges {
 
   @Input('thread') thread: Thread;
   @Input('length') length = 4; // show n comments
 
+  treeControl = new NestedTreeControl<Comment>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<Comment>();
+
   commentBody: string;
+  hasChild = (_: number, node: Comment) => !!node.children && node.children.length > 0;
+
 
   get commentable() {
     return !this.thread.locked;
@@ -33,6 +40,12 @@ export class ThreadComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(c) {
+    if (c.thread) {
+      this.dataSource.data = this.thread.comments;
+    }
+  }
+
   comment(body) {
     const comment = new Comment({
       body,
@@ -42,7 +55,8 @@ export class ThreadComponent implements OnInit {
     this.threadService.postComment(comment)
       .subscribe(c => {
         this.commentBody = '';
-        this.thread.comments.push(c);
+        this.thread.comments = [...this.thread.comments, c];
+        this.dataSource.data = this.thread.comments;
       });
   }
 

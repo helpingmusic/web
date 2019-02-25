@@ -6,7 +6,7 @@
 
 $home-app-primary: mat-palette($home-blue);
 $home-app-accent:  mat-palette($home-accent);
-$home-app-warn:    mat-palette($mat-red);
+$home-app-warn:    mat-palette($home-error);
 $home-app-theme: mat-light-theme($home-app-primary, $home-app-accent, $home-app-warn);
 @include angular-material-theme($home-app-theme);
 
@@ -14,6 +14,7 @@ $home-app-theme: mat-light-theme($home-app-primary, $home-app-accent, $home-app-
 $icon-font-path: '/assets/fonts/bootstrap/';
 $fa-font-path: '~font-awesome/fonts/';
 @import '~normalize.css';
+@import '~bootstrap/scss/bootstrap';
 @import './theme-clean.css';
 
 @import '../assets/plugins/dropdown.js/jquery.dropdown.css';
@@ -22,13 +23,9 @@ $fa-font-path: '~font-awesome/fonts/';
 
 
 @import '~font-awesome/scss/font-awesome';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import '~bootstrap-material-design/sass/bootstrap-material-design';
-@import '~bootstrap-material-design/sass/ripples';
 // Might need DateTime piker as well
 @import '~eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css';
 @import '~chartist/dist/scss/chartist.scss';
-@import '~snackbarjs/dist/snackbar.min.css';
 @import '~material-datetime-picker/dist/material-datetime-picker.css';
 
 
@@ -56,10 +53,6 @@ $fa-font-path: '~font-awesome/fonts/';
 
 a {
   color: $primary;
-}
-
-a:hover, a:focus {
-  color: lighten($primary, 5%);
 }
 
 i {
@@ -171,7 +164,6 @@ p.hint {
 
 footer,
 .page-heading {
-  @extend .clearfix;
   background: none;
   padding: 0 !important;
 }

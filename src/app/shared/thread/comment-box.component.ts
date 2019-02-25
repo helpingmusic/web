@@ -9,6 +9,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
                 matTextareaAutosize
                 rows="1"
                 #input
+                (blur)="onBlur()"
                 [(ngModel)]="text"
                 placeholder="Respond...">
       </textarea>
@@ -42,6 +43,10 @@ export class CommentBoxComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.input.nativeElement
       .addEventListener('input', () => this.resizeInput(), false);
+  }
+
+  onBlur() {
+    if (!this.text) this.cancel.emit();
   }
 
   ngAfterViewInit() {

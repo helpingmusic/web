@@ -2,7 +2,7 @@ import { zip as observableZip } from 'rxjs';
 
 import { first, take } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators as val } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CheckoutService } from 'app/core/checkout.service';
@@ -16,38 +16,33 @@ import { AuthService } from 'app/core/auth/auth.service';
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
   cart: Cart;
-  @ViewChild('checkoutForm') checkoutForm: NgForm;
+  checkoutForm: FormGroup;
   errors: any = {};
 
   currentCard: any;
-  method = 'new';
-  couponValid: boolean;
-  promoOption: boolean;
-  showPromo: boolean;
-  couponIsLoading: boolean;
   formIsLoading: boolean;
+  paymentMethods: any[];
 
   constructor(
     private checkoutService: CheckoutService,
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthService,
+    private fb: FormBuilder,
   ) {
+    this.checkoutForm = fb.group({
+      method: ['', [val.required]],
+      token: [''],
+    })
   }
 
   ngOnInit() {
-    $.material.init('home-checkout');
+
     this.checkoutService.setCartComponent(this);
 
     this.route.data
       .subscribe((data: { cart: Cart }) => {
         this.cart = data.cart;
-        this.showPromo = !!this.cart.couponCode;
-        this.promoOption = this.cart.couponAvailable;
-
-        if (this.cart.couponCode) {
-          this.validateCoupon(this.cart.couponCode);
-        }
       });
 
     observableZip(this.auth.getCurrentUser(), this.auth.getStripeCustomer()).pipe(
@@ -57,39 +52,25 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.checkoutService.getPaymentOptions()
       .subscribe(card => {
         this.currentCard = card;
+
         if (this.currentCard && this.currentCard.id) {
-          this.method = 'current';
+          this.checkoutForm.get('method').setValue(card.id);
+          this.paymentMethods = [card];
         }
       });
   }
 
-  validateCoupon(code?: string) {
-    this.couponIsLoading = true;
-
-    code = code || this.checkoutForm.value.couponCode;
-    this.cart.applyCoupon(code).pipe(
-      first())
-      .subscribe(message => {
-        this.errors.couponCode = message;
-        this.couponIsLoading = false;
-      });
-  }
-
-  onSubmit(form: NgForm) {
+  onSubmit(form: FormGroup) {
     if (form.invalid) return false;
 
     const tokenId = form.value.token ? form.value.token.id : null;
 
     this.formIsLoading = true;
-    this.checkoutService.execute({
-      token: tokenId,
-      couponCode: form.value.couponCode,
-    })
+    this.checkoutService.execute({ token: tokenId })
       .pipe(take(1))
       .subscribe(
         () => this.close(),
         res => {
-          console.log('here1');
           console.log(res);
           this.errors.form = res.error.message;
         },

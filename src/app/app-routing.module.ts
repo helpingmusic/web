@@ -22,20 +22,22 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    loadChildren: './signup/signup.module#SignupModule',
-    data: { title: 'Sign Up' }
+    redirectTo: 'register',
+  },
+  {
+    path: 'register',
+    loadChildren: './registration/registration.module#RegistrationModule',
+    data: { title: 'Register' }
   },
   {
     path: 'q-signup',
     loadChildren: './quick-signup/quick-signup.module#QuickSignupModule',
     data: { title: 'Quick Sign Up' }
   },
-  // { path: 'signup', redirectTo: 'register', pathMatch: 'full' },
-  // { path: 'walkthrough', redirectTo: 'register', pathMatch: 'full' },
   {
     path: 'walkthrough',
-    loadChildren: './walkthrough/walkthrough.module#WalkthroughModule',
-    data: { title: 'Register' }
+    redirectTo: 'register',
+    pathMatch: 'full',
   },
   {
     path: 'privacy-policy',
