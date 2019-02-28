@@ -60,9 +60,9 @@
                 <mat-icon>person</mat-icon>
               </button>
 
-              <mat-menu #userDropdown="matMenu">
+              <mat-menu [class]="'profile-dropdown'" #userDropdown="matMenu">
 
-                <a mat-menu-item [routerLink]="['/member', user._id]" class="profile">
+                <a class="profile profile-link" mat-menu-item [routerLink]="['/member', user._id]">
                   <img width="48" [src]="user.profile_pic || '/assets/images/avatar.png'">
                   <div>
                     <h4>{{user.first_name}} {{user.last_name}}</h4>

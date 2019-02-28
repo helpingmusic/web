@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { AuthService } from 'app/core/auth/auth.service';
 import { StepCompletion } from 'app/registration/registration.actions';
 import { User } from 'models/user';
-import { first } from 'rxjs/operators';
+import { first, throttleTime } from 'rxjs/operators';
 import * as fromRegistration from './registration.reducer';
 
 @Component({
@@ -58,10 +58,9 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.store.pipe(select(fromRegistration.selectRegistrationStepValidity))
+      .pipe(throttleTime(200))
       .subscribe(v => {
-        console.log(v);
         this.walkthrough.setValue(v);
-        console.log(this.stepper);
 
         setTimeout(() => {
           Object.keys(v)

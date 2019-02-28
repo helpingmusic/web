@@ -23,11 +23,12 @@ export class ModalService {
     type: 'question',
   };
 
-  async popup(options: SweetAlertOptions): any {
+  async popup(options: SweetAlertOptions): Promise<any> {
     const { value, dismiss } = await swal.fire({ ...this.defaults, ...options });
     if (value) {
       return value;
     }
+    return null;
   }
 
   error(options: any = {}): any {

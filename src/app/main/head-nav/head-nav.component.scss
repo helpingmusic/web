@@ -46,3 +46,23 @@ ul.actions {
     flex: 0 1 120px;
   }
 }
+
+/deep/ .profile-dropdown {
+  width: 260px !important;
+  max-width: 300px;
+  .profile-link {
+    height: 52px;
+    display: flex;
+    flex-direction: row;
+    img {
+      margin: 0 12px 0 0;
+      height: 42px;
+    }
+    * {
+      line-height: 1em;
+    }
+    h4 {
+      margin: 0 0 6px;
+    }
+  }
+}
