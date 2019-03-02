@@ -1,0 +1,5 @@
+{
+  "root": "dist/home-app",
+  "clean_urls": true,
+  "error_page": "index.html"
+}
