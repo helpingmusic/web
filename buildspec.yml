@@ -4,6 +4,7 @@ version: 0.2
 phases:
   install:
     commands:
+      - bash -c "$(curl -fsSL https://raw.githubusercontent.com/thii/aws-codebuild-extras/master/install)"
       - npm install
   build:
     commands:
@@ -13,3 +14,4 @@ phases:
 artifacts:
   files:
     - dist/home-app/*
+  name: CODEBUILD_GIT_BRANCH
