@@ -1,0 +1,15 @@
+# AWS buidlspec version
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+      - echo "Finished build"
+
+artifacts:
+  files:
+    - dist/home-app/*

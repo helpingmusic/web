@@ -23,10 +23,8 @@
              [scrollWindow]="true"
              (scrolled)="onScroll()">
 
-          <!--<home-loader [hidden]="post$ | async"></home-loader>-->
-
-          <div class="err" *ngIf="(post$ | async)?.length === 0">
-            No Posts at This Time
+          <div class="m-auto" *ngIf="(post$ | async)?.length === 0">
+            <mat-progress-spinner mode="indeterminate" color="primary" [diameter]="64"></mat-progress-spinner>
           </div>
 
           <div [hidden]="!(post$ | async)">

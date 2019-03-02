@@ -16,6 +16,7 @@ export class NewsfeedComponent implements OnInit, AfterViewInit {
 
   newPostContent: string;
   post$: Observable<Array<Post>>;
+  isLoading: boolean;
 
   constructor(
     private auth: AuthService,

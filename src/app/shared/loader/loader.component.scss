@@ -1,8 +1,9 @@
 @import 'theme/vars';
 
 :host {
-  display: block;
+  //display: block;
   position: relative;
+  margin: 0 auto;
 
   .loader {
     margin: 0 auto;
