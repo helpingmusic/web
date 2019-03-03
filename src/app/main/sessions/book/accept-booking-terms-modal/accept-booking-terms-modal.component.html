@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>HOME Booking Terms</h2>
+
+<form (submit)="onSubmit()">
+
+  <mat-dialog-content>
+    <p>
+      <b>NO FOG or HAZE MACHINES</b> may be used at HOME or anywhere else in Center 615 without direct permission from
+      the building manager.
+    </p>
+
+    <p>
+      If you set off the fire alarms by using fog or haze, you will be fined $500 and immediately lose your membership
+      and access to the building.
+    </p>
+
+    <p>
+      Contact <a href="mailto:brandon@c615.co">brandon@c615.co</a> for information and to request special permission.
+    </p>
+
+    <mat-slide-toggle (change)="onToggleChange($event)" [checked]="acceptsTerms">I Understand and Accept These Terms</mat-slide-toggle>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button [disabled]="!acceptsTerms" mat-flat-button color="primary" type="submit">Continue</button>
+  </mat-dialog-actions>
+
+</form>

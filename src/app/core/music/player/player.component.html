@@ -1,7 +1,9 @@
 <mat-card *ngIf="player.currentTrack$ | async; let track">
   <mat-card-header>
-    <a [routerLink]="['/member', track?.user._id]" mat-card-avatar
-       [ngStyle]="{ 'background-image': 'url(' + track.user.profile_pic + ')' }"></a>
+    <a [routerLink]="['/member', track?.user._id]" mat-card-avatar>
+      <img [src]="track.user.profile_pic" />
+    </a>
+
     <mat-card-title>{{ track.title }}</mat-card-title>
     <mat-card-subtitle>
       {{track?.user.first_name}} {{track?.user.last_name}}

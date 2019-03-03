@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PersonalLinksFormComponent } from 'app/components/forms/personal-links-form/personal-links-form.component';
+import { HomeFormsModule } from 'app/components/forms/home-forms.module';
 import { DoneComponent } from 'app/registration/done.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { localStorageSync } from 'ngrx-store-localstorage';
@@ -17,6 +17,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
   return localStorageSync({
     keys: ['userId', 'contact', 'about', 'subscription', 'profile'],
     rehydrate: true,
+    removeOnUndefined: true,
   })(reducer);
 }
 
@@ -27,10 +28,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
       { path: '', component: SignupComponent },
       { path: ':step', component: RegistrationComponent },
     ]),
+    HomeFormsModule,
     StoreModule.forFeature('registration', fromRegistration.reducer, { metaReducers: [localStorageSyncReducer] }),
   ],
   declarations: [
-    PersonalLinksFormComponent,
     RegistrationComponent,
     ContactComponent,
     SubscriptionComponent,

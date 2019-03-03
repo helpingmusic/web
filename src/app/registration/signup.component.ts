@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'app/core/auth/auth.service';
 import { NewRegistration } from 'app/registration/registration.actions';
 import { User } from 'models/user';
-import { first } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 import * as fromRegistration from './registration.reducer';
 
 @Component({
@@ -40,6 +40,16 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // if user exists, go next step
+    this.auth.getCurrentUser()
+      .pipe(
+        filter((u: User) => !!u.email),
+        first()
+      )
+      .subscribe((u: User) => {
+        this.store.dispatch(new NewRegistration({ userId: u._id }));
+        return this.router.navigateByUrl('/register/subscription');
+      })
   }
 
   onComplete() {

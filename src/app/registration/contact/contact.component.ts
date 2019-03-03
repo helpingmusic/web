@@ -7,7 +7,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import { StepUpdate } from 'app/registration/registration.actions';
 import { WalkthroughStep } from 'app/registration/walkthrough-step';
 import { User } from 'models/user';
-import { finalize, first, pluck, tap } from 'rxjs/operators';
+import { filter, finalize, first, pluck, tap } from 'rxjs/operators';
 import { selectRegistrationState } from '../registration.reducer';
 import * as fromRegistration from '../registration.reducer';
 
@@ -61,6 +61,7 @@ export class ContactComponent implements OnInit, WalkthroughStep<ContactForm> {
       first(),
       select(selectRegistrationState),
       pluck('contact'),
+      filter(val => !!val)
     )
       .subscribe(val => this.contactForm.patchValue(val, { emitEvent: true }));
 

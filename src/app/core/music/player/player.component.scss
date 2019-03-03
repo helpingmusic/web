@@ -13,6 +13,9 @@ mat-card {
   border-radius: 8px;
   overflow: hidden;
 
+  mat-card-header {
+    padding-top: 12px;
+  }
   mat-card-header * {
     margin-bottom: 0 !important;
   }
@@ -34,7 +37,7 @@ mat-card {
 
   mat-card-actions {
     clear: both;
-    margin: 0 -16px -16px !important;
+    margin: 0 -16px 0 !important;
     padding: 4px !important;
     background: #f6f6f6;
     text-align: center;

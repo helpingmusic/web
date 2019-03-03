@@ -9,6 +9,7 @@ import { BookComponent } from './book/book.component';
 import { BookableResolver } from './bookable.resolver';
 import { SessionsComponent } from './sessions.component';
 import { SessionSummaryComponent } from './session-summary.component';
+import { AcceptBookingTermsModalComponent } from './book/accept-booking-terms-modal/accept-booking-terms-modal.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,11 @@ import { SessionSummaryComponent } from './session-summary.component';
     BookablesComponent,
     BookComponent,
     SessionsComponent,
-    SessionSummaryComponent
+    SessionSummaryComponent,
+    AcceptBookingTermsModalComponent
+  ],
+  entryComponents: [
+    AcceptBookingTermsModalComponent
   ],
   providers: [
     BookableService,
