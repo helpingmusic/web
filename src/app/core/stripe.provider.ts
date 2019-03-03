@@ -7,5 +7,5 @@ const Stripe = (<any>window).Stripe;
 
 export const StripeProvider = {
   provide: StripeToken,
-  useValue: Stripe ? Stripe(stripePubKey) : null,
+  useFactory: () => Stripe(stripePubKey),
 };

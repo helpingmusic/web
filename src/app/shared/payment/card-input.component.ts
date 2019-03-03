@@ -75,7 +75,7 @@ export class CardInputComponent implements MatFormFieldControl<stripe.elements.E
   constructor(
     @Inject(StripeToken) private stripe: stripe.Stripe,
   ) {
-    this.elements = this.stripe.elements();
+    this.elements = stripe.elements();
   }
 
   ngOnInit() {
