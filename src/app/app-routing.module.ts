@@ -29,11 +29,6 @@ const routes: Routes = [
     loadChildren: './registration/registration.module#RegistrationModule',
     data: { title: 'Register' }
   },
-  // {
-  //   path: 'q-signup',
-  //   loadChildren: './quick-signup/quick-signup.module#QuickSignupModule',
-  //   data: { title: 'Quick Sign Up' }
-  // },
   {
     path: 'walkthrough',
     redirectTo: 'register',

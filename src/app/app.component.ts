@@ -47,6 +47,13 @@ export class AppComponent implements OnInit {
         this.handleLabelAutopopulate();
       });
 
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
+
     // Set stripe key
     if (Stripe || (<any>window).Stripe) {
       (<any>window).stripe = (Stripe || (<any>window).Stripe)(stripePubKey);
