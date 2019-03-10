@@ -1,7 +1,8 @@
-import { Component, forwardRef, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormControl, NG_VALUE_ACCESSOR, Validators as val } from '@angular/forms';
 import { CouponService } from 'app/core/coupon.service';
 import { Coupon } from 'models/coupon';
+import { Subscription } from 'rxjs';
 
 import { first } from 'rxjs/operators';
 
@@ -12,7 +13,7 @@ import { first } from 'rxjs/operators';
       <mat-label>Coupon Code</mat-label>
       <input matInput [formControl]="codeControl" (keydown.enter)="validateCoupon()" />
       
-      <mat-hint *ngIf="!!coupon">Coupon Applied</mat-hint>
+      <mat-hint *ngIf="!!coupon">{{ couponMessage }}</mat-hint>
       
       <mat-error *ngIf="codeControl.hasError('invalid')">Coupon is not valid</mat-error>
 
@@ -42,20 +43,49 @@ import { first } from 'rxjs/operators';
     useExisting: forwardRef(() => CouponFieldComponent),
   }],
 })
-export class CouponFieldComponent implements ControlValueAccessor, OnInit, OnChanges {
+export class CouponFieldComponent implements ControlValueAccessor, OnInit, OnChanges, OnDestroy {
   isLoading: boolean;
   error: string;
+
+  codeSub: Subscription;
 
   @Input() value: string;
 
   coupon: Coupon;
   codeControl: FormControl;
 
+  // describes coupon
+  get couponMessage() {
+    const c = this.coupon;
+    if (!c) {
+      return '';
+    }
+
+    let off = '';
+    if (c.percent_off) {
+      off = `${c.percent_off}%`;
+    } else if (c.amount_off) {
+      off = `$${(c.amount_off / 100).toFixed()}`;
+    }
+
+    let desc = `Code "${c.id}" applied for ${off} off for `;
+    if (c.duration === 'once') {
+      desc += 'one time only.';
+    } else {
+      desc += `${c.duration_in_months} months.`;
+    }
+
+    return desc;
+  }
+
   constructor(
     private couponService: CouponService,
     fb: FormBuilder,
   ) {
     this.codeControl = fb.control('');
+
+    this.codeSub = this.codeControl.valueChanges
+      .subscribe(c => this.propagateChange(c));
   }
 
   validateCoupon() {
@@ -83,6 +113,12 @@ export class CouponFieldComponent implements ControlValueAccessor, OnInit, OnCha
   ngOnChanges(c) {
     if (c.value) {
       this.codeControl.setValue(this.value);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.codeSub) {
+      this.codeSub.unsubscribe();
     }
   }
 

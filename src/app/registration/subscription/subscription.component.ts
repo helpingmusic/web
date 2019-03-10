@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators as val } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { AuthService } from 'app/core/auth/auth.service';
 import { CouponService } from 'app/core/coupon.service';
+import { plans } from 'app/globals';
 import { StepUpdate } from 'app/registration/registration.actions';
 import { WalkthroughStep } from 'app/registration/walkthrough-step';
 import * as moment from 'moment';
@@ -44,6 +45,10 @@ export class SubscriptionComponent implements OnInit, WalkthroughStep<BillingFor
   }
 
   get subscriptionCost() {
+    const p = this.form.get('plan').value;
+    if (p && p in plans) {
+      return plans[p].price;
+    }
     return 0;
   }
 
