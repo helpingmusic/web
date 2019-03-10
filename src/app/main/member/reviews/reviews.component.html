@@ -2,18 +2,10 @@
 
   <div data-widget-group="group1">
     <div class="row justify-content-center">
-      <div class="col-sm-8 col-md-6 center-block fn">
+      <div class="col-sm-8">
 
         <div *ngIf="userCanReview">
-
-          <div class="alert ui-pnotify-container alert-info">
-            <p>Give your community members constructive feedback.</p>
-          </div>
-
-          <h4>Write a Review</h4>
-
           <home-create-review-form [reviewee]="member._id" (created)="loadReviews()"></home-create-review-form>
-
         </div>
 
         <div class="clear animated-content">

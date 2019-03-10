@@ -8,6 +8,7 @@ import { ReviewService } from 'app/main/member/reviews/review.service';
 import { Review } from 'models/review';
 
 import * as moment from 'moment';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'home-review',
@@ -33,10 +34,14 @@ export class ReviewComponent implements OnInit {
   }
 
   edit() {
-    this.dialog.open(EditReviewModalComponent, {
+    const dialogRef = this.dialog.open(EditReviewModalComponent, {
       width: '400px',
       data: { review: this.review },
     });
+
+    dialogRef.beforeClosed()
+      .pipe(filter(didUpdate => !!didUpdate))
+      .subscribe(({ content, rating }) => Object.assign(this.review, { content, rating }));
   }
 
   delete() {

@@ -6,39 +6,50 @@ import { Review } from 'models/review';
 @Component({
   selector: 'home-create-review-form',
   template: `
-    <div class="mb-md text-right">
-      <form class="profile-tab" [formGroup]="form"
-            (ngSubmit)="onSubmit(form)">
+    <div class="mb-md">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+        <mat-card>
+          <mat-card-header>
+            <h3 mat-card-title>Write a Review</h3>
+            <p mat-card-subtitle>Give your community members constructive feedback.</p>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Your Review</mat-label>
+              <textarea formControlName="content"
+                        matInput
+                        matTextareaAutosize
+                        placeholder="What do you know about this person?"
+                        rows="4">
+               </textarea>
+              <mat-hint *ngIf="errors('content')?.required">This field is required.</mat-hint>
+            </mat-form-field>
 
-        <mat-form-field>
-            <textarea formControlName="content"
-                      matInput
-                      placeholder="What do you know about this person?"
-                      rows="4">
-           </textarea>
-          <mat-hint *ngIf="errors('content')?.required">This field is required.</mat-hint>
-        </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions class="row">
+            <div>
+              <home-rating formControlName="rating"></home-rating>
+              <p class="hint error mt-sm mb-n ml-md" *ngIf="errors('rating')?.required">
+                A Rating is required.
+              </p>
+            </div>
 
-        <div class="clearfix">
-          <div class="pull-left">
-            <home-rating formControlName="rating"></home-rating>
-          </div>
-          <div class="pull-left">
-            <p class="hint error mt-sm mb-n ml-md" *ngIf="errors('rating')?.required">
-              A Rating is required.
-            </p>
-          </div>
-
-          <div class="pull-right">
-            <button type="submit" mat-flat-button color="accent">Post</button>
-          </div>
-        </div>
+            <div>
+              <button type="submit" mat-flat-button color="accent">Post</button>
+            </div>
+          </mat-card-actions>
+          <mat-progress-bar *ngIf="isLoading" color="accent" mode="indeterminate"></mat-progress-bar>
+        </mat-card>
 
       </form>
-      <mat-progress-bar *ngIf="isLoading" color="accent" mode="indeterminate"></mat-progress-bar>
     </div>
   `,
-  styles: []
+  styles: [`
+    mat-card-actions {
+      display: flex !important;
+      justify-content: space-between !important;
+    }
+  `]
 })
 export class CreateReviewFormComponent implements OnInit {
 

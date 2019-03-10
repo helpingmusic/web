@@ -13,52 +13,30 @@
   </button>
 </mat-menu>
 
-<div class="profile-tab review">
-  <div class="media">
-
-    <div class="media-body">
-      <a class="media-left inblock"
-         [routerLink]="['/member', review?.poster?._id || '']">
-        <img class="media-object"
-             [src]="review?.poster?.profile_pic || '/assets/images/avatar.png'">
+<mat-card>
+  <mat-card-header>
+    <img mat-card-avatar [src]="review?.poster?.profile_pic || '/assets/images/avatar.png'"/>
+    <h4 mat-card-title>
+      <a [routerLink]="['/member', review?.poster?._id || '']">
+        {{review?.poster?.first_name}}
+        {{review?.poster?.last_name}}
       </a>
+    </h4>
+    <p mat-card-subtitle>{{ createdAt }}</p>
+    <button mat-icon-button color="primary"
+            class="pull-right"
+            [matMenuTriggerFor]="reviewMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <p class="m0 text-space" [innerHTML]="review.content | wrapLinks"></p>
+  </mat-card-content>
+  <mat-card-actions align="start">
+    <home-rating
+      [rating]="review.rating"
+      [readOnly]="true">
+    </home-rating>
+  </mat-card-actions>
+</mat-card>
 
-      <div class="inblock">
-        <h5 *ngIf="review.poster" class="media-heading ">
-          {{review?.poster?.first_name}}
-          {{review?.poster?.last_name}}
-        </h5>
-
-        <h5 *ngIf="!review.poster" class="media-heading ">
-          Homie
-        </h5>
-
-        <span class="date mb-xs clear"><i>{{createdAt}}</i></span>
-
-        <span class="member_type clear">
-                  {{review?.poster?.membership_types?.join(', ') | pretty}}
-                </span>
-
-      </div>
-
-      <button mat-icon-button color="primary"
-              class="pull-right"
-              [matMenuTriggerFor]="reviewMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </div>
-
-    <div class="pt-md media-desc">
-      <p class="m0 text-space" [innerHTML]="review.content | wrapLinks"></p>
-    </div>
-
-    <div class="media-bottom">
-      <div class="media-right">
-        <home-rating
-          [rating]="review.rating"
-          [readOnly]="true">
-        </home-rating>
-      </div>
-    </div>
-  </div>
-</div>

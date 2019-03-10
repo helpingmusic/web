@@ -5,7 +5,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'home-rating',
   styles: [`
     .star {
-      color: #ddd;
+      color: rgba(0,0,0,0.25);
       cursor: pointer;
     }
 

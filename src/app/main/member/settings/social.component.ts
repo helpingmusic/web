@@ -60,7 +60,10 @@ export class SocialComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getCurrentUser()
-      .subscribe(u => this.member = u);
+      .subscribe(u => {
+        this.member = u;
+        this.socialForm.patchValue(u.personal_links);
+      });
   }
 
   onSubmit(form) {

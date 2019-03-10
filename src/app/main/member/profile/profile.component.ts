@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   linkIcons = {
     site: 'fa-suitcase',
     facebook: 'fa-facebook',
+    linkedin: 'fa-linkedin',
     twitter: 'fa-twitter',
     soundcloud: 'fa-soundcloud',
     spotify: 'fa-spotify',
@@ -41,10 +42,10 @@ export class ProfileComponent implements OnInit {
             if (this.isOwnAccount) {
               this.member = u;
             }
-            this.links = Object.keys(u.personal_links)
-              .filter(k => !!u.personal_links[k])
-              .map(key => ({ key, link: u.personal_links[key], icon: this.linkIcons[key] }));
 
+            this.links = Object.keys(this.member.personal_links)
+              .filter(k => !!this.member.personal_links[k])
+              .map(key => ({ key, link: this.member.personal_links[key], icon: this.linkIcons[key] }));
           })
       });
   }
