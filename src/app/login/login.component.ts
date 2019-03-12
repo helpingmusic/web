@@ -50,14 +50,15 @@ export class LoginComponent implements OnInit {
     this.auth.login(form.value.email, form.value.password)
       .subscribe(
         () => {
+          this.isLoading = false;
           return this.router.navigate(['']);
         },
         err => {
+          this.isLoading = false;
           this.loginForm.get('email').setErrors({
             server: err.statusText === 'Unauthorized' ? 'Email or password was incorrect.' : 'Something went wrong.',
           })
         },
-        () => this.isLoading = false,
       );
   }
 
