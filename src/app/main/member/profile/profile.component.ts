@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
               this.member = u;
             }
 
-            this.links = Object.keys(this.member.personal_links)
+            this.links = Object.keys(this.member.personal_links || {})
               .filter(k => !!this.member.personal_links[k])
               .map(key => ({ key, link: this.member.personal_links[key], icon: this.linkIcons[key] }));
           })

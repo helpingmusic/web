@@ -11,7 +11,7 @@ import * as moment from 'moment';
         <div class="col-sm-6">
           <mat-form-field appearance="outline">
             <mat-label>Start Date</mat-label>
-            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
+            <input matInput (focus)="picker.open()" formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
