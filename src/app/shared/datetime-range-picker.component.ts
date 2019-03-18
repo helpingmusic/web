@@ -57,9 +57,11 @@ export class DatetimeRangePickerComponent implements OnInit, ControlValueAccesso
   ngOnInit() {
     this.timeForm.valueChanges
       .subscribe(v => {
-        const day = moment(v.date).format('YYYY-MM-DD');
-        const datetime = moment(`${day} ${v.time}`).toDate();
-        this.propagateChange(datetime);
+        const day = moment(v.date).format('YYYY/MM/DD');
+        const dt = moment(`${day} ${v.time}`);
+        if (dt.isValid()) {
+          this.propagateChange(dt.toDate());
+        }
       });
   }
 
