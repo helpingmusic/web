@@ -3,3 +3,14 @@
 .mat-stepper-horizontal {
   background: none;
 }
+
+@media (max-width: 576px) {
+  /deep/ .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+  /deep/ mat-step-header.mat-step-header {
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}

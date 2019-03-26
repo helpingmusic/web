@@ -1,8 +1,7 @@
 
 <div [formGroup]="form" class="row mb-n">
 
-  <div [ngClass]="{'clear': even}" class="col-sm-6"
-       *ngFor="let s of links; let even = even">
+  <div [ngClass]="{'clear': even}" class="col-sm-6" *ngFor="let s of links; let even = even">
 
     <mat-form-field appearance="outline">
       <mat-label>{{ s.title }}</mat-label>
