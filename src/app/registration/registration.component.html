@@ -16,30 +16,43 @@
           [formGroup]="walkthrough">
 
           <mat-step state="contact"
+                    #contactStep
                     [stepControl]="walkthrough.get('contact')"
                     [editable]="false">
             <ng-template matStepLabel>Contact</ng-template>
-            <home-contact (completed)="stepCompleted('contact')" [isRegistrationStep]="true"></home-contact>
+
+            <ng-container *ngIf="showStep(contactStep)">
+              <home-contact (completed)="stepCompleted('contact')" [isRegistrationStep]="true"></home-contact>
+            </ng-container>
           </mat-step>
 
-          <mat-step state="subscription" [editable]="false" [stepControl]="walkthrough.get('subscription')">
+          <mat-step #subscriptionStep state="subscription" [editable]="false" [stepControl]="walkthrough.get('subscription')">
             <ng-template matStepLabel>Membership</ng-template>
-            <home-subscription (completed)="stepCompleted('subscription')"></home-subscription>
+
+            <ng-container *ngIf="showStep(subscriptionStep)">
+              <home-subscription (completed)="stepCompleted('subscription')"></home-subscription>
+            </ng-container>
           </mat-step>
 
-          <mat-step state="about" [stepControl]="walkthrough.get('about')">
+          <mat-step #aboutStep state="about" [stepControl]="walkthrough.get('about')">
             <ng-template matStepLabel>About</ng-template>
-            <home-about (completed)="stepCompleted('about')"></home-about>
+            <ng-container *ngIf="showStep(aboutStep)">
+              <home-about (completed)="stepCompleted('about')"></home-about>
+            </ng-container>
           </mat-step>
 
-          <mat-step state="profile" [stepControl]="walkthrough.get('profile')">
+          <mat-step #profileStep state="profile" [stepControl]="walkthrough.get('profile')">
             <ng-template matStepLabel>Profile</ng-template>
-            <home-profile (completed)="stepCompleted('profile')"></home-profile>
+            <ng-container *ngIf="showStep(profileStep)">
+              <home-profile (completed)="stepCompleted('profile')"></home-profile>
+            </ng-container>
           </mat-step>
 
-          <mat-step state="done" [stepControl]="walkthrough.get('done')">
+          <mat-step #doneStep state="done" [stepControl]="walkthrough.get('done')">
             <ng-template matStepLabel>Finish</ng-template>
-            <home-done (completed)="stepCompleted('done')"></home-done>
+            <ng-container *ngIf="showStep(doneStep)">
+              <home-done (completed)="stepCompleted('done')"></home-done>
+            </ng-container>
           </mat-step>
 
         </mat-horizontal-stepper>

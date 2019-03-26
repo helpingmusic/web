@@ -45,6 +45,10 @@ export class RegistrationComponent implements OnInit, AfterViewInit {
     });
   }
 
+  showStep(step: any) {
+    return this.stepper.selected === step || this.stepper.selected === null;
+  }
+
   ngAfterViewInit() {
     this.store.pipe(select(fromRegistration.selectRegistrationStepValidity))
       .pipe(throttleTime(200))
@@ -100,9 +104,7 @@ export class RegistrationComponent implements OnInit, AfterViewInit {
 
   stepCompleted(step: string) {
     this.store.dispatch(new StepCompletion({ step }));
-    console.log('complete', step);
     const next = this.steps.indexOf(step) + 1;
-    console.log(next);
     this.router.navigate(['/register', this.steps[next]]);
   }
 
