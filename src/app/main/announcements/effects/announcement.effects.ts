@@ -29,7 +29,7 @@ export class AnnouncementEffects {
       this.cms.query(
         Predicates.at('document.type', 'announcement'),
         {
-          orderings: '[my.announcement.first_publication_date desc]',
+          orderings: '[document.first_publication_date desc]',
           pageSize: 20,
           page: action.payload.page,
         }

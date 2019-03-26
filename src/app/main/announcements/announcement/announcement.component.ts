@@ -29,7 +29,7 @@ export class AnnouncementComponent implements OnInit {
         this.userRole = u.role;
       });
 
-    const d = this.announcement.data.originally_published || this.announcement.first_publication_date
+    const d = this.announcement.data.originally_published || this.announcement.first_publication_date;
     this.postedAt = moment(d).fromNow();
   }
 
