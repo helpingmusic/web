@@ -9,8 +9,8 @@ import { Booking } from 'models/booking';
       <div>
         <table class="table m-n">
           <tr>
-            <th>Booked On</th>
-            <td>{{session.createdAt | date:'short' }}</td>
+            <th>Date</th>
+            <td>{{session.time.start | date:'short' }}</td>
           </tr>
           <tr>
             <th>Duration</th>
@@ -19,6 +19,10 @@ import { Booking } from 'models/booking';
           <tr>
             <th>Charged</th>
             <td>$ {{session.invoiceAmount | stripePrice}}</td>
+          </tr>
+          <tr>
+            <th>Booked On</th>
+            <td>{{session.createdAt | date:'short' }}</td>
           </tr>
         </table>
       </div>
