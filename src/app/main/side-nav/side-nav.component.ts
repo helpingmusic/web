@@ -23,10 +23,10 @@ export class SideNavComponent implements OnInit {
   adminUnread: number;
 
   links = [
-    { text: 'Home', path: '/app/announcements', icon: 'home' },
+    { text: 'Updates', path: '/app/announcements', icon: 'home' },
     { text: 'Member Content', path: '/app/member-content', icon: 'subscriptions' },
     { text: 'Directory', path: '/app/directory', icon: 'search' },
-    { text: 'Newsfeed', path: '/app/newsfeed', icon: 'chat_bubble' },
+    { text: 'Member Forum', path: '/app/newsfeed', icon: 'chat_bubble' },
     { text: 'My Sessions', path: '/app/my-sessions', icon: 'audiotrack', hasPermissions: () => this.canViewSessions },
     { text: 'Events', path: 'https://www.helpingmusic.org/events-page/?view=calendar', icon: 'event', external: true },
     { text: 'Discounts', path: '/app/discounts', icon: 'store' },
