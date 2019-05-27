@@ -29,7 +29,6 @@ export class SubscriptionComponent implements OnInit, WalkthroughStep<BillingFor
   @Output() completed = new EventEmitter<BillingForm>();
 
   membershipPlans = [
-    { id: 'community', name: 'Community Membership' },
     { id: 'creative', name: 'Creative Membership' },
     { id: 'cowrite', name: 'Creative + Cowrite' },
     { id: 'production', name: 'Creative + Production' },
