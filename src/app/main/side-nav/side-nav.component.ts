@@ -28,7 +28,7 @@ export class SideNavComponent implements OnInit {
     { text: 'Directory', path: '/app/directory', icon: 'search' },
     { text: 'Member Forum', path: '/app/newsfeed', icon: 'chat_bubble' },
     { text: 'My Sessions', path: '/app/my-sessions', icon: 'audiotrack', hasPermissions: () => this.canViewSessions },
-    { text: 'Events', path: 'https://www.helpingmusic.org/events-page/?view=calendar', icon: 'event', external: true },
+    { text: 'Events', path: 'https://www.facebook.com/helpingmusic/events/', icon: 'event', external: true },
     { text: 'Discounts', path: '/app/discounts', icon: 'store' },
   ];
 
