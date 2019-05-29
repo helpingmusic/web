@@ -29,10 +29,13 @@ export class SubscriptionComponent implements OnInit, WalkthroughStep<BillingFor
   @Output() completed = new EventEmitter<BillingForm>();
 
   membershipPlans = [
-    { id: 'creative', name: 'Creative Membership' },
-    { id: 'cowrite', name: 'Creative + Cowrite' },
-    { id: 'production', name: 'Creative + Production' },
-    { id: 'cowork', name: 'Creative + Cowork' },
+    { id: 'creative', name: 'Connect' },
+    { id: 'cowrite', name: 'Create' },
+    { id: 'cowork', name: 'Collaborate' },
+
+    { id: 'production', name: 'Produce (Yearly)' },
+    { id: 'pro', name: 'Pro (Yearly)' },
+    { id: 'team', name: 'Team (Yearly)' },
   ];
 
   form: FormGroup;
@@ -50,6 +53,15 @@ export class SubscriptionComponent implements OnInit, WalkthroughStep<BillingFor
     }
     return 0;
   }
+
+  get planFrequency() {
+    const p = this.form.get('plan').value;
+    if (p && p in plans) {
+      return plans[p].frequency;
+    }
+    return '';
+  }
+
 
   constructor(
     fb: FormBuilder,

@@ -55,43 +55,71 @@ export { stripePubKey };
 export { algolia };
 
 export const MembershipTiers = {
+  // deprecated
   COMMUNITY: 'community',
+
   CREATIVE: 'creative',
   COWRITE: 'cowrite',
-  PRODUCTION: 'production',
   COWORK: 'cowork',
+
+  PRODUCTION: 'production',
+  PRO: 'pro',
+  TEAM: 'team',
 };
 export const plans = {
+  // deprecated
   community: {
     title: 'Community Membership',
     price: 1000,
     id: 'community-1',
     metadata: { tier: MembershipTiers.COMMUNITY },
+    frequency: 'monthly',
   },
+
   creative: {
-    title: 'Creative Membership',
+    title: 'Connect',
     price: 5000,
     id: 'creative-1',
     metadata: { tier: MembershipTiers.CREATIVE },
+    frequency: 'monthly',
   },
   cowrite: {
-    title: 'Creative + Cowrite',
-    price: 8000,
-    id: 'cowrite-1',
-    metadata: { tier: MembershipTiers.COWRITE },
-  },
-  production: {
-    title: 'Creative + Production',
+    title: 'Create',
     price: 10000,
-    id: 'production-1',
-    metadata: { tier: MembershipTiers.PRODUCTION },
+    id: 'create-1',
+    metadata: { tier: MembershipTiers.COWRITE },
+    frequency: 'monthly',
   },
   cowork: {
-    title: 'Creative + Cowork',
+    title: 'Collaborate',
     price: 15000,
     id: 'cowork-1',
     metadata: { tier: MembershipTiers.COWORK },
+    frequency: 'monthly',
   },
+
+  production: {
+    title: 'Produce',
+    price: 100_000,
+    id: 'produce-1',
+    metadata: { tier: MembershipTiers.PRODUCTION },
+    frequency: 'yearly',
+  },
+  pro: {
+    title: 'Pro',
+    price: 250_000,
+    id: 'pro-1',
+    metadata: { tier: MembershipTiers.PRO },
+    frequency: 'yearly',
+  },
+  team: {
+    title: 'Team',
+    price: 500_000,
+    id: 'team-1',
+    metadata: { tier: MembershipTiers.TEAM },
+    frequency: 'yearly',
+  },
+
 };
 
 export const membershipTiers = Object.keys(plans);
