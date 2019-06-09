@@ -101,7 +101,7 @@ export const plans = {
   production: {
     title: 'Produce',
     price: 100_000,
-    id: 'produce-1',
+    id: 'producer-1',
     metadata: { tier: MembershipTiers.PRODUCTION },
     frequency: 'yearly',
   },
