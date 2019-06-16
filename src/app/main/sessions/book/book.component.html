@@ -27,7 +27,7 @@
           <mat-card-content>
             <div *ngIf="!canBook">
               <home-note-box type="error">
-                Studio is Only available for Creative + Production Members.
+                Studio is only available for Homies on the Production or Pro membership tiers.
               </home-note-box>
             </div>
 
@@ -65,7 +65,7 @@
             </div>
           </mat-card-content>
           <mat-card-actions align="end">
-            <button type="submit" mat-flat-button color="primary">
+            <button *ngIf="canBook" type="submit" mat-flat-button color="primary">
               Continue
             </button>
           </mat-card-actions>

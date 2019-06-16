@@ -10,6 +10,15 @@ import * as Raven from 'raven-js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, filter, first, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
+const setStunningBarCustomer = (cust: string) => {
+  const e = document.createElement('script'),
+    s = document.getElementsByTagName('script')[0];
+  e.src = 'https://d1gqkepxkcxgvm.cloudfront.net/stunning-bar.js';
+  e.id = 'stunning-bar';
+  e.setAttribute('data-app-ckey', '2901otexqpalzjmdfzhepiafo');
+  e.setAttribute('data-stripe-id', cust);
+  s.parentNode.insertBefore(e, s);
+};
 
 @Injectable()
 export class AuthService {
@@ -26,8 +35,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private store: StoreService,
-    private UserService: UserService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
   ) {
 
     this.currentUser = this.currentUser.pipe(
@@ -35,8 +44,8 @@ export class AuthService {
       map(u => new User(u)),
     );
 
-    // const t = this.getCookie('token');
-    // this.store.set('userToken', t || '');
+    const t = this.getCookie('token');
+    this.store.set('userToken', t || '');
   }
 
 
@@ -54,6 +63,10 @@ export class AuthService {
         map(body => {
           this.store.set('userToken', body.token);
 
+          if (body.user.stripe) {
+            setStunningBarCustomer(body.user.stripe.customerId);
+          }
+
           Raven.setUserContext({
             email: body.user.email,
             name: body.user.name,
@@ -61,7 +74,7 @@ export class AuthService {
           });
 
           this._currentUser.next(body.user);
-        })
+        }),
       );
   }
 
@@ -87,14 +100,14 @@ export class AuthService {
     if (refresh) {
       this.fetchingUser = true;
 
-      this.UserService.getById('me').pipe(
+      this.userService.getById('me').pipe(
         catchError(err => {
           this.fetchingUser = false;
           this._currentUser.next(new User());
           return this.currentUser;
         }),
         filter(u => !!u._id),
-        first(),)
+        first())
         .subscribe(u => {
           this.fetchingUser = false;
           this._currentUser.next(u);
@@ -147,7 +160,7 @@ export class AuthService {
     this.store.set('userToken', token);
     return this.getCurrentUser(true).pipe(
       filter(u => !!u._id),
-      first(),);
+      first());
   }
 
   // Reset user password
@@ -164,7 +177,7 @@ export class AuthService {
   updateCard(token: any): Observable<any> {
     return this.http.put<any>(`/users/me/subscription/billing`, { token }).pipe(
       tap(billing => this._currentUser.next({ ...this._currentUser.getValue(), stripe: billing })),
-      first(),);
+      first());
   }
 
   /**
@@ -222,7 +235,7 @@ export class AuthService {
 
   updatePassword(oldPassword: string, newPassword: string): Observable<any> {
     return this.http.put<any>('/users/me/password', {
-      oldPassword, newPassword
+      oldPassword, newPassword,
     });
   }
 
