@@ -44,8 +44,6 @@ export class AuthService {
       map(u => new User(u)),
     );
 
-    const t = this.getCookie('token');
-    this.store.set('userToken', t || '');
   }
 
 
