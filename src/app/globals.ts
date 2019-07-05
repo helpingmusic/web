@@ -92,8 +92,8 @@ export const plans = {
   },
   cowork: {
     title: 'Collaborate',
-    price: 15000,
-    id: 'cowork-1',
+    price: 20000,
+    id: 'cowork-2',
     metadata: { tier: MembershipTiers.COWORK },
     frequency: 'monthly',
   },

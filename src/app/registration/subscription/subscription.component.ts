@@ -70,7 +70,7 @@ export class SubscriptionComponent implements OnInit, WalkthroughStep<BillingFor
     private store: Store<fromRegistration.State>
   ) {
     this.form = fb.group({
-      plan: ['community', [val.required]],
+      plan: ['cowrite', [val.required]],
       token: [null, [val.required]],
       referredBy: [''],
       couponCode: [''],
