@@ -9,6 +9,7 @@ import * as Raven from 'raven-js';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, filter, first, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import * as moment from 'moment';
 
 const setStunningBarCustomer = (cust: string) => {
   const e = document.createElement('script'),
@@ -19,6 +20,46 @@ const setStunningBarCustomer = (cust: string) => {
   e.setAttribute('data-stripe-id', cust);
   s.parentNode.insertBefore(e, s);
 };
+
+const setIntercomUser = (user) => {
+  const w: any = window;
+
+  w.intercomSettings = {
+    app_id: 'umyv0iwz',
+    name: `${user.first_name} ${user.last_name}`,
+    email: user.email,
+    created_at: moment(user.created_at).unix(),
+  };
+  console.log(w.intercomSettings);
+
+  const ic = w.Intercom;
+  console.log(ic);
+  if (typeof ic === "function") {
+    ic('reattach_activator');
+    ic('update', w.intercomSettings);
+  } else {
+    const d = document;
+    const i: any = function () {
+      i.c(arguments);
+    };
+    i.q = [];
+    i.c = function (args) { i.q.push(args); };
+    w.Intercom = i;
+    const l = function () {
+      const s = d.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://widget.intercom.io/widget/umyv0iwz';
+      const x = d.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    };
+    if (w.attachEvent) {
+      w.attachEvent('onload', l);
+    } else {
+      w.addEventListener('load', l, false);
+    }
+  }
+}
 
 @Injectable()
 export class AuthService {
@@ -60,10 +101,6 @@ export class AuthService {
         take(1),
         map(body => {
           this.store.set('userToken', body.token);
-
-          if (body.user.stripe) {
-            setStunningBarCustomer(body.user.stripe.customerId);
-          }
 
           Raven.setUserContext({
             email: body.user.email,
@@ -107,6 +144,12 @@ export class AuthService {
         filter(u => !!u._id),
         first())
         .subscribe(u => {
+
+          if (u.stripe) {
+            setStunningBarCustomer(u.stripe.customerId);
+          }
+          setIntercomUser(u);
+
           this.fetchingUser = false;
           this._currentUser.next(u);
         });
