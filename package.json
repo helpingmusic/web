@@ -39,7 +39,7 @@
     "howler": "^2.1.1",
     "jquery": "^3.3.1",
     "material-datetime-picker": "^2.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng2-img-cropper": "^0.9.0",
     "ngrx-store-localstorage": "^7.0.0",
     "ngx-infinite-scroll": "^7.0.1",
